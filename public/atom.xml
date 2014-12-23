@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Kobus's musings]]></title>
+  <link href="http://yoursite.com/atom.xml" rel="self"/>
+  <link href="http://yoursite.com/"/>
+  <updated>2014-12-23T22:38:13+02:00</updated>
+  <id>http://yoursite.com/</id>
+  <author>
+    <name><![CDATA[Kobus Coetzee]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Toets]]></title>
+    <link href="http://yoursite.com/blog/2014/12/19/toets/"/>
+    <updated>2014-12-19T22:27:06+02:00</updated>
+    <id>http://yoursite.com/blog/2014/12/19/toets</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Toets]]></title>
+    <link href="http://yoursite.com/blog/2014/12/18/toets/"/>
+    <updated>2014-12-18T23:00:26+02:00</updated>
+    <id>http://yoursite.com/blog/2014/12/18/toets</id>
+    <content type="html"><![CDATA[<p>Hallo</p>
+]]></content>
+  </entry>
+  
+</feed>
