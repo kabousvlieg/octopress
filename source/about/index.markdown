@@ -18,3 +18,5 @@ Why did I title this blog "Embedded fool"? Partly because I will be fooling arou
 You can contact me at kobusengineer at google dot com if you have any questions.
 
 
+
+
