@@ -63,7 +63,7 @@ So this is quite interesting, to be 99% certain you have solved your bug, you ne
 
 Ok great so that answers our initial question, but what about the other types of bugs? Well for the third class of bugs i.e. start-up bugs, it is sufficient to think not in term of how many hours you need to run the test, but rather how many times you should run the test (reboot the system). Then this class of bug look exactly the same as the uniform distribution bug, and can be solved in much the same way, but instead of hours you get the amount of test iterations you should run. 
 
-Now I said the increasing probability bugs represents an interesting dilemma, and that is because they do not represent an Poisson distribution. Rather no amount of testing will adequately prove to any confidence level that you have solved the bug. These kind of bugs is in essence known as the [halting problem](http://en.wikipedia.org/wiki/Halting_problem) in computer science. Unfortunately that one has already been proved unsolvable...
+Now I said the increasing probability bugs represents an interesting dilemma, and that is because they do not represent an Poisson distribution. Rather no amount of testing will adequately prove to any confidence level that you have solved the bug. These kind of bugs are in essence known as the [halting problem](http://en.wikipedia.org/wiki/Halting_problem) in computer science. Unfortunately that one has already been proved unsolvable...
 
 Ok so my stats was never that great, I had some help from my old statistics handbook:
 Engineering Statistics Montgommery et al.
