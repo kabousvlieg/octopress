@@ -1,0 +1,71 @@
+A slow bug is one which requires substantial testing to show itself. Recently we had such a bug, which required roughly 8 hours of testing, and if you're lucky, you'll see it once. Horrible stuff...
+
+This makes for extremely slow debug cycles, almost going back to the batch programming mainframe days where you [run code in your head](http://www.embedded.com/electronics-blogs/break-points/4437958/On-engineering-notebooks) and hypothesise what the code is actually doing. It turned out our bug in this case had nothing to do with a fault in the code, but noise getting picked up on one of the JTAG select lines. Unfortunately We didn't start by looking at the JTAG lines... 
+
+Once we had settled on this hypotheses, and implemented a fix, the question became how long should one test before you are satisfied the bug is fixed. How long before you are 99% sure, 99.9% sure, 99.999% sure?
+
+{% img right /images/uniform_distribution.png 300 uniform distribution bugs %}
+Thinking about this problem got me thinking about bug probabilities and of how they might manifest. I theorised three types of bugs. First is bugs with a unity probability density function, that is it is equally likely to occur at any time during the testing procedure. This is applicable for a huge class of bugs, most importantly for bugs which doesn't have memory. So timing bugs, race conditions, noise induced bugs etc. all fit the bill.  
+<br/>
+<br/>
+<br/>
+
+{% img right /images/increasing_distribution.png 300 increasing distribution bugs %}
+This is in contrast to bugs with memory, where the longer you test the more likely it is that you'll encounter the bug. This could be memory leaks, heap fragmentation or in some cases state machine bugs. These bugs represents an interesting dilemma for us, which I'll get back to later.  
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+  
+{% img right /images/decreasing_distribution.png 300 decreasing distribution bugs %}
+Looking at the previous two plots, I wondered if there were bugs with the following graph, bugs which will manifest early, but become less likely to manifest the longer the system runs. And it dawned on me you do get bugs like this, namely system start-up and initialization bugs. Once the system is running, it is stable, but if you reboot it many times over, every now and then the reboot will fail.
+<br/>
+<br/>
+<br/>
+<br/>
+
+Focussing on the uniform distribution bugs, we can think of the probability of encountering a bug as a [Poisson distribution](http://en.wikipedia.org/wiki/Poisson_distribution). More specifically, if we encountered on average $ \frac{1}{8} $ bugs every hour, then the probability mass function of our Poisson distribution looks as follows:
+
+$$ f(x) = \frac{e^{- \lambda}\lambda^x}{x!} \tag{Poisson distribution}$$
+
+$$\lambda = \frac{1}{8} \tag{1 bug every 8 hours}$$
+
+That's great and all if we wanted to know how many times we'll see a bug while testing, but we want to know how long should we test to be sure the bug is gone (There's a subtle difference). To calculate this we need the cumulative distribution function of f(x), i.e.
+
+$$ F(x) = P(X <= x) = \int_{-\infty}^x f(u) \delta u$$
+
+This result has a exponential distribution:
+
+$$ f(x) = \lambda e^{- \lambda x} \tag{Cumulative distribution}$$
+
+Then to calculate the amount of testing required for your confidence of say 99% we need to take the area under curve as shown:
+
+{% img center /images/cumulative_distribution.png 300 %}
+
+$$ P(X > x) = \int_x^\infty \frac{1}{8}e^{-\frac{1}{8}x} = 1 - 0.99 $$
+
+$$ P(X > x) = e^{-\frac{1}{8}x} = 0.01$$
+
+This gives us the following answer (I calculated for 99,9% and 99,999% as well)
+
+$$
+\begin{array}{c|lcr}
+P(X > x) & \text{Hours} & \text{Bug mean} & \text{Factor} \\
+\hline
+99\% & 36.8 & 8 & 5 \\
+99,9\% & 55,3 & 8 & 7 \\
+99,999\% & 92,1 & 8 & 12
+\end{array}
+$$
+
+So this is quite interesting, to be 99% certain you have solved your bug, you need to test about 5 times longer than it would normally take for the bug to manifest. I know of many times where I only tested about 2 times longer and called the bug fixed with great confidence. For interest sake, if you only test 2 times longer, you can only be 22% confident your bug is fixed!!
+
+Ok great so that answers our initial question, but what about the other types of bugs? Well for the third class of bugs i.e. start-up bugs, it is sufficient to think not in term of how many hours you need to run the test, but rather how many times you should run the test (reboot the system). Then this class of bug look exactly the same as the uniform distribution bug, and can be solved in much the same way, but instead of hours you get the amount of test iterations you should run. 
+
+Now I said the increasing probability bugs represents an interesting dilemma, and that is because they do not represent an Poisson distribution. Rather no amount of testing will adequately prove to any confidence level that you have solved the bug. These kind of bugs is in essence known as the [halting problem](http://en.wikipedia.org/wiki/Halting_problem) in computer science. Unfortunately that one has already been proved unsolvable...
+
+Ok so my stats was never that great, I had some help from my old statistics handbook:
+Engineering Statistics Montgommery et al.
+
+*Also please note that this is not in any way supposed to be a rigorous statistical analysis.

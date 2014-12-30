@@ -9,8 +9,7 @@
   <meta name="author" content="Kobus Coetzee">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="A slow bug is one which requires substantial testing to show itself. Recently we had such a bug, which required roughly 8 hours of testing, and if &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yoursite.com">
+  <link rel="canonical" href="http://embeddedfool.net">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Kobus's musings" type="application/atom+xml">
@@ -51,7 +50,7 @@
   
 <form action="https://www.google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:yoursite.com" />
+    <input type="hidden" name="q" value="site:embeddedfool.net" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -59,6 +58,8 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/credits">Credits</a></li>
 </ul>
 
 </nav>
@@ -72,7 +73,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/12/19/toets/">Toets</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/12/27/slow-bugs/">Slow Bugs</a></h1>
     
     
       <p class="meta">
@@ -81,43 +82,86 @@
 
 
 
-<time class='entry-date' datetime='2014-12-19T22:27:06+02:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:27 pm</span></time>
+<time class='entry-date' datetime='2014-12-27T00:00:00+02:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
-</div>
-  
-  
+  <div class="entry-content"><p>A slow bug is one which requires substantial testing to show itself. Recently we had such a bug, which required roughly 8 hours of testing, and if you’re lucky, you’ll see it once. Horrible stuff…</p>
 
+<p>This makes for extremely slow debug cycles, almost going back to the batch programming mainframe days where you <a href="http://www.embedded.com/electronics-blogs/break-points/4437958/On-engineering-notebooks">run code in your head</a> and hypothesise what the code is actually doing. It turned out our bug in this case had nothing to do with a fault in the code, but noise getting picked up on one of the JTAG select lines. Unfortunately We didn’t start by looking at the JTAG lines… </p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/12/18/toets/">Toets</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>Once we had settled on this hypotheses, and implemented a fix, the question became how long should one test before you are satisfied the bug is fixed. How long before you are 99% sure, 99.9% sure, 99.999% sure?</p>
 
+<p><img class="right" src="/images/uniform_distribution.png" width="300" title="uniform distribution bugs" />
+Thinking about this problem got me thinking about bug probabilities and of how they might manifest. I theorised three types of bugs. First is bugs with a unity probability density function, that is it is equally likely to occur at any time during the testing procedure. This is applicable for a huge class of bugs, most importantly for bugs which doesn’t have memory. So timing bugs, race conditions, noise induced bugs etc. all fit the bill.<br />
+<br />
+<br />
+<br /></p>
 
+<p><img class="right" src="/images/increasing_distribution.png" width="300" title="increasing distribution bugs" />
+This is in contrast to bugs with memory, where the longer you test the more likely it is that you’ll encounter the bug. This could be memory leaks, heap fragmentation or in some cases state machine bugs. These bugs represents an interesting dilemma for us, which I’ll get back to later.<br />
+<br />
+<br />
+<br />
+<br />
+<br /></p>
 
+<p><img class="right" src="/images/decreasing_distribution.png" width="300" title="decreasing distribution bugs" />
+Looking at the previous two plots, I wondered if there were bugs with the following graph, bugs which will manifest early, but become less likely to manifest the longer the system runs. And it dawned on me you do get bugs like this, namely system start-up and initialization bugs. Once the system is running, it is stable, but if you reboot it many times over, every now and then the reboot will fail.
+<br />
+<br />
+<br />
+<br /></p>
 
-<time class='entry-date' datetime='2014-12-18T23:00:26+02:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:00 pm</span></time>
-        
-      </p>
-    
-  </header>
+<p>Focussing on the uniform distribution bugs, we can think of the probability of encountering a bug as a <a href="http://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a>. More specifically, if we encountered on average $ \frac{1}{8} $ bugs every hour, then the probability mass function of our Poisson distribution looks as follows:</p>
 
+<script type="math/tex; mode=display"> f(x) = \frac{e^{- \lambda}\lambda^x}{x!} \tag{Poisson distribution}</script>
 
-  <div class="entry-content"><p>Hallo</p>
+<script type="math/tex; mode=display">\lambda = \frac{1}{8} \tag{1 bug every 8 hours}</script>
+
+<p>That’s great and all if we wanted to know how many times we’ll see a bug while testing, but we want to know how long should we test to be sure the bug is gone (There’s a subtle difference). To calculate this we need the cumulative distribution function of f(x), i.e.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+ F(x) = P(X <= x) = \int_{-\infty}^x f(u) \delta u %]]></script>
+
+<p>This result has a exponential distribution:</p>
+
+<script type="math/tex; mode=display"> f(x) = \lambda e^{- \lambda x} \tag{Cumulative distribution}</script>
+
+<p>Then to calculate the amount of testing required for your confidence of say 99% we need to take the area under curve as shown:</p>
+
+<p><img class="center" src="/images/cumulative_distribution.png" width="300" /></p>
+
+<script type="math/tex; mode=display"> P(X > x) = \int_x^\infty \frac{1}{8}e^{-\frac{1}{8}x} = 1 - 0.99 </script>
+
+<script type="math/tex; mode=display"> P(X > x) = e^{-\frac{1}{8}x} = 0.01</script>
+
+<p>This gives us the following answer (I calculated for 99,9% and 99,999% as well)</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+
+\begin{array}{c|lcr}
+P(X > x) & \text{Hours} & \text{Bug mean} & \text{Factor} \\
+\hline
+99\% & 36.8 & 8 & 5 \\
+99,9\% & 55,3 & 8 & 7 \\
+99,999\% & 92,1 & 8 & 12
+\end{array}
+ %]]></script>
+
+<p>So this is quite interesting, to be 99% certain you have solved your bug, you need to test about 5 times longer than it would normally take for the bug to manifest. I know of many times where I only tested about 2 times longer and called the bug fixed with great confidence. For interest sake, if you only test 2 times longer, you can only be 22% confident your bug is fixed!!</p>
+
+<p>Ok great so that answers our initial question, but what about the other types of bugs? Well for the third class of bugs i.e. start-up bugs, it is sufficient to think not in term of how many hours you need to run the test, but rather how many times you should run the test (reboot the system). Then this class of bug look exactly the same as the uniform distribution bug, and can be solved in much the same way, but instead of hours you get the amount of test iterations you should run. </p>
+
+<p>Now I said the increasing probability bugs represents an interesting dilemma, and that is because they do not represent an Poisson distribution. Rather no amount of testing will adequately prove to any confidence level that you have solved the bug. These kind of bugs is in essence known as the <a href="http://en.wikipedia.org/wiki/Halting_problem">halting problem</a> in computer science. Unfortunately that one has already been proved unsolvable…</p>
+
+<p>Ok so my stats was never that great, I had some help from my old statistics handbook:
+Engineering Statistics Montgommery et al.</p>
+
+<p>*Also please note that this is not in any way supposed to be a rigorous statistical analysis.</p>
 </div>
   
   
@@ -138,11 +182,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/12/19/toets/">Toets</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/12/18/toets/">Toets</a>
+        <a href="/blog/2014/12/27/slow-bugs/">Slow Bugs</a>
       </li>
     
   </ul>
@@ -187,3 +227,19 @@
 
 </body>
 </html>
+
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$']],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  messageStyle: "none",
+  "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>

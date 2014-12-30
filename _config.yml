@@ -2,7 +2,7 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yoursite.com
+url: http://embeddedfool.net
 title: Kobus's musings
 subtitle: The ramblings of an embedded fool.
 author: Kobus Coetzee
@@ -33,7 +33,7 @@ destination: public
 plugins: plugins
 code_dir: downloads/code
 category_dir: blog/categories
-markdown: rdiscount
+markdown: kramdown
 rdiscount:
   extensions:
     - autolink

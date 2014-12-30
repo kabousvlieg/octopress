@@ -1,36 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-
-  <title><![CDATA[Kobus's musings]]></title>
-  <link href="http://embeddedfool.net/atom.xml" rel="self"/>
-  <link href="http://embeddedfool.net/"/>
-  <updated>2014-12-30T22:26:04+02:00</updated>
-  <id>http://embeddedfool.net/</id>
-  <author>
-    <name><![CDATA[Kobus Coetzee]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
-
-  
-  <entry>
-    <title type="html"><![CDATA[Slow Bugs]]></title>
-    <link href="http://embeddedfool.net/blog/2014/12/27/slow-bugs/"/>
-    <updated>2014-12-27T00:00:00+02:00</updated>
-    <id>http://embeddedfool.net/blog/2014/12/27/slow-bugs</id>
-    <content type="html"><![CDATA[<p>A slow bug is one which requires substantial testing to show itself. Recently we had such a bug, which required roughly 8 hours of testing, and if you’re lucky, you’ll see it once. Horrible stuff…</p>
+<p>A slow bug is one which requires substantial testing to show itself. Recently we had such a bug, which required roughly 8 hours of testing, and if you’re lucky, you’ll see it once. Horrible stuff…</p>
 
 <p>This makes for extremely slow debug cycles, almost going back to the batch programming mainframe days where you <a href="http://www.embedded.com/electronics-blogs/break-points/4437958/On-engineering-notebooks">run code in your head</a> and hypothesise what the code is actually doing. It turned out our bug in this case had nothing to do with a fault in the code, but noise getting picked up on one of the JTAG select lines. Unfortunately We didn’t start by looking at the JTAG lines… </p>
 
 <p>Once we had settled on this hypotheses, and implemented a fix, the question became how long should one test before you are satisfied the bug is fixed. How long before you are 99% sure, 99.9% sure, 99.999% sure?</p>
 
-<p><img class="right" src="http://embeddedfool.net/images/uniform_distribution.png" width="300" title="uniform distribution bugs" />
+<p><img class="right" src="/images/uniform_distribution.png" width="300" title="uniform distribution bugs" />
 Thinking about this problem got me thinking about bug probabilities and of how they might manifest. I theorised three types of bugs. First is bugs with a unity probability density function, that is it is equally likely to occur at any time during the testing procedure. This is applicable for a huge class of bugs, most importantly for bugs which doesn’t have memory. So timing bugs, race conditions, noise induced bugs etc. all fit the bill.<br />
 <br />
 <br />
 <br /></p>
 
-<p><img class="right" src="http://embeddedfool.net/images/increasing_distribution.png" width="300" title="increasing distribution bugs" />
+<p><img class="right" src="/images/increasing_distribution.png" width="300" title="increasing distribution bugs" />
 This is in contrast to bugs with memory, where the longer you test the more likely it is that you’ll encounter the bug. This could be memory leaks, heap fragmentation or in some cases state machine bugs. These bugs represents an interesting dilemma for us, which I’ll get back to later.<br />
 <br />
 <br />
@@ -38,7 +18,7 @@ This is in contrast to bugs with memory, where the longer you test the more like
 <br />
 <br /></p>
 
-<p><img class="right" src="http://embeddedfool.net/images/decreasing_distribution.png" width="300" title="decreasing distribution bugs" />
+<p><img class="right" src="/images/decreasing_distribution.png" width="300" title="decreasing distribution bugs" />
 Looking at the previous two plots, I wondered if there were bugs with the following graph, bugs which will manifest early, but become less likely to manifest the longer the system runs. And it dawned on me you do get bugs like this, namely system start-up and initialization bugs. Once the system is running, it is stable, but if you reboot it many times over, every now and then the reboot will fail.
 <br />
 <br />
@@ -53,8 +33,8 @@ Looking at the previous two plots, I wondered if there were bugs with the follow
 
 <p>That’s great and all if we wanted to know how many times we’ll see a bug while testing, but we want to know how long should we test to be sure the bug is gone (There’s a subtle difference). To calculate this we need the cumulative distribution function of f(x), i.e.</p>
 
-<script type="math/tex; mode=display">% &lt;![CDATA[
- F(x) = P(X <= x) = \int_{-\infty}^x f(u) \delta u %]]&gt;</script>
+<script type="math/tex; mode=display">% <![CDATA[
+ F(x) = P(X <= x) = \int_{-\infty}^x f(u) \delta u %]]></script>
 
 <p>This result has a exponential distribution:</p>
 
@@ -62,7 +42,7 @@ Looking at the previous two plots, I wondered if there were bugs with the follow
 
 <p>Then to calculate the amount of testing required for your confidence of say 99% we need to take the area under curve as shown:</p>
 
-<p><img class="center" src="http://embeddedfool.net/images/cumulative_distribution.png" width="300" /></p>
+<p><img class="center" src="/images/cumulative_distribution.png" width="300" /></p>
 
 <script type="math/tex; mode=display"> P(X > x) = \int_x^\infty \frac{1}{8}e^{-\frac{1}{8}x} = 1 - 0.99 </script>
 
@@ -70,7 +50,7 @@ Looking at the previous two plots, I wondered if there were bugs with the follow
 
 <p>This gives us the following answer (I calculated for 99,9% and 99,999% as well)</p>
 
-<script type="math/tex; mode=display">% &lt;![CDATA[
+<script type="math/tex; mode=display">% <![CDATA[
 
 \begin{array}{c|lcr}
 P(X > x) & \text{Hours} & \text{Bug mean} & \text{Factor} \\
@@ -79,7 +59,7 @@ P(X > x) & \text{Hours} & \text{Bug mean} & \text{Factor} \\
 99,9\% & 55,3 & 8 & 7 \\
 99,999\% & 92,1 & 8 & 12
 \end{array}
- %]]&gt;</script>
+ %]]></script>
 
 <p>So this is quite interesting, to be 99% certain you have solved your bug, you need to test about 5 times longer than it would normally take for the bug to manifest. I know of many times where I only tested about 2 times longer and called the bug fixed with great confidence. For interest sake, if you only test 2 times longer, you can only be 22% confident your bug is fixed!!</p>
 
@@ -91,7 +71,3 @@ P(X > x) & \text{Hours} & \text{Bug mean} & \text{Factor} \\
 Engineering Statistics Montgommery et al.</p>
 
 <p>*Also please note that this is not in any way supposed to be a rigorous statistical analysis.</p>
-]]></content>
-  </entry>
-  
-</feed>
