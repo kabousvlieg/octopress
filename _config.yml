@@ -3,11 +3,11 @@
 # ----------------------- #
 
 url: http://embeddedfool.net
-title: Kobus's musings
+title: Kobus' musings
 subtitle: The ramblings of an embedded fool.
 author: Kobus Coetzee
 simple_search: https://www.google.com/search
-description:
+description: embedded software project management
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
