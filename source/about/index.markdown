@@ -7,7 +7,7 @@ sharing: true
 footer: true
 ---
 
-Hi, I am [Kobus](za.linkedin.com/in/kobusengineer). I am a software architect serving in a team of roughly 10 engineers, developing cryptography related embedded products.
+Hi, I am [Kobus](http://za.linkedin.com/in/kobusengineer). I am a software architect serving in a team of roughly 10 engineers, developing cryptography related embedded products.
 
 This blog serves to capture my thoughts about embedded technologies, software development practices and interesting problems in the software engineering field.
 
