@@ -91,12 +91,12 @@
 
   <div class="entry-content"><p>A slow bug is one which requires substantial testing to show itself. Recently we had such a bug, which required roughly 8 hours of testing, and if you’re lucky, you’ll see it once. Horrible stuff…</p>
 
-<p>This makes for extremely slow debug cycles, almost going back to the batch programming mainframe days where you <a href="http://www.embedded.com/electronics-blogs/break-points/4437958/On-engineering-notebooks">run code in your head</a> and hypothesise what the code is actually doing. It turned out our bug in this case had nothing to do with a fault in the code, but noise getting picked up on one of the JTAG select lines. Unfortunately We didn’t start by looking at the JTAG lines… </p>
+<p>This makes for extremely slow debug cycles, almost going back to the batch programming mainframe days where you <a href="http://www.embedded.com/electronics-blogs/break-points/4437958/On-engineering-notebooks">run code in your head</a> and hypothesise what the code is actually doing. It turned out our bug in this case had nothing to do with a fault in the code, but noise getting picked up on one of the JTAG select lines. Unfortunately we didn’t start by looking at the JTAG lines… </p>
 
 <p>Once we had settled on this hypotheses, and implemented a fix, the question became how long should one test before you are satisfied the bug is fixed. How long before you are 99% sure, 99.9% sure, 99.999% sure?</p>
 
 <p><img class="right" src="/images/uniform_distribution.png" width="300" title="uniform distribution bugs" />
-Thinking about this problem got me thinking about bug probabilities and of how they might manifest. I theorised three types of bugs. First is bugs with a unity probability density function, that is it is equally likely to occur at any time during the testing procedure. This is applicable for a huge class of bugs, most importantly for bugs which doesn’t have memory. So timing bugs, race conditions, noise induced bugs etc. all fit the bill.<br />
+Thinking about this problem got me thinking about bug probabilities and of how they might manifest. I theorised three types of bugs. First is bugs with a unity probability distribution function, that is it is equally likely to occur at any time during the testing procedure. This is applicable for a huge class of bugs, most importantly for bugs which doesn’t have memory. So timing bugs, race conditions, noise induced bugs etc. all fit the bill.<br />
 <br />
 <br />
 <br /></p>
@@ -139,7 +139,7 @@ Looking at the previous two plots, I wondered if there were bugs with the follow
 
 <script type="math/tex; mode=display"> P(X > x) = e^{-\frac{1}{8}x} = 0.01</script>
 
-<p>This gives us the following answer (I calculated for 99,9% and 99,999% as well)</p>
+<p>This gives us the following answer (I calculated for 99.9% and 99.999% as well)</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
 
@@ -147,8 +147,8 @@ Looking at the previous two plots, I wondered if there were bugs with the follow
 P(X > x) & \text{Hours} & \text{Bug mean} & \text{Factor} \\
 \hline
 99\% & 36.8 & 8 & 5 \\
-99,9\% & 55,3 & 8 & 7 \\
-99,999\% & 92,1 & 8 & 12
+99.9\% & 55.3 & 8 & 7 \\
+99.999\% & 92.1 & 8 & 12
 \end{array}
  %]]></script>
 
@@ -198,7 +198,7 @@ Engineering Statistics Montgommery et al.</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Kobus Coetzee -
+  Copyright &copy; 2015 - Kobus Coetzee -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
