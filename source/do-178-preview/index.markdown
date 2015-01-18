@@ -14,7 +14,7 @@ This post serves part of a three part introductory primer for 3rd year computer 
 
 The students will form part of a study on the effectiveness of the DO-178B certification in achieving correctness of implementation and safety guarantees in the presence of incomplete requirements, feature creep and complex technology stacks, also known as your typical software project.
 
-If you are currently; or in the past have worked on DO-178 projects, it would be much appreciated if you would be so kind to [take part in a survey](https://www.surveymonkey.com/s/SV9KX7M) about the state of DO-178 development.  
+If you are currently; or in the past have worked on DO-178 projects, it would be much appreciated if you would be so kind to [take part in a survey (TBC)]( ) about the state of DO-178 development.  
 
 <h2>What is DO-178?</h2>
 First let's start with what is DO-178? DO-178 is an international standard for the assurance of the safety of avionics software. It is published by [RTCA, Incorporated](http://www.rtca.org/), and the latest revision of the standard is known as [DO-178C](http://en.wikipedia.org/wiki/DO-178C), although [DO-178B](http://en.wikipedia.org/wiki/DO-178B) is still widely implemented and is the subject of this post.
