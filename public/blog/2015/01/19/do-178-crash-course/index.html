@@ -1,27 +1,108 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Kobus' musings]]></title>
-  <link href="http://embeddedfool.net/atom.xml" rel="self"/>
-  <link href="http://embeddedfool.net/"/>
-  <updated>2015-01-19T01:25:39+02:00</updated>
-  <id>http://embeddedfool.net/</id>
-  <author>
-    <name><![CDATA[Kobus Coetzee]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>DO-178 Crash Course - Kobus&#8217; musings</title>
+  <meta name="author" content="Kobus Coetzee">
 
   
-  <entry>
-    <title type="html"><![CDATA[DO-178 Crash Course]]></title>
-    <link href="http://embeddedfool.net/blog/2015/01/19/do-178-crash-course/"/>
-    <updated>2015-01-19T00:32:12+02:00</updated>
-    <id>http://embeddedfool.net/blog/2015/01/19/do-178-crash-course</id>
-    <content type="html"><![CDATA[<h2>Background</h2>
+  <meta name="description" content="Background
+This post serves part of a three part introductory primer for 3rd year computer science students as to the typical working of a software &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://embeddedfool.net/blog/2015/01/19/do-178-crash-course">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Kobus' musings" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-58516605-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Kobus&#8217; musings</a></h1>
+  
+    <h2>The ramblings of an embedded fool.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:embeddedfool.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/credits">Credits</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">DO-178 Crash Course</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-01-19T00:32:12+02:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:32 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Background</h2>
 <p>This post serves part of a three part introductory primer for 3rd year computer science students as to the typical working of a software project seeking DO-178B certification. The other parts can be found here:<br />
-<a href="http://embeddedfool.net/blog/2015/01/12/agile-crash-course/">Agile crash course (TBC)</a><br />
-<a href="http://embeddedfool.net/blog/2015/01/12/a-more-agile-do-178/">A more agile DO-178 (TBC)</a></p>
+<a href="/blog/2015/01/12/agile-crash-course/">Agile crash course (TBC)</a><br />
+<a href="/blog/2015/01/12/a-more-agile-do-178/">A more agile DO-178 (TBC)</a></p>
 
 <p>The students will form part of a study on the effectiveness of the DO-178B certification in achieving correctness of implementation and safety guarantees in the presence of incomplete requirements, feature creep and complex technology stacks, also known as your typical software project.</p>
 
@@ -37,7 +118,7 @@
 <h2>Criticality level</h2>
 <p>DO-178B specifies 5 levels of criticality to which a system can be developed. The amount of effort involved in satisfying the DO-178B certification depends on the criticality level of your software. The criticality level is determined from the possible consequences that anomalous software would have on the aircraft.</p>
 
-<script type="math/tex; mode=display">% &lt;![CDATA[
+<script type="math/tex; mode=display">% <![CDATA[
 
 \begin{array}{c|lcr}
 \text{Criticality} & \text{Failure condition} & \text{Software definition} & \text{Objectives}\\
@@ -54,7 +135,7 @@
 \\
 \text{Level E} & \text{No effect} & \text{Does not affect operational capability} & 0
 \end{array}
- %]]&gt;</script>
+ %]]></script>
 
 <p>There is very little data on the amount of additional effort that each level requires, with some sources claiming only an <a href="http://www.highrely.com/whitepapers.php">increase of 75% to 150%</a>, and others claiming a <a href="http://www.cs.york.ac.uk/hise/safety-critical-archive/2009/0738.html">1000% increase in costs</a>. It depends on various factors off course, such as the experience of the team, complexity of the software, software development lifecycle etc. But a relative measure of the increase in workload can be gauged from the increasing objectives to be met for each criticality level.   </p>
 
@@ -1120,7 +1201,7 @@ border:solid 1px black;
 <p><br />
 That’s a lot of dead trees…</p>
 
-<p>An objective is typically something like the “Software development standards are defined” or “High level requirements are verifiable”. So it is still fairly open for interpretation by the developers and the certification body. I’ll go into more detail of each objective when considering how DO-178 can be made more <a href="http://embeddedfool.net/blog/2015/01/12/a-more-agile-do-178/">agile</a>. (Observant readers will notice the total objectives does not equal those reported in the criticality table, that is because some objectives has to be included in multiple documents and so I counted them twice).</p>
+<p>An objective is typically something like the “Software development standards are defined” or “High level requirements are verifiable”. So it is still fairly open for interpretation by the developers and the certification body. I’ll go into more detail of each objective when considering how DO-178 can be made more <a href="/blog/2015/01/12/a-more-agile-do-178/">agile</a>. (Observant readers will notice the total objectives does not equal those reported in the criticality table, that is because some objectives has to be included in multiple documents and so I counted them twice).</p>
 
 <p>Where objectives are marked independent, it means an independent authority has to verify conformance. For this purpose quite a few consultants in the business earn their keep to come and evaluate independently these requirements without being employed by the company developing the product.</p>
 
@@ -1136,7 +1217,7 @@ That’s a lot of dead trees…</p>
 
 <p>Typically for DO-178B this is implemented through the <a href="http://en.wikipedia.org/wiki/V-Model_%28software_development%29">V-model</a> in systems engineering, also somewhat equivalent to the <a href="http://en.wikipedia.org/wiki/Waterfall_model">waterfall method</a> in software development.</p>
 
-<p><img class="center" src="http://embeddedfool.net/images/vee_plot.png" width="600" /></p>
+<p><img class="center" src="/images/vee_plot.png" width="600" /></p>
 
 <h4>Traceability</h4>
 <p>Traceability’s purpose is two-fold. First is to make sure the design takes into account all the requirements set for the project. Requirements which has not been taken into account by the design are called childless requirements.</p>
@@ -1197,106 +1278,125 @@ That’s a lot of dead trees…</p>
 
 <p>That concludes this overview of DO-178B. It is certainly not an exhaustive analysis of DO-178B, for that you might just as well read the specification. If I have missed anything or you would like to make a suggestion, kindly do so at the discussion on [HN] and [reddit]. Comments and suggestions are very welcome.</p>
 
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[A More Agile DO-178]]></title>
-    <link href="http://embeddedfool.net/blog/2015/01/12/a-more-agile-do-178/"/>
-    <updated>2015-01-12T21:39:27+02:00</updated>
-    <id>http://embeddedfool.net/blog/2015/01/12/a-more-agile-do-178</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
+
+<span class="byline author vcard">Posted by <span class="fn">Kobus Coetzee</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-01-19T00:32:12+02:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:32 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
   
-  <entry>
-    <title type="html"><![CDATA[Agile Crash Course]]></title>
-    <link href="http://embeddedfool.net/blog/2015/01/12/agile-crash-course/"/>
-    <updated>2015-01-12T21:39:20+02:00</updated>
-    <id>http://embeddedfool.net/blog/2015/01/12/agile-crash-course</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://embeddedfool.net/blog/2015/01/19/do-178-crash-course/" data-via="" data-counturl="http://embeddedfool.net/blog/2015/01/19/do-178-crash-course/" >Tweet</a>
   
-  <entry>
-    <title type="html"><![CDATA[Slow Bugs]]></title>
-    <link href="http://embeddedfool.net/blog/2014/12/27/slow-bugs/"/>
-    <updated>2014-12-27T00:00:00+02:00</updated>
-    <id>http://embeddedfool.net/blog/2014/12/27/slow-bugs</id>
-    <content type="html"><![CDATA[<p>A slow bug is one which requires substantial testing to show itself. Recently we had such a bug, which required roughly 8 hours of testing, and if you’re lucky, you’ll see it once. Horrible stuff…</p>
-
-<p>This makes for extremely slow debug cycles, almost going back to the batch programming mainframe days where you <a href="http://www.embedded.com/electronics-blogs/break-points/4437958/On-engineering-notebooks">run code in your head</a> and hypothesise what the code is actually doing. It turned out our bug in this case had nothing to do with a fault in the code, but noise getting picked up on one of the JTAG select lines. Unfortunately we didn’t start by looking at the JTAG lines… </p>
-
-<p>Once we had settled on this hypotheses, and implemented a fix, the question became how long should one test before you are satisfied the bug is fixed. How long before you are 99% sure, 99.9% sure, 99.999% sure?</p>
-
-<p><img class="right" src="http://embeddedfool.net/images/uniform_distribution.png" width="300" title="uniform distribution bugs" />
-Thinking about this problem got me thinking about bug probabilities and of how they might manifest. I theorised three types of bugs. First is bugs with a unity probability distribution function, that is it is equally likely to occur at any time during the testing procedure. This is applicable for a huge class of bugs, most importantly for bugs which doesn’t have memory. So timing bugs, race conditions, noise induced bugs etc. all fit the bill.<br />
-<br />
-<br />
-<br /></p>
-
-<p><img class="right" src="http://embeddedfool.net/images/increasing_distribution.png" width="300" title="increasing distribution bugs" />
-This is in contrast to bugs with memory, where the longer you test the more likely it is that you’ll encounter the bug. This could be memory leaks, heap fragmentation or in some cases state machine bugs. These bugs represents an interesting dilemma for us, which I’ll get back to later.<br />
-<br />
-<br />
-<br />
-<br />
-<br /></p>
-
-<p><img class="right" src="http://embeddedfool.net/images/decreasing_distribution.png" width="300" title="decreasing distribution bugs" />
-Looking at the previous two plots, I wondered if there were bugs with the following graph, bugs which will manifest early, but become less likely to manifest the longer the system runs. And it dawned on me you do get bugs like this, namely system start-up and initialization bugs. Once the system is running, it is stable, but if you reboot it many times over, every now and then the reboot will fail.
-<br />
-<br />
-<br />
-<br /></p>
-
-<p>Focussing on the uniform distribution bugs, we can think of the probability of encountering a bug as a <a href="http://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a>. More specifically, if we encountered on average $ \frac{1}{8} $ bugs every hour, then the probability mass function of our Poisson distribution looks as follows:</p>
-
-<script type="math/tex; mode=display"> f(x) = \frac{e^{- \lambda}\lambda^x}{x!} \tag{Poisson distribution}</script>
-
-<script type="math/tex; mode=display">\lambda = \frac{1}{8} \tag{1 bug every 8 hours}</script>
-
-<p>That’s great and all if we wanted to know how many times we’ll see a bug while testing, but we want to know how long should we test to be sure the bug is gone (There’s a subtle difference). To calculate this we need the cumulative distribution function of f(x), i.e.</p>
-
-<script type="math/tex; mode=display">% &lt;![CDATA[
- F(x) = P(X <= x) = \int_{-\infty}^x f(u) \delta u %]]&gt;</script>
-
-<p>This result has a exponential distribution:</p>
-
-<script type="math/tex; mode=display"> f(x) = \lambda e^{- \lambda x} \tag{Cumulative distribution}</script>
-
-<p>Then to calculate the amount of testing required for your confidence of say 99% we need to take the area under curve as shown:</p>
-
-<p><img class="center" src="http://embeddedfool.net/images/cumulative_distribution.png" width="300" /></p>
-
-<script type="math/tex; mode=display"> P(X > x) = \int_x^\infty \frac{1}{8}e^{-\frac{1}{8}x} = 1 - 0.99 </script>
-
-<script type="math/tex; mode=display"> P(X > x) = e^{-\frac{1}{8}x} = 0.01</script>
-
-<p>This gives us the following answer (I calculated for 99.9% and 99.999% as well)</p>
-
-<script type="math/tex; mode=display">% &lt;![CDATA[
-
-\begin{array}{c|lcr}
-P(X > x) & \text{Hours} & \text{Bug mean} & \text{Factor} \\
-\hline
-99\% & 36.8 & 8 & 5 \\
-99.9\% & 55.3 & 8 & 7 \\
-99.999\% & 92.1 & 8 & 12
-\end{array}
- %]]&gt;</script>
-
-<p>So this is quite interesting, to be 99% certain you have solved your bug, you need to test about 5 times longer than it would normally take for the bug to manifest. I know of many times where I only tested about 2 times longer and called the bug fixed with great confidence. For interest sake, if you only test 2 times longer, you can only be 22% confident your bug is fixed!!</p>
-
-<p>Ok great so that answers our initial question, but what about the other types of bugs? Well for the third class of bugs i.e. start-up bugs, it is sufficient to think not in term of how many hours you need to run the test, but rather how many times you should run the test (reboot the system). Then this class of bug look exactly the same as the uniform distribution bug, and can be solved in much the same way, but instead of hours you get the amount of test iterations you should run. </p>
-
-<p>Now I said the increasing probability bugs represents an interesting dilemma, and that is because they do not represent an Poisson distribution. Rather no amount of testing will adequately prove to any confidence level that you have solved the bug. These kind of bugs are in essence known as the <a href="http://en.wikipedia.org/wiki/Halting_problem">halting problem</a> in computer science. Unfortunately that one has already been proved unsolvable…</p>
-
-<p>Ok so my stats was never that great, I had some help from my old statistics handbook:
-Engineering Statistics Montgommery et al.</p>
-
-<p>*Also please note that this is not in any way supposed to be a rigorous statistical analysis.</p>
-]]></content>
-  </entry>
   
-</feed>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/01/12/a-more-agile-do-178/" title="Previous Post: A more agile DO-178">&laquo; A more agile DO-178</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/19/do-178-crash-course/">DO-178 Crash Course</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/12/a-more-agile-do-178/">A More Agile DO-178</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/12/agile-crash-course/">Agile Crash Course</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/27/slow-bugs/">Slow Bugs</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Kobus Coetzee -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
+
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$']],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  messageStyle: "none",
+  "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>

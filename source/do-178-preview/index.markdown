@@ -1,44 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+---
+layout: page
+title: "do_178_preview"
+date: 2015-01-19 01:08
+comments: true
+sharing: true
+footer: true
+---
 
-  <title><![CDATA[Kobus' musings]]></title>
-  <link href="http://embeddedfool.net/atom.xml" rel="self"/>
-  <link href="http://embeddedfool.net/"/>
-  <updated>2015-01-19T01:25:39+02:00</updated>
-  <id>http://embeddedfool.net/</id>
-  <author>
-    <name><![CDATA[Kobus Coetzee]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<h2>Background</h2>
+This post serves part of a three part introductory primer for 3rd year computer science students as to the typical working of a software project seeking DO-178B certification. The other parts can be found here:<br/>
+[Agile crash course (TBC)](/blog/2015/01/12/agile-crash-course/)<br/>
+[A more agile DO-178 (TBC)](/blog/2015/01/12/a-more-agile-do-178/)
 
-  
-  <entry>
-    <title type="html"><![CDATA[DO-178 Crash Course]]></title>
-    <link href="http://embeddedfool.net/blog/2015/01/19/do-178-crash-course/"/>
-    <updated>2015-01-19T00:32:12+02:00</updated>
-    <id>http://embeddedfool.net/blog/2015/01/19/do-178-crash-course</id>
-    <content type="html"><![CDATA[<h2>Background</h2>
-<p>This post serves part of a three part introductory primer for 3rd year computer science students as to the typical working of a software project seeking DO-178B certification. The other parts can be found here:<br />
-<a href="http://embeddedfool.net/blog/2015/01/12/agile-crash-course/">Agile crash course (TBC)</a><br />
-<a href="http://embeddedfool.net/blog/2015/01/12/a-more-agile-do-178/">A more agile DO-178 (TBC)</a></p>
+The students will form part of a study on the effectiveness of the DO-178B certification in achieving correctness of implementation and safety guarantees in the presence of incomplete requirements, feature creep and complex technology stacks, also known as your typical software project.
 
-<p>The students will form part of a study on the effectiveness of the DO-178B certification in achieving correctness of implementation and safety guarantees in the presence of incomplete requirements, feature creep and complex technology stacks, also known as your typical software project.</p>
-
-<p>If you are currently; or in the past have worked on DO-178 projects, it would be much appreciated if you would be so kind to <a href="https://www.surveymonkey.com/s/SV9KX7M">take part in a survey</a> about the state of DO-178 development.  </p>
+If you are currently; or in the past have worked on DO-178 projects, it would be much appreciated if you would be so kind to [take part in a survey](https://www.surveymonkey.com/s/SV9KX7M) about the state of DO-178 development.  
 
 <h2>What is DO-178?</h2>
-<p>First let’s start with what is DO-178? DO-178 is an international standard for the assurance of the safety of avionics software. It is published by <a href="http://www.rtca.org/">RTCA, Incorporated</a>, and the latest revision of the standard is known as <a href="http://en.wikipedia.org/wiki/DO-178C">DO-178C</a>, although <a href="http://en.wikipedia.org/wiki/DO-178B">DO-178B</a> is still widely implemented and is the subject of this post.</p>
+First let's start with what is DO-178? DO-178 is an international standard for the assurance of the safety of avionics software. It is published by [RTCA, Incorporated](http://www.rtca.org/), and the latest revision of the standard is known as [DO-178C](http://en.wikipedia.org/wiki/DO-178C), although [DO-178B](http://en.wikipedia.org/wiki/DO-178B) is still widely implemented and is the subject of this post.
 
-<p>Although DO-178 is concerned with the software of airborne systems and equipment, various other safety critical industries has adopted the standard to certify its software. DO-178 ties closely with <a href="http://en.wikipedia.org/wiki/DO-254">DO-254</a> which is concerned with development of airborne electronic hardware, and <a href="http://en.wikipedia.org/wiki/ARP4754">SAE ARP4753</a> which is concerned with system level considerations. There also exists independently other standards with much the same goals, namely the IEC 61508 based standards; <a href="http://en.wikipedia.org/wiki/IEC_60601">IEC60601-1</a> for medical devices; <a href="http://en.wikipedia.org/wiki/ISO_26262">ISO26262</a> for automotive electronics and <a href="http://webstore.iec.ch/Webstore/webstore.nsf/ArtNum_PK/26619!opendocument&amp;preview=1">IEC 60880-2</a> for the nuclear energy industry.</p>
+Although DO-178 is concerned with the software of airborne systems and equipment, various other safety critical industries has adopted the standard to certify its software. DO-178 ties closely with [DO-254](http://en.wikipedia.org/wiki/DO-254) which is concerned with development of airborne electronic hardware, and [SAE ARP4753](http://en.wikipedia.org/wiki/ARP4754) which is concerned with system level considerations. There also exists independently other standards with much the same goals, namely the IEC 61508 based standards; [IEC60601-1](http://en.wikipedia.org/wiki/IEC_60601) for medical devices; [ISO26262](http://en.wikipedia.org/wiki/ISO_26262) for automotive electronics and [IEC 60880-2](http://webstore.iec.ch/Webstore/webstore.nsf/ArtNum_PK/26619!opendocument&preview=1) for the nuclear energy industry.
 
-<p>As such this post is not concerned with the actual certification aspects of DO-178B, but with the process DO-178B enforces on software development to ensure the safety and correctness guarantees it attempts to achieve. For a better overview of the actual certification process, especially as it relates to FAA certification, look <a href="http://www.sandroid.org/birdsproject/4dummies.html">here</a>. Also another excellent overview of DO-178B can be found in <a href="http://www.amazon.com/The-Avionics-Handbook-Electrical-Engineering/dp/084938348X">The Avionics Handbook</a> chapter 27.   </p>
+As such this post is not concerned with the actual certification aspects of DO-178B, but with the process DO-178B enforces on software development to ensure the safety and correctness guarantees it attempts to achieve. For a better overview of the actual certification process, especially as it relates to FAA certification, look [here](http://www.sandroid.org/birdsproject/4dummies.html). Also another excellent overview of DO-178B can be found in [The Avionics Handbook](http://www.amazon.com/The-Avionics-Handbook-Electrical-Engineering/dp/084938348X) chapter 27.   
 
 <h2>Criticality level</h2>
-<p>DO-178B specifies 5 levels of criticality to which a system can be developed. The amount of effort involved in satisfying the DO-178B certification depends on the criticality level of your software. The criticality level is determined from the possible consequences that anomalous software would have on the aircraft.</p>
+DO-178B specifies 5 levels of criticality to which a system can be developed. The amount of effort involved in satisfying the DO-178B certification depends on the criticality level of your software. The criticality level is determined from the possible consequences that anomalous software would have on the aircraft.
 
-<script type="math/tex; mode=display">% &lt;![CDATA[
-
+$$
 \begin{array}{c|lcr}
 \text{Criticality} & \text{Failure condition} & \text{Software definition} & \text{Objectives}\\
 \hline
@@ -54,14 +42,14 @@
 \\
 \text{Level E} & \text{No effect} & \text{Does not affect operational capability} & 0
 \end{array}
- %]]&gt;</script>
+$$
 
-<p>There is very little data on the amount of additional effort that each level requires, with some sources claiming only an <a href="http://www.highrely.com/whitepapers.php">increase of 75% to 150%</a>, and others claiming a <a href="http://www.cs.york.ac.uk/hise/safety-critical-archive/2009/0738.html">1000% increase in costs</a>. It depends on various factors off course, such as the experience of the team, complexity of the software, software development lifecycle etc. But a relative measure of the increase in workload can be gauged from the increasing objectives to be met for each criticality level.   </p>
+There is very little data on the amount of additional effort that each level requires, with some sources claiming only an [increase of 75% to 150%](http://www.highrely.com/whitepapers.php), and others claiming a [1000% increase in costs](http://www.cs.york.ac.uk/hise/safety-critical-archive/2009/0738.html). It depends on various factors off course, such as the experience of the team, complexity of the software, software development lifecycle etc. But a relative measure of the increase in workload can be gauged from the increasing objectives to be met for each criticality level.   
 
 <h2>List of deliverables to be completed</h2>
-<p>Since DO-178B is a software quality assurance standard, not a software development standard, it does not impose any restrictions or considerations on how software is to be developed.</p>
+Since DO-178B is a software quality assurance standard, not a software development standard, it does not impose any restrictions or considerations on how software is to be developed.
 
-<p>It does however require the following list of deliverables, with the requirements for each depending on the criticality level chosen (click on each deliverable for a description):  </p>
+It does however require the following list of deliverables, with the requirements for each depending on the criticality level chosen (click on each deliverable for a description):  
 
 <html>
 <head>
@@ -827,11 +815,11 @@ $(document).ready(function(){
 
 <form>
   <div id="radio">
-    <input type="radio" id="levelA" name="radio" /> <label for="levelA">Level A</label>
-    <input type="radio" id="levelB" name="radio" /> <label for="levelB">Level B</label>
-    <input type="radio" id="levelC" name="radio" /> <label for="levelC">Level C</label>
-	<input type="radio" id="levelD" name="radio" /> <label for="levelD">Level D</label>
-	<input type="radio" id="levelE" name="radio" /> <label for="levelE">Level E</label>
+    <input type="radio" id="levelA" name="radio"> <label for="levelA">Level A</label>
+    <input type="radio" id="levelB" name="radio"> <label for="levelB">Level B</label>
+    <input type="radio" id="levelC" name="radio"> <label for="levelC">Level C</label>
+	<input type="radio" id="levelD" name="radio"> <label for="levelD">Level D</label>
+	<input type="radio" id="levelE" name="radio"> <label for="levelE">Level E</label>
   </div>
 </form>
 
@@ -865,6 +853,7 @@ border:solid 1px black;
 </style>
 </body>
 </html>
+
 
 <table style="width:100%">
   <tr>
@@ -907,7 +896,7 @@ border:solid 1px black;
   </tr>
   <tr>
 	<td colspan="3">
-	<div id="SVP_flip">&#8220;The Software Verification Plan is a description of the verification procedures to satisfy the software verification process objectives.
+	<div id="SVP_flip">"The Software Verification Plan is a description of the verification procedures to satisfy the software verification process objectives.
 	</div>
 	</td>
   </tr>
@@ -1117,186 +1106,77 @@ border:solid 1px black;
   </tr>
 </table>
 
-<p><br />
-That’s a lot of dead trees…</p>
+<br/>
+That's a lot of dead trees...
 
-<p>An objective is typically something like the “Software development standards are defined” or “High level requirements are verifiable”. So it is still fairly open for interpretation by the developers and the certification body. I’ll go into more detail of each objective when considering how DO-178 can be made more <a href="http://embeddedfool.net/blog/2015/01/12/a-more-agile-do-178/">agile</a>. (Observant readers will notice the total objectives does not equal those reported in the criticality table, that is because some objectives has to be included in multiple documents and so I counted them twice).</p>
+An objective is typically something like the "Software development standards are defined" or "High level requirements are verifiable". So it is still fairly open for interpretation by the developers and the certification body. I'll go into more detail of each objective when considering how DO-178 can be made more [agile](/blog/2015/01/12/a-more-agile-do-178/). (Observant readers will notice the total objectives does not equal those reported in the criticality table, that is because some objectives has to be included in multiple documents and so I counted them twice).
 
-<p>Where objectives are marked independent, it means an independent authority has to verify conformance. For this purpose quite a few consultants in the business earn their keep to come and evaluate independently these requirements without being employed by the company developing the product.</p>
+Where objectives are marked independent, it means an independent authority has to verify conformance. For this purpose quite a few consultants in the business earn their keep to come and evaluate independently these requirements without being employed by the company developing the product.
 
+  
 <h2>Software development process</h2>
-<p>DO-178B prescribes the following software development process:</p>
+DO-178B prescribes the following software development process:
 
-<ul>
-  <li>Software requirements process</li>
-  <li>Software design process</li>
-  <li>Software development process</li>
-  <li>Integration process</li>
-</ul>
+- Software requirements process
+- Software design process
+- Software development process
+- Integration process
 
-<p>Typically for DO-178B this is implemented through the <a href="http://en.wikipedia.org/wiki/V-Model_%28software_development%29">V-model</a> in systems engineering, also somewhat equivalent to the <a href="http://en.wikipedia.org/wiki/Waterfall_model">waterfall method</a> in software development.</p>
+Typically for DO-178B this is implemented through the [V-model](http://en.wikipedia.org/wiki/V-Model_%28software_development%29) in systems engineering, also somewhat equivalent to the [waterfall method](http://en.wikipedia.org/wiki/Waterfall_model) in software development.
 
-<p><img class="center" src="http://embeddedfool.net/images/vee_plot.png" width="600" /></p>
+{% img center /images/vee_plot.png 600 %}
 
 <h4>Traceability</h4>
-<p>Traceability’s purpose is two-fold. First is to make sure the design takes into account all the requirements set for the project. Requirements which has not been taken into account by the design are called childless requirements.</p>
+Traceability's purpose is two-fold. First is to make sure the design takes into account all the requirements set for the project. Requirements which has not been taken into account by the design are called childless requirements.
 
-<p>Traceability analysis must also make sure there are no additional and unneeded requirements introduced during design, as these would unnecessarily escalate the development costs. These are called orphan requirements. But it is understood that some requirements may be derived from the design decisions made and is thus not traceable to the user requirements. These additional requirements must be taken into consideration when analyzing their safety effects on the system.   </p>
+Traceability analysis must also make sure there are no additional and unneeded requirements introduced during design, as these would unnecessarily escalate the development costs. These are called orphan requirements. But it is understood that some requirements may be derived from the design decisions made and is thus not traceable to the user requirements. These additional requirements must be taken into consideration when analyzing their safety effects on the system.   
 
-<p>For these reasons most of the documentation listed above will contain a traceability matrix towards the end of the document, to indicate the higher level document each requirement discussed in the document was derived from.</p>
+For these reasons most of the documentation listed above will contain a traceability matrix towards the end of the document, to indicate the higher level document each requirement discussed in the document was derived from.
 
 <h4>Verification</h4>
-<p>Verification is concerned with if the development is being implemented correctly according to the design, and if the integration is done correctly as designed and developed i.e. “Are we building this correctly”</p>
+Verification is concerned with if the development is being implemented correctly according to the design, and if the integration is done correctly as designed and developed i.e. "Are we building this correctly"
 
-<p>Verification for DO-178B consists of two steps, namely requirements based coverage analysis where it is checked that all requirements are satisfied and tested, and also structural coverage analysis where it is checked that during testing all code paths are executed, so there is no untested code in the final product.</p>
+Verification for DO-178B consists of two steps, namely requirements based coverage analysis where it is checked that all requirements are satisfied and tested, and also structural coverage analysis where it is checked that during testing all code paths are executed, so there is no untested code in the final product.
 
-<p>Lastly as part of the verification process DO-178B requires that no dead code be present in the final binary and that de-activated code (perhaps code used in another configuration of the product) cannot be accidentally executed.</p>
+Lastly as part of the verification process DO-178B requires that no dead code be present in the final binary and that de-activated code (perhaps code used in another configuration of the product) cannot be accidentally executed.
 
-<p>For these reasons code coverage tests is required for the various levels in DO-178:</p>
+For these reasons code coverage tests is required for the various levels in DO-178:
 
-<ul>
-  <li>Level A requires <a href="http://en.wikipedia.org/wiki/Modified_condition/decision_coverage">Modified Condition Decision Coverage (MCDC)</a></li>
-  <li>Level B requires decision coverage.</li>
-  <li>Level C requires coverage of dependencies.</li>
-  <li>Level D requires no code coverage verification.</li>
-  <li>Level E requires no code coverage verification.</li>
-</ul>
+- Level A requires [Modified Condition Decision Coverage (MCDC)](http://en.wikipedia.org/wiki/Modified_condition/decision_coverage)
+- Level B requires decision coverage.
+- Level C requires coverage of dependencies.
+- Level D requires no code coverage verification.
+- Level E requires no code coverage verification.
 
 <h4>Validation</h4>
-<p>Validation is concerned with if the final product satisfies the intended use of the product i.e. “Did we build the right thing” or “Does this product actually work”. </p>
+Validation is concerned with if the final product satisfies the intended use of the product i.e. "Did we build the right thing" or "Does this product actually work". 
 
 <h2>What have I missed?</h2>
-<p>DO-178B does not mandate the development process to be followed, but does focus quite a bit on the supporting functions to the development process. These include:</p>
+DO-178B does not mandate the development process to be followed, but does focus quite a bit on the supporting functions to the development process. These include:
 
-<ul>
-  <li>configuration management</li>
-  <li>quality assurance</li>
-  <li>certification liaison</li>
-  <li>software verification</li>
-</ul>
+- configuration management
+- quality assurance
+- certification liaison
+- software verification
 
-<p>DO-178B lists two control categories according to which every deliverable must be configured. Control category 1 has for instance requirements such as “Protection against unauthorized changes”, “Change review” etc. Control category 2 is a relaxed list of Control category 1. As such Level A certification mandates more items be configured according to the requirements of Control Category 1, whereas the lower levels allows more items under Control Category 2.</p>
+DO-178B lists two control categories according to which every deliverable must be configured. Control category 1 has for instance requirements such as "Protection against unauthorized changes", "Change review" etc. Control category 2 is a relaxed list of Control category 1. As such Level A certification mandates more items be configured according to the requirements of Control Category 1, whereas the lower levels allows more items under Control Category 2.
 
-<p>DO-178B also focuses quite a bit on the reproducibility of the executable from the source code and ensuring its correctness. As such any tools used to produce the executable should be under configuration management, and if possible the tools (such as the compiler) should also be DO-178 certified. This also applies to off the shelve software components used with the developed software, and is the reason you get some DO-178 certified RTOS (real time operating systems) these days. Good luck getting a DO-178 certified compiler though… </p>
+DO-178B also focuses quite a bit on the reproducibility of the executable from the source code and ensuring its correctness. As such any tools used to produce the executable should be under configuration management, and if possible the tools (such as the compiler) should also be DO-178 certified. This also applies to off the shelve software components used with the developed software, and is the reason you get some DO-178 certified RTOS (real time operating systems) these days. Good luck getting a DO-178 certified compiler though... 
 
-<p>Where these tools and off the shelve components do not conform to DO-178 requirements, a gap analysis should be done to determine the effort that would be required in certifying the tool or off the shelve software to DO-178. A great many times it is determined to be cheaper to develop the functionality of the tool or software component in team than to attempt to certify the already existing item.</p>
+Where these tools and off the shelve components do not conform to DO-178 requirements, a gap analysis should be done to determine the effort that would be required in certifying the tool or off the shelve software to DO-178. A great many times it is determined to be cheaper to develop the functionality of the tool or software component in team than to attempt to certify the already existing item.
 
 <h4>A word about documentation conventions</h4>
 
-<p>Typically in DO-178 projects I have seen, the documentation follows the practices originating from several ISO, IEC and DoD standards best practices. I could not find the origin of this practice, but it has become a de facto standard for standards documentation where certain words convey additional meaning apart from their linguistic use. These words are usually capitalized.</p>
+Typically in DO-178 projects I have seen, the documentation follows the practices originating from several ISO, IEC and DoD standards best practices. I could not find the origin of this practice, but it has become a de facto standard for standards documentation where certain words convey additional meaning apart from their linguistic use. These words are usually capitalized.
 
-<p>SHALL and SHALL NOT - Indicates mandatory requirements.</p>
+SHALL and SHALL NOT - Indicates mandatory requirements.
 
-<p>WILL and WILL NOT - Indicates a declaration of purpose or an expression of simple futurity.</p>
+WILL and WILL NOT - Indicates a declaration of purpose or an expression of simple futurity.
 
-<p>SHOULD and SHOULD NOT - Indicates non-mandatory desire, preference or recommendation.</p>
+SHOULD and SHOULD NOT - Indicates non-mandatory desire, preference or recommendation.
 
-<p>MAY and MAY NOT - Indicates non-mandatory suggestion or permission.</p>
+MAY and MAY NOT - Indicates non-mandatory suggestion or permission.
 
-<p>MUST and MUST NOT should be avoided as it causes confusion with the above terms. </p>
+MUST and MUST NOT should be avoided as it causes confusion with the above terms. 
 
-<p>That concludes this overview of DO-178B. It is certainly not an exhaustive analysis of DO-178B, for that you might just as well read the specification. If I have missed anything or you would like to make a suggestion, kindly do so at the discussion on [HN] and [reddit]. Comments and suggestions are very welcome.</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[A More Agile DO-178]]></title>
-    <link href="http://embeddedfool.net/blog/2015/01/12/a-more-agile-do-178/"/>
-    <updated>2015-01-12T21:39:27+02:00</updated>
-    <id>http://embeddedfool.net/blog/2015/01/12/a-more-agile-do-178</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Agile Crash Course]]></title>
-    <link href="http://embeddedfool.net/blog/2015/01/12/agile-crash-course/"/>
-    <updated>2015-01-12T21:39:20+02:00</updated>
-    <id>http://embeddedfool.net/blog/2015/01/12/agile-crash-course</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Slow Bugs]]></title>
-    <link href="http://embeddedfool.net/blog/2014/12/27/slow-bugs/"/>
-    <updated>2014-12-27T00:00:00+02:00</updated>
-    <id>http://embeddedfool.net/blog/2014/12/27/slow-bugs</id>
-    <content type="html"><![CDATA[<p>A slow bug is one which requires substantial testing to show itself. Recently we had such a bug, which required roughly 8 hours of testing, and if you’re lucky, you’ll see it once. Horrible stuff…</p>
-
-<p>This makes for extremely slow debug cycles, almost going back to the batch programming mainframe days where you <a href="http://www.embedded.com/electronics-blogs/break-points/4437958/On-engineering-notebooks">run code in your head</a> and hypothesise what the code is actually doing. It turned out our bug in this case had nothing to do with a fault in the code, but noise getting picked up on one of the JTAG select lines. Unfortunately we didn’t start by looking at the JTAG lines… </p>
-
-<p>Once we had settled on this hypotheses, and implemented a fix, the question became how long should one test before you are satisfied the bug is fixed. How long before you are 99% sure, 99.9% sure, 99.999% sure?</p>
-
-<p><img class="right" src="http://embeddedfool.net/images/uniform_distribution.png" width="300" title="uniform distribution bugs" />
-Thinking about this problem got me thinking about bug probabilities and of how they might manifest. I theorised three types of bugs. First is bugs with a unity probability distribution function, that is it is equally likely to occur at any time during the testing procedure. This is applicable for a huge class of bugs, most importantly for bugs which doesn’t have memory. So timing bugs, race conditions, noise induced bugs etc. all fit the bill.<br />
-<br />
-<br />
-<br /></p>
-
-<p><img class="right" src="http://embeddedfool.net/images/increasing_distribution.png" width="300" title="increasing distribution bugs" />
-This is in contrast to bugs with memory, where the longer you test the more likely it is that you’ll encounter the bug. This could be memory leaks, heap fragmentation or in some cases state machine bugs. These bugs represents an interesting dilemma for us, which I’ll get back to later.<br />
-<br />
-<br />
-<br />
-<br />
-<br /></p>
-
-<p><img class="right" src="http://embeddedfool.net/images/decreasing_distribution.png" width="300" title="decreasing distribution bugs" />
-Looking at the previous two plots, I wondered if there were bugs with the following graph, bugs which will manifest early, but become less likely to manifest the longer the system runs. And it dawned on me you do get bugs like this, namely system start-up and initialization bugs. Once the system is running, it is stable, but if you reboot it many times over, every now and then the reboot will fail.
-<br />
-<br />
-<br />
-<br /></p>
-
-<p>Focussing on the uniform distribution bugs, we can think of the probability of encountering a bug as a <a href="http://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a>. More specifically, if we encountered on average $ \frac{1}{8} $ bugs every hour, then the probability mass function of our Poisson distribution looks as follows:</p>
-
-<script type="math/tex; mode=display"> f(x) = \frac{e^{- \lambda}\lambda^x}{x!} \tag{Poisson distribution}</script>
-
-<script type="math/tex; mode=display">\lambda = \frac{1}{8} \tag{1 bug every 8 hours}</script>
-
-<p>That’s great and all if we wanted to know how many times we’ll see a bug while testing, but we want to know how long should we test to be sure the bug is gone (There’s a subtle difference). To calculate this we need the cumulative distribution function of f(x), i.e.</p>
-
-<script type="math/tex; mode=display">% &lt;![CDATA[
- F(x) = P(X <= x) = \int_{-\infty}^x f(u) \delta u %]]&gt;</script>
-
-<p>This result has a exponential distribution:</p>
-
-<script type="math/tex; mode=display"> f(x) = \lambda e^{- \lambda x} \tag{Cumulative distribution}</script>
-
-<p>Then to calculate the amount of testing required for your confidence of say 99% we need to take the area under curve as shown:</p>
-
-<p><img class="center" src="http://embeddedfool.net/images/cumulative_distribution.png" width="300" /></p>
-
-<script type="math/tex; mode=display"> P(X > x) = \int_x^\infty \frac{1}{8}e^{-\frac{1}{8}x} = 1 - 0.99 </script>
-
-<script type="math/tex; mode=display"> P(X > x) = e^{-\frac{1}{8}x} = 0.01</script>
-
-<p>This gives us the following answer (I calculated for 99.9% and 99.999% as well)</p>
-
-<script type="math/tex; mode=display">% &lt;![CDATA[
-
-\begin{array}{c|lcr}
-P(X > x) & \text{Hours} & \text{Bug mean} & \text{Factor} \\
-\hline
-99\% & 36.8 & 8 & 5 \\
-99.9\% & 55.3 & 8 & 7 \\
-99.999\% & 92.1 & 8 & 12
-\end{array}
- %]]&gt;</script>
-
-<p>So this is quite interesting, to be 99% certain you have solved your bug, you need to test about 5 times longer than it would normally take for the bug to manifest. I know of many times where I only tested about 2 times longer and called the bug fixed with great confidence. For interest sake, if you only test 2 times longer, you can only be 22% confident your bug is fixed!!</p>
-
-<p>Ok great so that answers our initial question, but what about the other types of bugs? Well for the third class of bugs i.e. start-up bugs, it is sufficient to think not in term of how many hours you need to run the test, but rather how many times you should run the test (reboot the system). Then this class of bug look exactly the same as the uniform distribution bug, and can be solved in much the same way, but instead of hours you get the amount of test iterations you should run. </p>
-
-<p>Now I said the increasing probability bugs represents an interesting dilemma, and that is because they do not represent an Poisson distribution. Rather no amount of testing will adequately prove to any confidence level that you have solved the bug. These kind of bugs are in essence known as the <a href="http://en.wikipedia.org/wiki/Halting_problem">halting problem</a> in computer science. Unfortunately that one has already been proved unsolvable…</p>
-
-<p>Ok so my stats was never that great, I had some help from my old statistics handbook:
-Engineering Statistics Montgommery et al.</p>
-
-<p>*Also please note that this is not in any way supposed to be a rigorous statistical analysis.</p>
-]]></content>
-  </entry>
-  
-</feed>
+That concludes this overview of DO-178B. It is certainly not an exhaustive analysis of DO-178B, for that you might just as well read the specification. If I have missed anything or you would like to make a suggestion, kindly do so at the discussion on [HN] and [reddit]. Comments and suggestions are very welcome.
