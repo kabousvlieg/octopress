@@ -4,7 +4,7 @@
   <title><![CDATA[Kobus' musings]]></title>
   <link href="http://embeddedfool.net/atom.xml" rel="self"/>
   <link href="http://embeddedfool.net/"/>
-  <updated>2015-01-19T01:39:44+02:00</updated>
+  <updated>2015-01-19T08:23:52+02:00</updated>
   <id>http://embeddedfool.net/</id>
   <author>
     <name><![CDATA[Kobus Coetzee]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Slow Bugs]]></title>
     <link href="http://embeddedfool.net/blog/2014/12/27/slow-bugs/"/>
-    <updated>2014-12-27T00:00:00+02:00</updated>
+    <updated>2014-12-27T12:00:00+02:00</updated>
     <id>http://embeddedfool.net/blog/2014/12/27/slow-bugs</id>
     <content type="html"><![CDATA[<p>A slow bug is one which requires substantial testing to show itself. Recently we had such a bug, which required roughly 8 hours of testing, and if you’re lucky, you’ll see it once. Horrible stuff…</p>
 

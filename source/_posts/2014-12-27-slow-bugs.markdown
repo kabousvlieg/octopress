@@ -1,3 +1,12 @@
+---
+layout: page
+title: "Slow Bugs"
+date: 2014-12-27 12:00
+comments: true
+sharing: true
+footer: true
+---
+
 A slow bug is one which requires substantial testing to show itself. Recently we had such a bug, which required roughly 8 hours of testing, and if you're lucky, you'll see it once. Horrible stuff...
 
 This makes for extremely slow debug cycles, almost going back to the batch programming mainframe days where you [run code in your head](http://www.embedded.com/electronics-blogs/break-points/4437958/On-engineering-notebooks) and hypothesise what the code is actually doing. It turned out our bug in this case had nothing to do with a fault in the code, but noise getting picked up on one of the JTAG select lines. Unfortunately we didn't start by looking at the JTAG lines... 
