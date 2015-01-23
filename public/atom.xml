@@ -4,7 +4,7 @@
   <title><![CDATA[Kobus' musings]]></title>
   <link href="http://embeddedfool.net/atom.xml" rel="self"/>
   <link href="http://embeddedfool.net/"/>
-  <updated>2015-01-19T08:23:52+02:00</updated>
+  <updated>2015-01-23T23:39:32+02:00</updated>
   <id>http://embeddedfool.net/</id>
   <author>
     <name><![CDATA[Kobus Coetzee]]></name>
@@ -12,6 +12,1194 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[DO-178B Crash Course]]></title>
+    <link href="http://embeddedfool.net/blog/2015/01/23/do-178b-crash-course/"/>
+    <updated>2015-01-23T11:37:00+02:00</updated>
+    <id>http://embeddedfool.net/blog/2015/01/23/do-178b-crash-course</id>
+    <content type="html"><![CDATA[<h2>Background</h2>
+<p>This post serves part of a three part introductory primer for 3rd year computer science students as to the typical working of a software project seeking DO-178B certification. The other parts can be found here:<br />
+<a href="">Agile crash course (TBC)</a><br />
+<a href="">A more agile DO-178 (TBC)</a></p>
+
+<p>The students will form part of a study on the effectiveness of the DO-178B certification in achieving correctness of implementation and safety guarantees in the presence of incomplete requirements, feature creep and complex technology stacks, also known as your typical software project.</p>
+
+<p>If you are currently; or in the past have worked on DO-178 projects, it would be appreciated if you would be so kind as to <a href="https://www.surveymonkey.com/s/SV9KX7M">take part in a survey</a> about the state of DO-178 development.  </p>
+
+<h2>What is DO-178?</h2>
+<p>First let’s start with what is DO-178? DO-178 is an international standard for the assurance of the safety of avionics software. It is published by <a href="http://www.rtca.org/">RTCA, Incorporated</a>, and the latest revision of the standard is known as <a href="http://en.wikipedia.org/wiki/DO-178C">DO-178C</a>, although <a href="http://en.wikipedia.org/wiki/DO-178B">DO-178B</a> is still widely implemented and is the subject of this post.</p>
+
+<p>Although DO-178 is concerned with the software of airborne systems and equipment, various other industries concerned about safety critical software have adopted the standard to certify its software. DO-178 ties closely with <a href="http://en.wikipedia.org/wiki/DO-254">DO-254</a> which is concerned with development of airborne electronic hardware, and <a href="http://en.wikipedia.org/wiki/ARP4754">SAE ARP4753</a> which is concerned with system level considerations of airborne equipment. There also exists other independant standards with much the same goals as DO-178, namely the IEC 61508 based standards; <a href="http://en.wikipedia.org/wiki/IEC_60601">IEC60601-1</a> for medical devices; <a href="http://en.wikipedia.org/wiki/ISO_26262">ISO26262</a> for automotive electronics and <a href="http://webstore.iec.ch/Webstore/webstore.nsf/ArtNum_PK/26619!opendocument&amp;preview=1">IEC 60880-2</a> for the nuclear energy industry.</p>
+
+<p>This post is not concerned with the actual certification aspects of DO-178B, but with the process DO-178B enforces on software development to ensure the safety and correctness guarantees it attempts to achieve. For a better overview of the actual certification process, especially as it relates to FAA certification, look <a href="http://www.sandroid.org/birdsproject/4dummies.html">here</a>. Also another excellent overview of DO-178B can be found in <a href="http://www.amazon.com/The-Avionics-Handbook-Electrical-Engineering/dp/084938348X">The Avionics Handbook</a> chapter 27.   </p>
+
+<h2>Criticality level</h2>
+<p>DO-178B specifies 5 levels of criticality to which a system can be developed. The amount of effort involved in satisfying the DO-178B certification depends on the criticality level of your software and as such is the first consideration you should have when starting your product development cycle. The criticality level is determined from the possible consequences that anomalous software would have on the aircraft.</p>
+
+<script type="math/tex; mode=display">% &lt;![CDATA[
+
+\begin{array}{c|lcr}
+\text{Criticality} & \text{Failure condition} & \text{Software definition} & \text{Objectives}\\
+\hline
+\text{Level A} & \text{Catastrophic} & \text{Prevents continued safe flight} & 66 \\
+\\
+\text{Level B} & \text{Hazardous} & \text{Large reduction in safety margin} & 65 \\
+ 			   &				  & \text{Physical distress or higher workload} \\ 
+ 			   &				  & \text{Adverse effects on occupants} \\
+\\
+\text{Level C} & \text{Major} & \text{Reduction in safety margin} & 57 \\
+\\
+\text{Level D} & \text{Minor} & \text{Would not significantly reduce safety} & 28\\
+\\
+\text{Level E} & \text{No effect} & \text{Does not affect operational capability} & 0
+\end{array}
+ %]]&gt;</script>
+
+<p>There is very little data on the amount of additional effort that each level requires, with some sources claiming only an <a href="http://www.highrely.com/whitepapers.php">increase of 75% to 150%</a>, and others claiming a <a href="http://www.cs.york.ac.uk/hise/safety-critical-archive/2009/0738.html">1000% increase in costs</a>. It depends on various factors off course, such as the experience of the team, complexity of the software, software development lifecycle etc. But a relative measure of the increase in workload can be gauged from the increasing objectives to be met for each criticality level.   </p>
+
+<h2>List of deliverables to be completed</h2>
+<p>Since DO-178B is a software quality assurance standard, not a software development standard, it does not impose any restrictions or considerations on how software is to be developed.</p>
+
+<p>It does however require the following list of deliverables, with the requirements for each depending on the criticality level chosen (click on each deliverable for a description):  </p>
+
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#levelA").click(function(){
+    $("#PSAC").fadeTo("slow", 1.00);
+	$("#PSAC_indep").text("-");
+    $("#PSAC_obj").text("6");
+	$("#SDP").fadeTo("slow", 1.00);
+    $("#SDP_indep").text("-");
+    $("#SDP_obj").text("4");
+	$("#SVP").fadeTo("slow", 1.00);
+	$("#SVP_indep").text("-");
+    $("#SVP_obj").text("4");
+	$("#SCMP").fadeTo("slow", 1.00);
+	$("#SCMP_indep").text("-");
+    $("#SCMP_obj").text("4");
+	$("#SQAP").fadeTo("slow", 1.00);
+	$("#SQAP_indep").text("-");
+    $("#SQAP_obj").text("4");
+	$("#SRS").fadeTo("slow", 1.00);
+	$("#SRS_indep").text("-");
+    $("#SRS_obj").text("1");
+	$("#SDS").fadeTo("slow", 1.00);
+	$("#SDS_indep").text("-");
+    $("#SDS_obj").text("1");
+	$("#SCS").fadeTo("slow", 1.00);
+	$("#SCS_indep").text("-");
+    $("#SCS_obj").text("1");
+	$("#SRD").fadeTo("slow", 1.00);
+	$("#SRD_indep").text("-");
+    $("#SRD_obj").text("2");
+	$("#SDD").fadeTo("slow", 1.00);
+	$("#SDD_indep").text("-");
+    $("#SDD_obj").text("3");
+	$("#Source").fadeTo("slow", 1.00);
+	$("#Source_indep").text("-");
+    $("#Source_obj").text("1");
+	$("#Executable").fadeTo("slow", 1.00);
+	$("#Executable_indep").text("-");
+    $("#Executable_obj").text("1");
+	$("#SVCP").fadeTo("slow", 1.00);
+	$("#SVCP_indep").text("3");
+    $("#SVCP_obj").text("3");
+	$("#SVR").fadeTo("slow", 1.00);
+	$("#SVR_indep").text("21");
+    $("#SVR_obj").text("23");
+	$("#SECI").fadeTo("slow", 1.00);
+	$("#SECI_indep").text("-");
+    $("#SECI_obj").text("1");
+	$("#SCI").fadeTo("slow", 1.00);
+	$("#SCI_indep").text("-");
+    $("#SCI_obj").text("2");
+	$("#Problems").fadeTo("slow", 1.00);
+	$("#Problems_indep").text("-");
+    $("#Problems_obj").text("1");
+	$("#Configs").fadeTo("slow", 1.00);
+	$("#Configs_indep").text("-");
+    $("#Configs_obj").text("6");
+	$("#QA").fadeTo("slow", 1.00);
+	$("#QA_indep").text("3");
+    $("#QA_obj").text("2");
+	$("#SAS").fadeTo("slow", 1.00);
+	$("#SAS_indep").text("-");
+    $("#SAS_obj").text("1");
+  });
+  $("#levelB").click(function(){
+    $("#PSAC").fadeTo("slow", 1.00);
+	$("#PSAC_indep").text("-");
+    $("#PSAC_obj").text("6");
+	$("#SDP").fadeTo("slow", 1.00);
+    $("#SDP_indep").text("-");
+    $("#SDP_obj").text("4");
+	$("#SVP").fadeTo("slow", 1.00);
+	$("#SVP_indep").text("-");
+    $("#SVP_obj").text("4");
+	$("#SCMP").fadeTo("slow", 1.00);
+	$("#SCMP_indep").text("-");
+    $("#SCMP_obj").text("4");
+	$("#SQAP").fadeTo("slow", 1.00);
+	$("#SQAP_indep").text("-");
+    $("#SQAP_obj").text("4");
+	$("#SRS").fadeTo("slow", 1.00);
+	$("#SRS_indep").text("-");
+    $("#SRS_obj").text("1");
+	$("#SDS").fadeTo("slow", 1.00);
+	$("#SDS_indep").text("-");
+    $("#SDS_obj").text("1");
+	$("#SCS").fadeTo("slow", 1.00);
+	$("#SCS_indep").text("-");
+    $("#SCS_obj").text("1");
+	$("#SRD").fadeTo("slow", 1.00);
+	$("#SRD_indep").text("-");
+    $("#SRD_obj").text("2");
+	$("#SDD").fadeTo("slow", 1.00);
+	$("#SDD_indep").text("-");
+    $("#SDD_obj").text("3");
+	$("#Source").fadeTo("slow", 1.00);
+	$("#Source_indep").text("-");
+    $("#Source_obj").text("1");
+	$("#Executable").fadeTo("slow", 1.00);
+	$("#Executable_indep").text("-");
+    $("#Executable_obj").text("1");
+	$("#SVCP").fadeTo("slow", 1.00);
+	$("#SVCP_indep").text("1");
+    $("#SVCP_obj").text("5");
+	$("#SVR").fadeTo("slow", 1.00);
+	$("#SVR_indep").text("11");
+    $("#SVR_obj").text("32");
+	$("#SECI").fadeTo("slow", 1.00);
+	$("#SECI_indep").text("-");
+    $("#SECI_obj").text("1");
+	$("#SCI").fadeTo("slow", 1.00);
+	$("#SCI_indep").text("-");
+    $("#SCI_obj").text("2");
+	$("#Problems").fadeTo("slow", 1.00);
+	$("#Problems_indep").text("-");
+    $("#Problems_obj").text("1");
+	$("#Configs").fadeTo("slow", 1.00);
+	$("#Configs_indep").text("-");
+    $("#Configs_obj").text("6");
+	$("#QA").fadeTo("slow", 1.00);
+	$("#QA_indep").text("3");
+    $("#QA_obj").text("2");
+	$("#SAS").fadeTo("slow", 1.00);
+	$("#SAS_indep").text("-");
+    $("#SAS_obj").text("1");
+  });
+  $("#levelC").click(function(){
+    $("#PSAC").fadeTo("slow", 1.00);
+	$("#PSAC_indep").text("-");
+    $("#PSAC_obj").text("6");
+	$("#SDP").fadeTo("slow", 1.00);
+    $("#SDP_indep").text("-");
+    $("#SDP_obj").text("4");
+	$("#SVP").fadeTo("slow", 1.00);
+	$("#SVP_indep").text("-");
+    $("#SVP_obj").text("4");
+	$("#SCMP").fadeTo("slow", 1.00);
+	$("#SCMP_indep").text("-");
+    $("#SCMP_obj").text("4");
+	$("#SQAP").fadeTo("slow", 1.00);
+	$("#SQAP_indep").text("-");
+    $("#SQAP_obj").text("4");
+	$("#SRS").fadeTo("slow", 1.00);
+	$("#SRS_indep").text("-");
+    $("#SRS_obj").text("1");
+	$("#SDS").fadeTo("slow", 1.00);
+	$("#SDS_indep").text("-");
+    $("#SDS_obj").text("1");
+	$("#SCS").fadeTo("slow", 1.00);
+	$("#SCS_indep").text("-");
+    $("#SCS_obj").text("1");
+	$("#SRD").fadeTo("slow", 1.00);
+	$("#SRD_indep").text("-");
+    $("#SRD_obj").text("2");
+	$("#SDD").fadeTo("slow", 1.00);
+	$("#SDD_indep").text("-");
+    $("#SDD_obj").text("3");
+	$("#Source").fadeTo("slow", 1.00);
+	$("#Source_indep").text("-");
+    $("#Source_obj").text("1");
+	$("#Executable").fadeTo("slow", 1.00);
+	$("#Executable_indep").text("-");
+    $("#Executable_obj").text("1");
+	$("#SVCP").fadeTo("slow", 1.00);
+	$("#SVCP_indep").text("-");
+    $("#SVCP_obj").text("6");
+	$("#SVR").fadeTo("slow", 1.00);
+	$("#SVR_indep").text("-");
+    $("#SVR_obj").text("33");
+	$("#SECI").fadeTo("slow", 1.00);
+	$("#SECI_indep").text("-");
+    $("#SECI_obj").text("1");
+	$("#SCI").fadeTo("slow", 1.00);
+	$("#SCI_indep").text("-");
+    $("#SCI_obj").text("2");
+	$("#Problems").fadeTo("slow", 1.00);
+	$("#Problems_indep").text("-");
+    $("#Problems_obj").text("1");
+	$("#Configs").fadeTo("slow", 1.00);
+	$("#Configs_indep").text("-");
+    $("#Configs_obj").text("6");
+	$("#QA").fadeTo("slow", 1.00);
+	$("#QA_indep").text("2");
+    $("#QA_obj").text("2");
+	$("#SAS").fadeTo("slow", 1.00);
+	$("#SAS_indep").text("-");
+    $("#SAS_obj").text("1");
+  });
+  $("#levelD").click(function(){
+    $("#PSAC").fadeTo("slow", 1.00);
+	$("#PSAC_indep").text("-");
+    $("#PSAC_obj").text("4");
+	$("#SDP").fadeTo("slow", 1.00);
+    $("#SDP_indep").text("-");
+    $("#SDP_obj").text("2");
+	$("#SVP").fadeTo("slow", 1.00);
+	$("#SVP_indep").text("-");
+    $("#SVP_obj").text("2");
+	$("#SCMP").fadeTo("slow", 1.00);
+	$("#SCMP_indep").text("-");
+    $("#SCMP_obj").text("2");
+	$("#SQAP").fadeTo("slow", 1.00);
+	$("#SQAP_indep").text("-");
+    $("#SQAP_obj").text("2");
+	$("#SRS").fadeTo("slow", 0.15);
+	$("#SRS_indep").text("-");
+    $("#SRS_obj").text("-");
+	$("#SDS").fadeTo("slow", 0.15);
+	$("#SDS_indep").text("-");
+    $("#SDS_obj").text("-");
+	$("#SCS").fadeTo("slow", 0.15);
+	$("#SCS_indep").text("-");
+    $("#SCS_obj").text("-");
+	$("#SRD").fadeTo("slow", 1.00);
+	$("#SRD_indep").text("-");
+    $("#SRD_obj").text("2");
+	$("#SDD").fadeTo("slow", 1.00);
+	$("#SDD_indep").text("-");
+    $("#SDD_obj").text("3");
+	$("#Source").fadeTo("slow", 1.00);
+	$("#Source_indep").text("-");
+    $("#Source_obj").text("1");
+	$("#Executable").fadeTo("slow", 1.00);
+	$("#Executable_indep").text("-");
+    $("#Executable_obj").text("1");
+	$("#SVCP").fadeTo("slow", 1.00);
+	$("#SVCP_indep").text("-");
+    $("#SVCP_obj").text("3");
+	$("#SVR").fadeTo("slow", 1.00);
+	$("#SVR_indep").text("-");
+    $("#SVR_obj").text("8");
+	$("#SECI").fadeTo("slow", 1.00);
+	$("#SECI_indep").text("-");
+    $("#SECI_obj").text("1");
+	$("#SCI").fadeTo("slow", 1.00);
+	$("#SCI_indep").text("-");
+    $("#SCI_obj").text("2");
+	$("#Problems").fadeTo("slow", 1.00);
+	$("#Problems_indep").text("-");
+    $("#Problems_obj").text("1");
+	$("#Configs").fadeTo("slow", 1.00);
+	$("#Configs_indep").text("-");
+    $("#Configs_obj").text("6");
+	$("#QA").fadeTo("slow", 1.00);
+	$("#QA_indep").text("2");
+    $("#QA_obj").text("-");
+	$("#SAS").fadeTo("slow", 1.00);
+	$("#SAS_indep").text("-");
+    $("#SAS_obj").text("1");
+  });
+  $("#levelE").click(function(){
+    $("#PSAC").fadeTo("slow", 1);
+	$("#PSAC_indep").text("-");
+    $("#PSAC_obj").text("-");
+	$("#SDP").fadeTo("slow", 0.15);
+    $("#SDP_indep").text("-");
+    $("#SDP_obj").text("-");
+	$("#SVP").fadeTo("slow", 0.15);
+	$("#SVP_indep").text("-");
+    $("#SVP_obj").text("-");
+	$("#SCMP").fadeTo("slow", 0.15);
+	$("#SCMP_indep").text("-");
+    $("#SCMP_obj").text("-");
+	$("#SQAP").fadeTo("slow", 0.15);
+	$("#SQAP_indep").text("-");
+    $("#SQAP_obj").text("-");
+	$("#SRS").fadeTo("slow", 0.15);
+	$("#SRS_indep").text("-");
+    $("#SRS_obj").text("-");
+	$("#SDS").fadeTo("slow", 0.15);
+	$("#SDS_indep").text("-");
+    $("#SDS_obj").text("-");
+	$("#SCS").fadeTo("slow", 0.15);
+	$("#SCS_indep").text("-");
+    $("#SCS_obj").text("-");
+	$("#SRD").fadeTo("slow", 0.15);
+	$("#SRD_indep").text("-");
+    $("#SRD_obj").text("-");
+	$("#SDD").fadeTo("slow", 0.15);
+	$("#SDD_indep").text("-");
+    $("#SDD_obj").text("-");
+	$("#Source").fadeTo("slow", 0.15);
+	$("#Source_indep").text("-");
+    $("#Source_obj").text("-");
+	$("#Executable").fadeTo("slow", 0.15);
+	$("#Executable_indep").text("-");
+    $("#Executable_obj").text("-");
+	$("#SVCP").fadeTo("slow", 0.15);
+	$("#SVCP_indep").text("-");
+    $("#SVCP_obj").text("-");
+	$("#SVR").fadeTo("slow", 0.15);
+	$("#SVR_indep").text("-");
+    $("#SVR_obj").text("-");
+	$("#SECI").fadeTo("slow", 0.15);
+	$("#SECI_indep").text("-");
+    $("#SECI_obj").text("-");
+	$("#SCI").fadeTo("slow", 0.15);
+	$("#SCI_indep").text("-");
+    $("#SCI_obj").text("-");
+	$("#Problems").fadeTo("slow", 0.15);
+	$("#Problems_indep").text("-");
+    $("#Problems_obj").text("-");
+	$("#Configs").fadeTo("slow", 0.15);
+	$("#Configs_indep").text("-");
+    $("#Configs_obj").text("-");
+	$("#QA").fadeTo("slow", 0.15);
+	$("#QA_indep").text("-");
+    $("#QA_obj").text("-");
+	$("#SAS").fadeTo("slow", 0.15);
+	$("#SAS_indep").text("-");
+    $("#SAS_obj").text("-");
+  });
+
+  $("#PSAC").click(function(){
+    $("#PSAC_flip").slideToggle("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SDP").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideToggle("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });	
+  $("#SVP").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideToggle("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SCMP").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideToggle("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SQAP").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideToggle("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SRS").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideToggle("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SDS").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideToggle("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SCS").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideToggle("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SRD").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideToggle("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SDD").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideToggle("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#Source").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideToggle("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#Executable").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideToggle("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SVCP").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideToggle("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SVR").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideToggle("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SECI").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideToggle("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SCI").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideToggle("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#Problems").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideToggle("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#Configs").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideToggle("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#QA").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideToggle("slow");
+	$("#SAS_flip").slideUp("slow");
+  });
+  $("#SAS").click(function(){
+    $("#PSAC_flip").slideUp("slow");
+	$("#SDP_flip").slideUp("slow");
+	$("#SVP_flip").slideUp("slow");
+	$("#SCMP_flip").slideUp("slow");
+	$("#SQAP_flip").slideUp("slow");
+	$("#SRS_flip").slideUp("slow");
+	$("#SDS_flip").slideUp("slow");
+	$("#SCS_flip").slideUp("slow");
+	$("#SRD_flip").slideUp("slow");
+	$("#SDD_flip").slideUp("slow");
+	$("#Source_flip").slideUp("slow");
+	$("#Executable_flip").slideUp("slow");
+	$("#SVCP_flip").slideUp("slow");
+	$("#SVR_flip").slideUp("slow");
+	$("#SECI_flip").slideUp("slow");
+	$("#SCI_flip").slideUp("slow");
+	$("#Problems_flip").slideUp("slow");
+	$("#Configs_flip").slideUp("slow");
+	$("#QA_flip").slideUp("slow");
+	$("#SAS_flip").slideToggle("slow");
+  });
+	
+});
+</script>
+</head>
+<body>
+
+<form>
+  <div id="radio">
+    <input type="radio" id="levelA" name="radio" /> <label for="levelA">Level A</label>
+    <input type="radio" id="levelB" name="radio" /> <label for="levelB">Level B</label>
+    <input type="radio" id="levelC" name="radio" /> <label for="levelC">Level C</label>
+	<input type="radio" id="levelD" name="radio" /> <label for="levelD">Level D</label>
+	<input type="radio" id="levelE" name="radio" /> <label for="levelE">Level E</label>
+  </div>
+</form>
+
+
+<style> 
+#PSAC,#SDP,#SVP,#SCMP,#SQAP,#SRS,#SDS,#SCS,#SRD,#SDD,#Source,#Executable,#SVCP,#SVR,#SECI,#SCI,#Problems,#Configs,#QA,#SAS,#PSAC_flip,#SDP_flip,#SVP_flip,#SCMP_flip,#SQAP_flip,#SRS_flip,#SDS_flip,#SCS_flip,#SRD_flip,#SDD_flip,#Source_flip,#Executable_flip,#SVCP_flip,#SVR_flip,#SECI_flip,#SCI_flip,#Problems_flip,#Configs_flip,#QA_flip,#SAS_flip
+{
+padding:1px;
+text-align:left;
+background-color:lightgrey;
+border:solid 1px black;
+}
+
+#PSAC_flip,#SDP_flip,#SVP_flip,#SCMP_flip,#SQAP_flip,#SRS_flip,#SDS_flip,#SCS_flip,#SRD_flip,#SDD_flip,#Source_flip,#Executable_flip,#SVCP_flip,#SVR_flip,#SECI_flip,#SCI_flip,#Problems_flip,#Configs_flip,#QA_flip,#SAS_flip 
+{
+text-align:center;
+padding:5px;
+display:none;
+border:solid 1px black;
+}
+
+#PSAC_indep,#SDP_indep,#SVP_indep,#SCMP_indep,#SQAP_indep,#SRS_indep,#SDS_indep,#SCS_indep,#SRD_indep,#SDD_indep,#Source_indep,#Executable_indep,#SVCP_indep,#SVR_indep,#SECI_indep,#SCI_indep,#Problems_indep,#Configs_indep,#QA_indep,#SAS_indep,#PSAC_obj,#SDP_obj,#SVP_obj,#SCMP_obj,#SQAP_obj,#SRS_obj,#SDS_obj,#SCS_obj,#SRD_obj,#SDD_obj,#Source_obj,#Executable_obj,#SVCP_obj,#SVR_obj,#SECI_obj,#SCI_obj,#Problems_obj,#Configs_obj,#QA_obj,#SAS_obj,#Heading
+{
+padding:1px;
+text-align:center;
+background-color:lightgrey;
+border:solid 1px black;
+}
+
+
+</style>
+</body>
+</html>
+
+<table style="width:100%">
+  <tr>
+    <td><div id="Heading">Deliverable</div></td>
+    <td><div id="Heading">Independent</div></td> 
+    <td><div id="Heading">Objectives</div></td>
+  </tr>
+
+  <tr>
+    <td><div id="PSAC">- Plan for Software Aspects of Certification (PSAC)</div></td>
+    <td><div id="PSAC_indep">-</div></td> 
+    <td><div id="PSAC_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="PSAC_flip">
+	The Plan for Software Aspects of Certification is the primary means used by the certification authority for determining whether an applicant is proposing a software life cycle that is commensurate with the rigor required for the level of software being developed.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SDP">- Software Development Plan (SDP)</div></td>
+    <td><div id="SDP_indep">-</div></td> 
+    <td><div id="SDP_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SDP_flip">
+	The Software Development Plan includes the objectives, standards and software life cycle(s) to be used in the software development processes.
+	</div>
+	</td>
+  </tr>
+
+
+  <tr>
+    <td><div id="SVP">- Software Verification Plan (SVP)</div></td>
+	<td><div id="SVP_indep">-</div></td> 
+    <td><div id="SVP_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SVP_flip">&#8220;The Software Verification Plan is a description of the verification procedures to satisfy the software verification process objectives.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SCMP">- Software Configuration Management Plan (SCMP)</div></td>
+	<td><div id="SCMP_indep">-</div></td> 
+    <td><div id="SCMP_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SCMP_flip">The Software Configuration Management Plan establishes the methods to be used to achieve the objectives of the software configuration management (SCM) process throughout the software life cycle.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SQAP">- Software Quality Assurance Plan (SQAP)</div></td>
+	<td><div id="SQAP_indep">-</div></td> 
+    <td><div id="SQAP_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SQAP_flip">The Software Quality Assurance Plan establishes the methods to be used to achieve the objectives of the software quality assurance (SQA) process. The SQA Plan may include descriptions of process improvement, metrics, and progressive management methods.
+    </div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SRS">- Software Requirements Standards (SRS)</div></td>
+	<td><div id="SRS_indep">-</div></td> 
+    <td><div id="SRS_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SRS_flip">The purpose of Software Requirements Standards is to define the methods, rules and tools to be used to develop the high-level requirements.
+    </div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SDS">- Software Design Standards (SDS)</div></td>
+	<td><div id="SDS_indep">-</div></td> 
+    <td><div id="SDS_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SDS_flip">The purpose of Software Design Standards is to define the methods, rules and tools to be used to develop the software architecture and low-level requirements.
+    </div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SCS">- Software Code Standards	(SCS)</div></td>
+	<td><div id="SCS_indep">-</div></td> 
+    <td><div id="SCS_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SCS_flip">The purpose of the Software Code Standards is to define the programming languages, methods, rules and tools to be used to code the software.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SRD">- Software Requirements Data (SRD)</div></td>
+	<td><div id="SRD_indep">-</div></td> 
+    <td><div id="SRD_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SRD_flip">Software Requirements Data is a definition of the high-level requirements including the derived requirements.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SDD">- Software Design Description (SDD)</div></td>
+	<td><div id="SDD_indep">-</div></td> 
+    <td><div id="SDD_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SDD_flip">The Design Description is a definition of the software architecture and the low-level requirements that will satisfy the software high-level requirements.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="Source">- Source Code</div></td>
+	<td><div id="Source_indep">-</div></td> 
+    <td><div id="Source_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="Source_flip">This data consists of code written in source language(s) and the compiler instructions for generating the object code from the Source Code, and linking and loading data. This data should include the software identification, including the name and date of revision and/or version, as applicable.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="Executable">- Executable Object Code</div></td>
+	<td><div id="Executable_indep">-</div></td> 
+    <td><div id="Executable_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="Executable_flip">The Executable Object Code consists of a form of Source Code that is directly usable by the central processing unit of the target computer and is, therefore, the software that is loaded into the hardware or system.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SVCP">- Software Verification Cases and Procedures (SVCP)</div></td>
+	<td><div id="SVCP_indep">-</div></td> 
+    <td><div id="SVCP_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SVCP_flip">Software Verification Cases and Procedures detail how the software verification process activities are implemented.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SVR">- Software Verification Results (SVR)</div></td>
+	<td><div id="SVR_indep">-</div></td> 
+    <td><div id="SVR_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SVR_flip">The Software Verification Results are produced by the software verification process activities.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SECI">- Software Life Cycle Environment Configuration Index (SECI)</div></td>
+	<td><div id="SECI_indep">-</div></td> 
+    <td><div id="SECI_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SECI_flip">The Software Life Cycle Environment Configuration Index (SECI) identifies the configuration of the software life cycle environment. This index is written to aid reproduction of the hardware and software life cycle environment, for software regeneration, reverification, or software modification.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SCI">- Software Configuration Index (SCI)</div></td>
+	<td><div id="SCI_indep">-</div></td> 
+    <td><div id="SCI_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SCI_flip">The Software Configuration Index (SCI) identifies the configuration of the software product.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="Problems">- Problem Reports</div></td>
+	<td><div id="Problems_indep">-</div></td> 
+    <td><div id="Problems_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="Problems_flip">Problem reports are a means to identify and record the resolution to software product anomalous behavior, process non-compliance with software plans and standards, and deficiencies in software life cycle data.
+	</div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="Configs">- Software Configuration Management Records</div></td>
+	<td><div id="Configs_indep">-</div></td> 
+    <td><div id="Configs_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="Configs_flip">The results of the SCM process activities are recorded in SCM Records. Examples include configuration identification lists, baseline or software library records, change history reports, archive records, and release records.
+    </div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="QA">- Software Quality Assurance Records</div></td>
+	<td><div id="QA_indep">-</div></td> 
+    <td><div id="QA_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="QA_flip">The results of the SQA process activities are recorded in SQA Records. These may include SQA review or audit reports, meeting minutes, records of authorized process deviations, or software conformity review records.
+    </div>
+	</td>
+  </tr>
+
+  <tr>
+    <td><div id="SAS">- Software Accomplishment Summary (SAS)</div></td>
+	<td><div id="SAS_indep">-</div></td> 
+    <td><div id="SAS_obj">-</div></td>
+  </tr>
+  <tr>
+	<td colspan="3">
+	<div id="SAS_flip">The Software Accomplishment Summary is the primary data item for showing compliance with the Plan for Software Aspects of Certification.
+    </div>
+	</td>
+  </tr>
+</table>
+
+<p><br />
+That’s a lot of dead trees…</p>
+
+<p>An objective is typically something like the “Software development standards are defined” or “High level requirements are verifiable”. So it is still fairly open for interpretation by the developers and the certification body. I’ll go into more detail of each objective when considering how DO-178 can be made more <a href="http://embeddedfool.net/blog/2015/01/12/a-more-agile-do-178/">agile</a>. (Observant readers will notice the total objectives does not equal those reported in the criticality table, that is because some objectives has to be included in multiple documents and so I counted them twice).</p>
+
+<p>Where objectives are marked independent, it means an independent authority has to verify conformance. For this purpose quite a few consultants in the business earn their keep by evaluating compliance independently.</p>
+
+<h2>Software development process</h2>
+<p>DO-178B prescribes the following software development process:</p>
+
+<ul>
+  <li>Software requirements process</li>
+  <li>Software design process</li>
+  <li>Software development process</li>
+  <li>Integration process</li>
+</ul>
+
+<p>Typically for DO-178B this is implemented through the <a href="http://en.wikipedia.org/wiki/V-Model_%28software_development%29">V-model</a> in systems engineering, also somewhat equivalent to the <a href="http://en.wikipedia.org/wiki/Waterfall_model">waterfall method</a> in software development. </p>
+
+<p>(Note this is nowhere specified in the DO-178 specification, but is what I have typically observed happens on DO-178 projects).</p>
+
+<p><img class="center" src="http://embeddedfool.net/images/vee_plot.png" width="600" /></p>
+
+<h4>Traceability</h4>
+<p>Traceability’s purpose is two-fold. First is to make sure the design takes into account all the requirements set for the project. Requirements which has not been taken into account by the design are called childless requirements.</p>
+
+<p>Traceability analysis must also make sure there are no additional and unneeded requirements introduced during design, as these would unnecessarily escalate the development costs. These are called orphan requirements. But it is understood that some requirements may be derived from the design decisions made and is thus not traceable to the user requirements. These additional requirements must be taken into consideration when analyzing their safety effects on the system.   </p>
+
+<p>For these reasons most of the documentation listed above will contain a traceability matrix towards the end of the document, indicating the parent of each requirement.</p>
+
+<h4>Verification</h4>
+<p>Verification is concerned with if the development is being implemented correctly according to the design, and if the integration is done correctly as designed and developed i.e. “Are we building this correctly”</p>
+
+<p>Verification for DO-178B consists of two steps, namely requirements based coverage analysis where it is checked that all requirements are satisfied and tested, and also structural coverage analysis where it is checked that during testing all code paths are executed, so there is no untested code in the final product.</p>
+
+<p>Lastly as part of the verification process DO-178B requires that no dead code be present in the final binary and that de-activated code (perhaps code used in another configuration of the product) cannot be accidentally executed.</p>
+
+<p>For these reasons code coverage tests is required for the various levels in DO-178:</p>
+
+<ul>
+  <li>Level A requires <a href="http://en.wikipedia.org/wiki/Modified_condition/decision_coverage">Modified Condition Decision Coverage (MCDC)</a></li>
+  <li>Level B requires decision coverage.</li>
+  <li>Level C requires coverage of dependencies.</li>
+  <li>Level D and E requires no code coverage verification.</li>
+</ul>
+
+<h4>Validation</h4>
+<p>Validation is concerned with if the final product satisfies the intended use of the product i.e. “Did we build the right thing” or “Does this product actually work”. Sometimes this is not the case.</p>
+
+<h2>Odds and ends</h2>
+<p>DO-178B does not mandate the development process to be followed, but does focus quite a bit on the supporting functions to the development process. These include configuration management, quality assurance, certification liaison and software verification.</p>
+
+<p>DO-178B lists two control categories according to which every deliverable must be configured. Control category 1 has for instance requirements such as “Protection against unauthorized changes”, “Change review” etc. Control category 2 is a relaxed list of Control category 1. As such Level A certification mandates more items be configured according to the requirements of Control Category 1, whereas the lower levels allows more items under Control Category 2. Control Category 1 can be a real pain in the …</p>
+
+<p>DO-178B also focuses quite a bit on the reproducibility of the executable from the source code and ensuring its correctness. As such any tools used to produce the executable should be under configuration management, and if possible the tools (such as the compiler) should also be DO-178 certified. This also applies to off the shelve software components used with the developed software, and is the reason you get some DO-178 certified RTOS (real time operating systems) these days. Good luck getting a DO-178 certified compiler though… </p>
+
+<p>Where these tools and off the shelve components do not conform to DO-178 requirements, a gap analysis should be done to determine the effort that would be required in certifying the tool or off the shelve software to DO-178. A great many times it is determined to be cheaper to develop the functionality of the tool or software component in house than to attempt to certify the already existing item.</p>
+
+<h4>A word about documentation conventions</h4>
+
+<p>DO-178B does not specify the documentation standard to be followed, but most projects do follow some or other documentation standard. The following figure is loosely based on <a href="http://en.wikipedia.org/wiki/MIL-STD-498">MIL-STD-490A</a>, although sometimes “Detail design” and “Notes” are changed into some other topic of discussion.</p>
+
+<p><img class="center" src="http://embeddedfool.net/images/documents.png" width="600" /></p>
+
+<p>In the documentation, especially when talking about requirements and specifications, certain words convey additional meaning apart from their linguistic use. These words are usually capitalized.</p>
+
+<p><strong><em>SHALL</em></strong> and <strong><em>SHALL</em> <em>NOT</em></strong> - Indicates a mandatory requirement.</p>
+
+<p><strong><em>WILL</em></strong> and <strong><em>WILL NOT</em></strong> - Indicates a declaration of purpose or an expression of simple futurity.</p>
+
+<p><strong><em>SHOULD</em></strong> and <strong><em>SHOULD NOT</em></strong> - Indicates a non-mandatory desire, preference or recommendation.</p>
+
+<p><strong><em>MAY</em></strong> and <strong><em>MAY NOT</em></strong> - Indicates a non-mandatory suggestion or permission.</p>
+
+<p><strong><em>MUST</em></strong> and <strong><em>MUST NOT</em></strong> should be avoided as it causes confusion with the above terms. </p>
+
+<p>That concludes this overview of DO-178B. It is certainly not an exhaustive analysis of DO-178B, for that you might just as well read the specification, but should prove sufficient to get students started implementing a DO-178 certified project.</p>
+
+<p>If I have missed anything or you would like to make a suggestion, kindly do so at the discussion on [HN] and [reddit]. Comments and suggestions are very welcome.</p>
+
+<p>I will be drilling more into DO-178, especially the 66 objectives mentioned earlier in my post <a href="">A more agile DO-178 (TBC)</a>. Stay tuned. </p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Slow Bugs]]></title>
