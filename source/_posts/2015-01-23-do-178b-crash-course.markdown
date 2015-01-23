@@ -1181,6 +1181,6 @@ In the documentation, especially when talking about requirements and specificati
 
 That concludes this overview of DO-178B. It is certainly not an exhaustive analysis of DO-178B, for that you might just as well read the specification, but should prove sufficient to get students started implementing a DO-178 certified project.
 
- If I have missed anything or you would like to make a suggestion, kindly do so at the discussion on [HN] and [reddit]. Comments and suggestions are very welcome.
+ If I have missed anything or you would like to make a suggestion, kindly do so at the discussion on [HN](https://news.ycombinator.com/item?id=8937549) and [reddit](http://www.reddit.com/r/programming/comments/2tg71e/do178b_crash_course/). Comments and suggestions are very welcome.
 
 I will be drilling more into DO-178, especially the 66 objectives mentioned earlier in my post [A more agile DO-178 (TBC)](). Stay tuned. 
