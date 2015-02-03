@@ -13,8 +13,8 @@ def main():
     #VeeModel()
     #testProbPlots()
     #docPlots()
-    agilePyramid()
-    #scrum()
+    #agilePyramid()
+    scrum()
     #kanban()
 
     pass
@@ -63,7 +63,7 @@ def scrum():
     ax.arrow(2.5, 2.9, 0, -0.15, head_width=0.05, head_length=0.1, fc='k', ec='k')
 
     drawDecision(ax, 2.5, 2.5)
-    pl.text(2.4, 2.5, 'Scrum done?\n2-4 weeks',
+    pl.text(2.4, 2.5, 'Sprint done?\n2-4 weeks',
             horizontalalignment='right', verticalalignment='center')
     pl.text(2.6, 2.6, 'No',
             horizontalalignment='left', verticalalignment='center')
