@@ -60,4 +60,4 @@ So Scrum and Kanban relies on certain agile best practices to really succeed, an
 
 Ok so back to my initial question, at what point can it be said a team is agile? Is it only necessary that the spirit of agile is followed (agile manifesto), or only when the entire pyramid is in effect?
 
-Please join the discussion at [HN]() and [reddit](). Comments are very welcome.
+Please join the discussion at [HN](https://news.ycombinator.com/item?id=8993760) and [reddit](https://www.reddit.com/r/programming/comments/2uoo15/when_is_a_team_agile/). Comments are very welcome.
