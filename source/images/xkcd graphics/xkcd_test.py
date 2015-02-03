@@ -12,7 +12,238 @@ import math
 def main():
     #VeeModel()
     #testProbPlots()
-    docPlots()
+    #docPlots()
+    agilePyramid()
+    #scrum()
+    #kanban()
+
+    pass
+
+def kanban():
+    np.random.seed(0)
+    ax = pl.axes()
+    ax.set_autoscale_on(False)
+    drawkanbanboard(ax)
+    pl.text(2.5, 3.8, 'To do',
+            horizontalalignment='center', verticalalignment='center')
+    pl.text(3.5, 3.8, 'Doing',
+            horizontalalignment='center', verticalalignment='center')
+    pl.text(4.5, 3.8, 'Done',
+            horizontalalignment='center', verticalalignment='center')
+    XKCDify(ax, xaxis_loc=-1, yaxis_loc=-1,
+        xaxis_arrow='', yaxis_arrow='',
+        expand_axes=True)
+    pl.ylim([1.8,4.2])
+    pl.xlim([1.8,5.2])
+    pl.show()
+
+def scrum():
+    np.random.seed(0)
+    ax = pl.axes()
+    ax.set_autoscale_on(False)
+
+    drawbacklog(ax)
+
+    # plt.arrow(1.05, 3.05, 0, 0.9, head_width=0, head_length=0, color = 'grey')
+    # plt.arrow(1.05, 3.95, 2.9, 0, head_width=0, head_length=0, color = 'grey')
+    # plt.arrow(3.95, 3.95, 0, -0.9, head_width=0, head_length=0, color = 'grey')
+    # plt.arrow(3.95, 3.05, -2.9, 0, head_width=0, head_length=0, color = 'grey')
+
+
+    pl.text(2.5, 4, 'Create backlog',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(2.5, 3.9, 0, -0.2, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    pl.text(2.5, 3.5, 'Sprint planning',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(2.5, 3.4, 0, -0.2, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    pl.text(2.5, 3, 'Daily scrum',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(2.5, 2.9, 0, -0.15, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    drawDecision(ax, 2.5, 2.5)
+    pl.text(2.4, 2.5, 'Scrum done?\n2-4 weeks',
+            horizontalalignment='right', verticalalignment='center')
+    pl.text(2.6, 2.6, 'No',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(2.55, 2.3, 'Yes',
+            horizontalalignment='left', verticalalignment='center')
+    ax.arrow(2.5, 2.35, 0, -0.15, head_width=0.05, head_length=0.1, fc='k', ec='k')
+    ax.arrow(2.6, 2.5, 1, 0, head_width=0.00, head_length=0.0, fc='k', ec='k')
+    ax.arrow(3.6, 2.5, 0, 0.5, head_width=0.00, head_length=0.0, fc='k', ec='k')
+    ax.arrow(3.6, 3, -0.5, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    pl.text(2.5, 2, 'Sprint review',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(2.5, 1.9, 0, -0.2, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    pl.text(2.5, 1.5, 'Shippable code',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(2.5, 1.4, 0, -0.15, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    drawDecision(ax, 2.5, 1)
+    pl.text(2.4, 1, 'Project done?',
+            horizontalalignment='right', verticalalignment='center')
+    pl.text(2.6, 1.1, 'No',
+            horizontalalignment='left', verticalalignment='center')
+    ax.arrow(2.5, 0.85, 0, -0.15, head_width=0.05, head_length=0.1, fc='k', ec='k')
+    ax.arrow(2.6, 1, 1.4, 0, head_width=0.00, head_length=0.0, fc='k', ec='k')
+    ax.arrow(4, 1, 0, 2.25, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+
+    pl.text(2.5, 0.4, 'Yes, throw a party\n(or everybody is fired...)',
+            horizontalalignment='center', verticalalignment='center')
+
+    drawDecision(ax, 4, 3.5)
+    ax.arrow(3.9, 3.5, -0.6, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
+    ax.arrow(4, 3.65, 0, 0.35, head_width=0.00, head_length=0.0, fc='k', ec='k')
+    ax.arrow(4, 4, -0.7, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    pl.text(4.1, 3.5, 'Did the \nproject\npriorities\nchange?',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(3.9, 3.4, 'No',
+            horizontalalignment='right', verticalalignment='center')
+    pl.text(3.9, 3.9, 'Yes',
+            horizontalalignment='right', verticalalignment='center')
+
+    XKCDify(ax, xaxis_loc=-1, yaxis_loc=-1,
+        xaxis_arrow='', yaxis_arrow='',
+        expand_axes=True)
+    pl.ylim([0,4.2])
+    pl.xlim([0,5.2])
+    pl.show()
+
+def drawDecision(ax, x, y):
+    sz = 0.1
+    ax.arrow(x, y-sz, sz/2, sz, head_width=0.00, head_length=0.0, fc='k', ec='k')
+    ax.arrow(x+sz/2, y, -sz/2, sz, head_width=0.00, head_length=0.0, fc='k', ec='k')
+    ax.arrow(x, y+sz, -sz/2, -sz, head_width=0.00, head_length=0.0, fc='k', ec='k')
+    ax.arrow(x-sz/2, y, sz/2, -sz, head_width=0.00, head_length=0.0, fc='k', ec='k')
+
+def drawsprintcard(ax, x,y):
+    sz = 0.2
+    plt.plot((x, x+sz), (y, y), color = 'grey')
+    plt.plot((x, x), (y, y+sz), color = 'grey')
+    plt.plot((x, x+sz), (y+sz, y+sz), color = 'grey')
+    plt.plot((x+sz, x+sz), (y, y+sz), color = 'grey')
+    drawScribble(ax, x + 0.05, y + 0.05, 0.1)
+    drawScribble(ax, x + 0.05, y + 0.1 ,0.07)
+
+def drawbacklog(ax):
+    plt.plot((0.2, 0.2), (2.2, 4), color = 'black')
+    plt.plot((0.2, 1), (2.2, 2.2), color = 'black')
+    plt.plot((0.2, 1), (4, 4), color = 'black')
+    plt.plot((1, 1), (2.2, 4), color = 'black')
+    drawScribble(ax, 0.25, 3.9, 0.6)
+    drawScribble(ax, 0.25, 3.8, 0.7)
+    drawScribble(ax, 0.25, 3.7, 0.4)
+    drawScribble(ax, 0.25, 3.6, 0.3)
+    drawScribble(ax, 0.25, 3.5, 0.7)
+    drawScribble(ax, 0.25, 3.4, 0.2)
+    drawScribble(ax, 0.25, 3.3, 0.7)
+    drawScribble(ax, 0.25, 3.2, 0.6)
+    drawScribble(ax, 0.25, 3.1, 0.7)
+    drawScribble(ax, 0.25, 3.0, 0.4)
+    drawScribble(ax, 0.25, 2.9, 0.3)
+    drawScribble(ax, 0.25, 2.8, 0.7)
+    drawScribble(ax, 0.25, 2.7, 0.2)
+    drawScribble(ax, 0.25, 2.6, 0.7)
+
+    drawScribble(ax, 0.25, 3.9, 0.02)
+    drawScribble(ax, 0.25, 3.8, 0.02)
+    drawScribble(ax, 0.25, 3.7, 0.02)
+    drawScribble(ax, 0.25, 3.6, 0.02)
+    drawScribble(ax, 0.25, 3.5, 0.02)
+    drawScribble(ax, 0.25, 3.4, 0.02)
+    drawScribble(ax, 0.25, 3.3, 0.02)
+    drawScribble(ax, 0.25, 3.2, 0.02)
+    drawScribble(ax, 0.25, 3.1, 0.02)
+    drawScribble(ax, 0.25, 3.0, 0.02)
+    drawScribble(ax, 0.25, 2.9, 0.02)
+    drawScribble(ax, 0.25, 2.8, 0.02)
+    drawScribble(ax, 0.25, 2.7, 0.02)
+    drawScribble(ax, 0.25, 2.6, 0.02)
+
+def drawkanbanboard(ax):
+    plt.plot((2, 2), (3, 4), color = 'black')
+    plt.plot((2, 5), (4, 4), color = 'black')
+    plt.plot((5, 5), (4, 3), color = 'black')
+    plt.plot((5, 2), (3, 3), color = 'black')
+
+    plt.plot((3, 3), (4, 3), color = 'black')
+    plt.plot((4, 4), (4, 3), color = 'black')
+
+    drawsprintcard(ax, 2.1, 3.1)
+    drawsprintcard(ax, 2.4, 3.1)
+    drawsprintcard(ax, 2.1, 3.4)
+
+    drawsprintcard(ax, 3.1, 3.1)
+    drawsprintcard(ax, 3.4, 3.4)
+    drawsprintcard(ax, 3.7, 3.1)
+
+    drawsprintcard(ax, 4.7, 3.4)
+
+def agilePyramid():
+    np.random.seed(0)
+    ax = pl.axes([0., 0., 3., 3.], frameon=False, xticks=[],yticks=[])
+    ax.set_autoscale_on(False)
+
+    x = np.linspace(0, 0.025, 50)
+    ax.plot(x, x, 'black', lw=1)
+    x = np.linspace(0.14, 0.45, 50)
+    ax.plot(x, x, 'black', lw=1)
+    x = np.linspace(0.55, 1, 50)
+    ax.plot(x, x, 'black', lw=1)
+
+    x = np.linspace(1, 1.45, 50)
+    ax.plot(x, 2 - x, 'black', lw=1)
+    x = np.linspace(1.55, 1.89, 50)
+    ax.plot(x, 2 - x, 'black', lw=1)
+
+    x = np.linspace(0, 0.65, 50)
+    ax.plot(x, np.zeros(50), 'black', lw=1)
+    x = np.linspace(1.34, 1.81, 50)
+    ax.plot(x, np.zeros(50), 'black', lw=1)
+
+    pl.text(0.5, 0.9, 'Agile\nmanifesto',
+            horizontalalignment='center', verticalalignment='center', transform = ax.transAxes)
+
+    pl.text(0.3, 0.5, 'Scrum',
+            horizontalalignment='center', verticalalignment='center', transform = ax.transAxes)
+    pl.text(0.7, 0.5, 'Kanban',
+            horizontalalignment='center', verticalalignment='center', transform = ax.transAxes)
+
+    pl.text(0.1, 0.20, 'Continuous\nIntegration',
+            horizontalalignment='center', verticalalignment='center', transform = ax.transAxes)
+    pl.text(0.1, 0.10, 'Continuous\nDeployment',
+            horizontalalignment='center', verticalalignment='center', transform = ax.transAxes)
+
+    pl.text(0.9, 0.20, 'F/T/B',
+            horizontalalignment='center', verticalalignment='center', transform = ax.transAxes)
+    pl.text(0.9, 0.15, 'Driven',
+            horizontalalignment='center', verticalalignment='center', transform = ax.transAxes)
+    pl.text(0.9, 0.10, 'Development',
+            horizontalalignment='center', verticalalignment='center', transform = ax.transAxes)
+
+    pl.text(0.5, 0.2, 'Pair programming',
+            horizontalalignment='center', verticalalignment='center', transform = ax.transAxes)
+    pl.text(0.5, 0.15, 'Code refactoring',
+            horizontalalignment='center', verticalalignment='center', transform = ax.transAxes)
+    pl.text(0.5, 0.1, 'Velocity tracking',
+            horizontalalignment='center', verticalalignment='center', transform = ax.transAxes)
+
+    # pl.text(0.5, 0.5,'matplotlib',
+    #  horizontalalignment='center',
+    #  verticalalignment='center',
+    #  transform = ax.transAxes)
+
+    XKCDify(ax, xaxis_loc=-1, yaxis_loc=-1,
+        xaxis_arrow='', yaxis_arrow='',
+        expand_axes=True)
+    pl.ylim([-0.2,1.2])
+    pl.xlim([-0.2,2.2])
+    pl.show()
     pass
 
 def docPlots():
