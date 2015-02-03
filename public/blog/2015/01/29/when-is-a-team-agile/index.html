@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>When Is a Team Agile? - Kobus&#8217; musings</title>
+  <meta name="author" content="Kobus Coetzee">
+
+  
+  <meta name="description" content="Background
+This post serves as part of study on the effectiveness of the DO-178B certification in achieving correctness of implementation and safety &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://embeddedfool.net/blog/2015/01/29/when-is-a-team-agile">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Kobus' musings" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-58516605-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Kobus&#8217; musings</a></h1>
+  
+    <h2>The ramblings of an embedded fool.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:embeddedfool.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/credits">Credits</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">When Is a Team Agile?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-01-29T13:30:37+02:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:30 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Background</h2>
+<p>This post serves as part of study on the effectiveness of the DO-178B certification in achieving correctness of implementation and safety guarantees in the presence of incomplete requirements, feature creep and complex technology stacks, also known as your typical software project.</p>
+
+<p>If you are currently; or in the past have worked on DO-178 projects, it would be appreciated if you would be so kind as to <a href="https://www.surveymonkey.com/s/SV9KX7M">take part in a survey</a> about the state of DO-178 development.</p>
+
+<p>One of the challenges in defining a more agile DO-178 process, is proving that the process is actually agile. Proving it conforms to DO-178 is easy, there is an entire specification written for that, but agile…hmmm.  </p>
+
+<h2>So what is agile?</h2>
+<p>What a question…the software development world is a buzz with agile this and agile that, but ask any practitioner of agile software development this question, and you’ll invariably get a different answer from <a href="http://www.cio.com/article/2385322/agile-development/why-agile-isn-t-working--bringing-common-sense-to-agile-principles.html">each</a> and <a href="http://www.allaboutagile.com/category/10-key-principles-of-agile/">every</a> one of <a href="http://pragdave.me/blog/2014/03/04/time-to-kill-agile/">them.</a></p>
+
+<p>So to ask the question, lets first frame what I mean with agile. In my mind, agile can be seen to exist on three tiers, let’s call it the agile pyramid if you will. </p>
+
+<p><img class="center" src="/images/agile_pyramid.png" width="600" /></p>
+
+<h4>Tier 1- Philosophy</h4>
+<p>First tier is the <a href="http://www.agilemanifesto.org/">agile manifesto</a>, where it all began off course. The manifesto states:</p>
+
+<ul>
+  <li><em>Individuals and interactions over processes and tools</em></li>
+  <li><em>Working software over comprehensive documentation</em></li>
+  <li><em>Customer collaboration over contract negotiation</em></li>
+  <li><em>Responding to change over following a plan</em> </li>
+</ul>
+
+<p>The agile manifesto also talks about twelve principles of agile, but I think the above four statements captures the intention well enough.</p>
+
+<p>Now the manifesto sounds great and all, but it doesn’t give you much of an example to work with on how to run an agile project. Fortunately shortly after the manifesto Kent Beck lead a <a href="http://en.wikipedia.org/wiki/Chrysler_Comprehensive_Compensation_System">software project</a> that has been studied quite a bit, and gave rise to <a href="http://en.wikipedia.org/wiki/Extreme_programming">Extreme Programming (XP)</a>. But extreme programming was a little bit too extreme for some, and besides, project managers still didn’t have much of a clue about how this agile thing works exactly anyway, which leads us to our next tier in the pyramid.</p>
+
+<h4>Tier 2- Project management</h4>
+
+<p>In order to formalize what agile software development is exactly, legions of consultants sprang up to <a href="http://www.thoughtworks.com/talks/the-death-of-agile">teach these projects managers and their programmers</a>. What came forth was the leading agile development methodology, Scrum, but also Kanban. </p>
+
+<p><img class="center" src="/images/scrum.png" width="600" /></p>
+
+<p>Ok so scrum is a daily ritual of scrum masters, stand up meetings, user stories, time limits and velocity tracking. Oh and Kanban boards.</p>
+
+<p><img class="center" src="/images/kanban.png" width="600" />  </p>
+
+<p>So what is the difference between Scrum and Kanban? Well, not much, except Scrum could be described as the anal retentive cousin of Kanban. For where scrum has roles, time limits, velocity tracking, daily meetings, scrum masters etc, Kanban has none, just a board and a team.  (Ok I might just have started a religious war, don’t take this stuff too seriously).</p>
+
+<h4>Tier 3- Best practices</h4>
+
+<p>So Scrum and Kanban relies on certain agile best practices to really succeed, and if you really get down to it, this can become a very long list. I’ve listed the most important ones for my purposes (agile DO-178), but there are many more:</p>
+
+<ul>
+  <li><a href="http://en.wikipedia.org/wiki/Continuous_integration">Continuous integration</a></li>
+  <li><a href="http://en.wikipedia.org/wiki/Continuous_delivery">Continuous deployment</a></li>
+  <li><a href="http://en.wikipedia.org/wiki/Pair_programming">Pair programming</a></li>
+  <li>Regular code refactoring</li>
+  <li><a href="http://en.wikipedia.org/wiki/Velocity_%28software_development%29">Velocity tracking</a></li>
+  <li><a href="http://en.wikipedia.org/wiki/Feature-driven_development">Feature driven development</a></li>
+  <li><a href="http://en.wikipedia.org/wiki/Test-driven_development">Test driven development</a></li>
+  <li><a href="http://en.wikipedia.org/wiki/Behavior-driven_development">Behaviour driven development</a></li>
+</ul>
+
+<p>Ok so back to my initial question, at what point can it be said a team is agile? Is it only necessary that the spirit of agile is followed (agile manifesto), or only when the entire pyramid is in effect?</p>
+
+<p>Please join the discussion at <a href="">HN</a> and <a href="">reddit</a>. Comments are very welcome.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Kobus Coetzee</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-01-29T13:30:37+02:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:30 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://embeddedfool.net/blog/2015/01/29/when-is-a-team-agile/" data-via="" data-counturl="http://embeddedfool.net/blog/2015/01/29/when-is-a-team-agile/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/01/23/do-178b-crash-course/" title="Previous Post: DO-178B crash course">&laquo; DO-178B crash course</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/29/when-is-a-team-agile/">When Is a Team Agile?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/23/do-178b-crash-course/">DO-178B Crash Course</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/27/slow-bugs/">Slow Bugs</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Kobus Coetzee -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
+
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$']],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  messageStyle: "none",
+  "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
