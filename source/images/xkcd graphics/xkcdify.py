@@ -86,7 +86,7 @@ def xkcd_line(x, y, xlim=None, ylim=None,
     dist = np.sqrt(dx * dx + dy * dy)
 
     # create a filtered perturbation
-    coeffs = mag * np.random.normal(0, 0.01, len(x_int) - 2)
+    coeffs = mag * np.random.normal(0, 0.02, len(x_int) - 2)
     b = signal.firwin(f1, f2 * dist_tot, window=('kaiser', f3))
     response = signal.lfilter(b, 1, coeffs)
 
@@ -191,11 +191,11 @@ def XKCDify(ax, mag=1.0,
         line.set_data(x_int, y_int)
 
         # don't add background line for axes
-        if (line is not xaxis) and (line is not yaxis):
-            line_bg = pl.Line2D(x_int, y_int, color=bgcolor,
-                                linewidth=8 * lw)
-
-            ax.add_line(line_bg)
+        # if (line is not xaxis) and (line is not yaxis):
+        #     line_bg = pl.Line2D(x_int, y_int, color=bgcolor,
+        #                         linewidth=8 * lw)
+        #
+        #     ax.add_line(line_bg)
         ax.add_line(line)
 
     # Draw arrow-heads at the end of axes lines
