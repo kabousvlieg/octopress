@@ -23,7 +23,7 @@ def main():
     #agileWaterfallSpectrum()
     #agileSetup()
     #testPyramid()
-    agileWaterfallTeamActivities()
+    #agileWaterfallTeamActivities()
     #alternativeEskom()
     pass
 
@@ -101,60 +101,155 @@ def agileWaterfallTeamActivities():
 
     ax.plot((4, 4), (0, 4), color = 'black')
 
-    pl.text(1, 4.15, 'Waterfall',
+    pl.text(2, 4.15, 'Waterfall',
             horizontalalignment='center', verticalalignment='center')
-    ax.plot((0.4, 1.60), (4.05, 4.05), color = 'black')
-    pl.text(7, 4.15, 'Agile',
+    ax.plot((1.4, 2.60), (4.05, 4.05), color = 'black')
+    pl.text(6, 4.15, 'Agile',
             horizontalalignment='center', verticalalignment='center')
-    ax.plot((6.7, 7.3), (4.05, 4.05), color = 'black')
-
-    ax.plot((-0.1, -0.1), (3.9, 0), color = 'black')
+    ax.plot((5.7, 6.3), (4.05, 4.05), color = 'black')
 
     pl.text(0.1, 3.9, 'Requirements gathering',
             horizontalalignment='left', verticalalignment='center')
     pl.text(0.1, 3.7, 'Write specification (SRD)',
             horizontalalignment='left', verticalalignment='center')
-    pl.text(0.1, 3.5, '(Client approves SRD?)',
+    pl.text(0.1, 3.5, 'Client approves SRD?',
             horizontalalignment='left', verticalalignment='center', color = "blue")
     ax.plot((-0.1, 0), (3.9, 3.9), color = 'black')
     ax.plot((-0.1, 0), (3.7, 3.7), color = 'black')
     ax.plot((-0.1, 0), (3.5, 3.5), color = 'black')
+    ax.plot((-0.1, -0.1), (3.9, 3.5), color = 'black')
     ax.arrow(-0.1, 3.5, 0.08, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
 
-    pl.text(0, 3.20, 'Write PSAC and SDP',
+    pl.text(0.1, 3.2, 'Write PSAC and SDP',
             horizontalalignment='left', verticalalignment='center')
-    pl.text(0, 3.0, '(CA approves PSAC and SDP?)',
+    pl.text(0.1, 3.0, 'CA approves PSAC and SDP?',
             horizontalalignment='left', verticalalignment='center', color = "blue")
-    pl.text(0, 2.7, 'Write Low level requirements',
-            horizontalalignment='left', verticalalignment='center')
-    pl.text(0, 2.5, 'Write Design documentation',
-            horizontalalignment='left', verticalalignment='center')
-    pl.text(0, 2.3, '(Client approves design?)',
-            horizontalalignment='left', verticalalignment='center', color = "blue")
-    pl.text(0, 2.1, 'Write Code',
-            horizontalalignment='left', verticalalignment='center')
-    pl.text(0, 2.2, 'Write SVCP',
-            horizontalalignment='left', verticalalignment='center')
-    pl.text(0, 2.0, '(Development done?)',
-            horizontalalignment='left', verticalalignment='center', color = "blue")
-    pl.text(0, 1.85, 'Testing / Write SVR',
-            horizontalalignment='left', verticalalignment='center')
-    pl.text(0, 1.7, 'Code reviews',
-            horizontalalignment='left', verticalalignment='center')
-    pl.text(0, 1.5, '(Product fulfills mission?)',
-            horizontalalignment='left', verticalalignment='center', color = "blue")
-    pl.text(0, 1.35, 'Write SAS, SCMR and SQA',
-            horizontalalignment='left', verticalalignment='center')
-    pl.text(0, 1.15, '(DO-178 Certification)',
-            horizontalalignment='left', verticalalignment='center', color = "blue")
+    ax.plot((-0.1, 0), (3.2, 3.2), color = 'black')
+    ax.plot((-0.1, 0), (3.0, 3.0), color = 'black')
+    ax.plot((-0.1, -0.1), (3.2, 3.0), color = 'black')
+    ax.arrow(-0.1, 3.0, 0.08, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
 
-    pl.text(4.1, 3.9, 'Requirements gathering',
+    pl.text(0.1, 2.7, 'Write Low level requirements',
             horizontalalignment='left', verticalalignment='center')
+    pl.text(0.1, 2.5, 'Write Design documentation',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(0.1, 2.3, 'Client approves design?',
+            horizontalalignment='left', verticalalignment='center', color = "blue")
+    ax.plot((-0.1, 0), (2.7, 2.7), color = 'black')
+    ax.plot((-0.1, 0), (2.5, 2.5), color = 'black')
+    ax.plot((-0.1, 0), (2.3, 2.3), color = 'black')
+    ax.plot((-0.1, -0.1), (2.7, 2.3), color = 'black')
+    ax.arrow(-0.1, 2.3, 0.08, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
 
-    # pl.text(0.5, 0.5,'matplotlib',
-    #  horizontalalignment='center',
-    #  verticalalignment='center',
-    #  transform = ax.transAxes)
+    pl.text(0.1, 2.0, 'Write Code',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(0.1, 1.8, 'Write SVCP',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(0.1, 1.6, 'Development done?',
+            horizontalalignment='left', verticalalignment='center', color = "blue")
+    ax.plot((-0.1, 0), (2.0, 2.0), color = 'black')
+    ax.plot((-0.1, 0), (1.8, 1.8), color = 'black')
+    ax.plot((-0.1, 0), (1.6, 1.6), color = 'black')
+    ax.plot((-0.1, -0.1), (2.0, 1.6), color = 'black')
+    ax.arrow(-0.1, 1.6, 0.08, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    pl.text(0.1, 1.3, 'Testing / Write SVR',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(0.1, 1.1, 'Code reviews',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(0.1, 0.9, 'Product fulfills mission?',
+            horizontalalignment='left', verticalalignment='center', color = "blue")
+    ax.plot((-0.1, 0), (1.3, 1.3), color = 'black')
+    ax.plot((-0.1, 0), (1.1, 1.1), color = 'black')
+    ax.plot((-0.1, 0), (0.9, 0.9), color = 'black')
+    ax.plot((-0.1, -0.1), (1.3, 0.9), color = 'black')
+    ax.arrow(-0.1, 0.9, 0.08, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    pl.text(0.1, 0.6, 'Write SAS, SCMR and SQA',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(0.1, 0.4, 'DO-178 Certification',
+            horizontalalignment='left', verticalalignment='center', color = "blue")
+    ax.plot((-0.1, 0), (0.6, 0.6), color = 'black')
+    ax.plot((-0.1, 0), (0.4, 0.4), color = 'black')
+    ax.plot((-0.1, -0.1), (0.6, 0.4), color = 'black')
+    ax.arrow(-0.1, 0.4, 0.08, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    pl.text(4.3, 3.9, 'Write PSAC and SDP',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(4.3, 3.7, 'CA approves PSAC and SDP?',
+        horizontalalignment='left', verticalalignment='center', color = "blue")
+    ax.plot((4.1, 4.2), (3.9, 3.9), color = 'black')
+    ax.plot((4.1, 4.2), (3.7, 3.7), color = 'black')
+    ax.plot((4.1, 4.1), (3.9, 3.7), color = 'black')
+
+    pl.text(4.3, 3.4, 'Requirements gathering',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(4.3, 3.2, 'Update backlog',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(4.3, 3.0, 'Setup CI / CD / etc',
+            horizontalalignment='left', verticalalignment='center')
+    ax.plot((4.1, 4.2), (3.4, 3.4), color = 'black')
+    ax.plot((4.1, 4.2), (3.2, 3.2), color = 'black')
+    ax.plot((4.1, 4.2), (3.0, 3.0), color = 'black')
+    ax.plot((4.1, 4.1), (3.4, 3.0), color = 'black')
+
+    pl.text(4.3, 2.7, 'Pre-sprint planning',
+            horizontalalignment='left', verticalalignment='center')
+    ax.plot((4.1, 4.2), (2.75, 2.75), color = 'black')
+    ax.plot((4.1, 4.2), (2.65, 2.65), color = 'black')
+    ax.plot((4.1, 4.1), (2.75, 2.65), color = 'black')
+
+    pl.text(4.3, 2.4, 'Sprint (2 weeks)',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(4.3, 2.2, 'Write code',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(4.3, 2.0, 'Write unit tests',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(4.3, 1.8, 'Write automated tests',
+            horizontalalignment='left', verticalalignment='center')
+    ax.plot((4.1, 4.2), (2.4, 2.4), color = 'black')
+    ax.plot((4.1, 4.2), (2.2, 2.2), color = 'black')
+    ax.plot((4.1, 4.2), (2.0, 2.0), color = 'black')
+    ax.plot((4.1, 4.2), (1.8, 1.8), color = 'black')
+    ax.plot((4.1, 4.1), (2.4, 1.8), color = 'black')
+
+    pl.text(4.3, 1.5, 'Retrospective',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(4.3, 1.3, 'Update SVCP',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(4.3, 1.1, 'Update Design documentation',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(4.3, 0.9, 'Update specification (SRD)',
+            horizontalalignment='left', verticalalignment='center')
+    ax.plot((4.1, 4.2), (1.5, 1.5), color = 'black')
+    ax.plot((4.1, 4.2), (1.3, 1.3), color = 'black')
+    ax.plot((4.1, 4.2), (1.1, 1.1), color = 'black')
+    ax.plot((4.1, 4.2), (0.9, 0.9), color = 'black')
+    ax.plot((4.1, 4.1), (1.5, 0.9), color = 'black')
+
+    pl.text(4.3, 0.6, 'Manual testing / Write SVR',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(4.3, 0.4, 'Product fulfills mission?',
+            horizontalalignment='left', verticalalignment='center', color = "blue")
+    ax.plot((4.1, 4.2), (0.6, 0.6), color = 'black')
+    ax.plot((4.1, 4.2), (0.4, 0.4), color = 'black')
+    ax.plot((4.1, 4.1), (0.6, 0.4), color = 'black')
+    ax.arrow(4.1, 0.4, 0.08, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    pl.text(4.3, 0.1, 'Write SAS, SCMR and SQA',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(4.3, -0.1, 'DO-178 Certification',
+            horizontalalignment='left', verticalalignment='center', color = "blue")
+    ax.plot((4.1, 4.2), (0.1, 0.1), color = 'black')
+    ax.plot((4.1, 4.2), (-0.1, -0.1), color = 'black')
+    ax.plot((4.1, 4.1), (0.1, -0.1), color = 'black')
+    ax.arrow(4.1, -0.1, 0.08, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+    ax.plot((7.7, 8.1), (0.9, 0.9), color = 'black')
+    ax.plot((7.7, 8.1), (3.4, 3.4), color = 'black')
+    ax.plot((8.1, 8.1), (3.4, 0.9), color = 'black')
+    ax.arrow(7.8, 3.4, -0.1, 0, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
 
     XKCDify(ax, xaxis_loc=-1, yaxis_loc=-1,
         xaxis_arrow='', yaxis_arrow='',

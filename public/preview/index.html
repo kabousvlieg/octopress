@@ -94,13 +94,13 @@
 
 <p><img class="center" src="/images/Development_spectrum.png" width="600" /></p>
 
-<p>So whats wrong with the extremes of waterfall or agile development, especially concerning safety critical products? Well I think Dilbert may have some advice to share here. Waterfall development suffers from the following:</p>
+<p>So what’s wrong with the extremes of waterfall or agile development, especially concerning safety critical products? Well I think Dilbert may have some advice to share here. Waterfall development typically suffers from the following:</p>
 
 <p><img class="center" src="/images/dilbert_2001_04_14.png" width="600" /></p>
 
-<p>This way, alot of unnecesarry requirements gets specified, because the client is scared that if he doesn’t name every possible use case his product could get used for, he won’t have another chance. The result is bloat, cost increases and increases in the product complexity, not great for safety critical products.</p>
+<p>With waterfall development, a lot of unnecessary requirements gets specified, because the client is scared that if he doesn’t name every possible use case his product could get used for, he won’t have another chance. The result is bloat, increased costs and increases in the product complexity, not great for safety critical products.</p>
 
-<p>Ok, so agile should be perfect then:</p>
+<p>Ok, so agile should be perfect then?</p>
 
 <p><img class="center" src="/images/dilbert_1997_05_09.gif" width="600" /></p>
 
@@ -108,73 +108,82 @@
 
 <p>Ok, so up to now most DO-178 development was done with waterfall methodologies, but what might an agile DO-178 development process look like?</p>
 
-<p>The deliverables for DO-178 looks as follows, and is usually produced at the following stages with waterfall development:</p>
+<p>To answer this question, we have to look at the deliverables required for DO-178 certification, and at what stages of the waterfall development model they are produced:</p>
 
 <p><strong>Organisational:</strong><br />
-(These can be re-used accross multiple projects, if the projects are similar enough off course)</p>
+(These can be re-used across multiple projects, if the projects are similar enough off course)</p>
 
 <ul>
-  <li>SCM (Software configuration management plan)</li>
-  <li>SQAP (Software quality assurance plan)</li>
-  <li>SRS (Software requirements standards)</li>
-  <li>SDS (Software design standards)</li>
-  <li>SCS (Software code standards)</li>
-  <li>SVP (Software verification plan)</li>
+  <li>Software configuration management plan (SCM)</li>
+  <li>Software quality assurance plan (SQA)</li>
+  <li>Software requirements standards (SRS)</li>
+  <li>Software design standards (SDS)</li>
+  <li>Software code standards (SCS)</li>
+  <li>Software verification plan (SVP)</li>
+  <li>Software Code standards</li>
 </ul>
 
-<p><strong>At the start of a project:</strong></p>
+<p><strong>At the start of a project - Specification phase:</strong></p>
 
 <ul>
-  <li>PSAC (Plan for software aspects of certification)</li>
-  <li>SDP (Software development plan)</li>
-  <li>SRD (Software requirements data)</li>
-  <li>DD (Design description)</li>
+  <li>Plan for software aspects of certification (PSAC)</li>
+  <li>Software development plan (SDP)</li>
+  <li>Software requirements data (SRD)</li>
+  <li>Design description (DD)</li>
 </ul>
 
-<p><strong>During development:</strong></p>
+<p><strong>During development - Implementation phase:</strong></p>
 
 <ul>
   <li>Source code</li>
   <li>Object code</li>
-  <li>SVCP (Software verification Cases and Procedures)</li>
+  <li>Software verification Cases and Procedures (SVCP)</li>
   <li>Problem reports</li>
-  <li>SQA (Software Quality Assurance Records)</li>
+  <li>Software Quality Assurance Records (SQA)</li>
 </ul>
 
-<p><strong>At the end of a project:</strong></p>
+<p><strong>At the end of a project - Testing and verification phase:</strong></p>
 
 <ul>
-  <li>SVR (Software Verification Results)</li>
-  <li>SECI (Software Life Cycle Environment Configuration Index)</li>
-  <li>SCI (Software Configuration Index)</li>
-  <li>SCMR (Software Configuration Management Records)</li>
-  <li>SAS (Software Accomplishment Summary)</li>
+  <li>Software Verification Results (SVR)</li>
+  <li>Software Life Cycle Environment Configuration Index (SECI)</li>
+  <li>Software Configuration Index (SCI)</li>
+  <li>Software Configuration Management Records (SCMR)</li>
+  <li>Software Accomplishment Summary (SAS)</li>
 </ul>
 
-<p>The problem here is that a lot of the deliverables are generated at the start of a project, before the lessons has been learned. And a lot of the deliverables are generated at the end of a project, not keeping pace with the development of the software, and as such represent a signifant source of costs, as these have to be produced and verified manually. </p>
+<p>The problem here is that a lot of the deliverables are generated at the start of a project, before the lessons has been learned. And a lot of the deliverables are generated at the end of a project, not keeping pace with the development of the software, and as such represent a significant source of costs, as these have to be produced and verified manually. </p>
 
-<p>The organisational deliverables is not my concern here, as once these has been generated they can be re-used accross multiple projects. But let’s see if we can get some of the project specific deliverables be generated and verified continuously during development using the following:</p>
+<p>Most of these deliverables also usually takes the form of documentation, with the exception of the source code and object code. DO-178 does not specifically state that the outputs have to be in the form of documentation, and where possible we will try to replace traditionally labour intensive documentation with other artefacts, saving us effort and costs. Off course we must prove that there is no reduction in the reliability of the final product when making these changes.  </p>
+
+<p>The organisational deliverables is not my concern here, as once these have been generated they can be re-used across multiple projects. But let’s see if we can get some of the project specific deliverables be generated and verified continuously and automatically during development using the following:</p>
 
 <h3>Scrum</h3>
-<p>During sprint planning and review sessions, we can generate the DD’s (Design descriptions) and SRD’s (Software Requirements Data) continuously. It will look something like this…</p>
+<p>During sprint planning and review sessions, we can review and update the Design Description (DD) document detailing the software architecture. At the end of a sprint, the implemented user stories will form the Software Requirements Data (SRD’s). It will look something like this…</p>
 
 <p><img class="center" src="/images/DO178_scrum.png" width="600" /></p>
 
 <h3>Continuous integration (CI) and Continuous deployment (CD)</h3>
-<p>CI and CD can be used to generate the SCI and SCMR deliverables. In effect the CI server is the SECI and SCI. TODO </p>
-
-<p><img class="center" src="/images/testing_pyramid.png" width="600" /></p>
-
-<h3>Test driven development</h3>
-<p>Test driven development can be used to generate the Software Verification Cases and Procedures (SVCP’s) and Software Verification Results (SVR’s). High level requirements will be developed and tested with feature driven development, and unit tests will be used to develop and test low level requirements. But not all unit tests are really low level requirements, for instance testing if a function can handle null pointer parameters. As such we will mark which unit tests are indeed low level requirements in the unit testing code itself. </p>
+<p>The CI and CD serves themselves are effectively the Software Life Cycle Environment Configuration Index (SECI), Software Configuration Index (SCI) and parts of the Sofware Configuration Management Records (SCMR) deliverables. For this to be possible, the CI server must have a copy of the version control database when duplicated for certification.   </p>
 
 <p>This means an agile setup might look as follows:</p>
 
 <p><img class="center" src="/images/agile_setup.png" width="600" /></p>
 
-<p>And what will the workflow differences look like between a waterfall and agile DO-178 project? The following represents a very simplified project workflow, and may undoubtly differ from other DO-178 projects.</p>
+<h3>Test driven development</h3>
+<p>Test driven development can be used to generate the Software Verification Cases and Procedures (SVCP’s) and Software Verification Results (SVR’s). High level requirements will be developed and tested with feature driven development, and unit tests will be used to develop and test low level requirements. But not all unit tests are really low level requirements, for instance testing if a function can handle null pointer parameters. As such we will mark which unit tests are indeed low level requirements in the unit testing code itself.  </p>
 
-<p>Going back to the DO-178B specification, it lists as an appendix the requirements for the deliverables. The purpose of an agile process would be then to automate the verification of as many of these requirements in order to speed up the certification and re-certification of the product. The difference between how a waterfall or agile work flow satisfies these requirements then looks as follows:</p>
+<p>The relationship between the Continuous integration (CI) server and the Continuous deployment (CD) server is detailed in the popular test pyramid developed by Mike Cohn, where the CI is responsible for making sure the source code compiles at all times, and passes all unit tests, and the CD is responsible for making sure the automated functional tests pass at all times. One would expect to develop a lot more unit tests than functional tests, thereby limiting (but not eliminating) the need for expensive manual testing.</p>
+
+<p><img class="center" src="/images/testing_pyramid.png" width="600" /></p>
+
+<p>And what will the workflow differences look like between a waterfall and agile DO-178 project? The following represents a very simplified project workflow, but will hopefully give you an idea.</p>
+
+<p><em>Every blue item represents a stage gate, that has to be satisfied before the team can continue on to the next set of items</em></p>
+
+<p><img class="center" src="/images/agileWaterfallTeamActivities.png" width="600" /></p>
+
+<p>Going back to the DO-178 specification, it lists as an appendix the requirements for the deliverables. The purpose of an agile process would be then to automate the verification of as many of these requirements in order to speed up the certification and re-certification of the product. The difference between how a waterfall or agile work flow satisfies these requirements then looks as follows (DO-178C wording used):</p>
 
 <html>
 <style>
@@ -202,64 +211,64 @@ height:100%
 
 <table border="1" style="height:100%; width: 100%;">
   <tr>
-	<td><div id="Heading"></div></td>
+    <td><div id="Heading"></div></td>
     <td><div id="Heading">Objective</div></td>
     <td><div id="Heading">Output</div></td>
-	<td><div id="Heading">Agile strategy</div></td>
+    <td><div id="Heading">Agile strategy</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">1</div></td>
-    <td><div id="TBody">Software development and integral processes activities are defined</div></td>
+    <td><div id="TBody">1</div></td>
+    <td><div id="TBody">The activities of the software life cycle processes are defined.</div></td>
     <td rowspan="4"><div id="TBody">Plan for Software Aspects of Certification<br /><br />
-									Software Development Plan<br /><br />
-									Software Verification Plan<br /><br />
-									Software Configuration Management Plan<br /><br />
-									Software Quality Assurance Plan</div></td> 
-	<td><div id="TBody">doc</div></td>
+                                    Software Development Plan<br /><br />
+                                    Software Verification Plan<br /><br />
+                                    Software Configuration Management Plan<br /><br />
+                                    Software Quality Assurance Plan</div></td> 
+    <td><div id="TBody">An agile process is defined.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">2</div></td>
-    <td><div id="TBody">Transition criteria, inter-relationships and sequencing among processes are defined</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">2</div></td>
+    <td><div id="TBody">The software life cycle(s), including the inter-relationships between the processes, their sequencing, feedback mechanisms, and transition criteria, is defined.</div></td> 
+    <td><div id="TBody">An agile process is defined.</div></td>
   </tr>  
 
   <tr>
-	<td><div id="TBody">3</div></td>
-    <td><div id="TBody">Software lifecycle environment is defined</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">3</div></td>
+    <td><div id="TBody">Software life cycle environment is selected and defined.</div></td> 
+    <td><div id="TBody">The CI server is defined as the software lifecycle environment as a final deliverable.</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">4</div></td>
+    <td><div id="TBody">4</div></td>
     <td><div id="TBody">Additional considerations are addressed</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">No difference.</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">5</div></td>
+    <td><div id="TBody">5</div></td>
     <td><div id="TBody">Software development standards are defined</div></td> 
-	<td><div id="TBody">SW Requirements standards<br /><br />
-						SW Design Standards<br /><br />
-						SW Code Standards</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">SW Requirements standards<br /><br />
+                        SW Design Standards<br /><br />
+                        SW Code Standards</div></td>
+    <td><div id="TBody">No difference.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">6</div></td>
+    <td><div id="TBody">6</div></td>
     <td><div id="TBody">Software plans comply with this document</div></td> 
-	<td><div id="TBody">Software Quality Assurance Records<br /><br />
-						Software verification results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Quality Assurance Records<br /><br />
+                        Software verification results</div></td>
+    <td><div id="TBody">The SVR&#8217;s will now be automatically generated by the unit tests, and the CD server, with a small section still generated manually with manual testing.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">7</div></td>
-    <td><div id="TBody">Software plans are coordinated</div></td> 
-	<td><div id="TBody">Software Quality Assurance Records<br /><br />
-						Software verification results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">7</div></td>
+    <td><div id="TBody">Development and revision of software plans are coordinated.</div></td> 
+    <td><div id="TBody">Software Quality Assurance Records<br /><br />
+                        Software verification results.</div></td>
+    <td><div id="TBody">No difference</div></td>
   </tr>
 </table>
 <p><br /></p>
@@ -268,59 +277,59 @@ height:100%
 
 <table border="1" style="height:100px; width: 100%;">
   <tr>
-	<td><div id="Heading"></div></td>
+    <td><div id="Heading"></div></td>
     <td><div id="Heading">Objective</div></td>
     <td><div id="Heading">Output</div></td>
-	<td><div id="Heading">Agile strategy</div></td>
+    <td><div id="Heading">Agile strategy</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">1</div></td>
+    <td><div id="TBody">1</div></td>
     <td><div id="TBody">High-level requirements are developed</div></td>
     <td><div id="TBody">Software Requirements Data</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">At the end of each scrum, the implemented user stories will generate the high level requirements section in the DD.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">2</div></td>
-    <td><div id="TBody">Derived high-level requirements are defined</div></td>
-	<td><div id="TBody">Software Requirements Data</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">2</div></td>
+    <td><div id="TBody">Derived high-level requirements are defined and provided to the system processes, including the system safety assessment process.</div></td>
+    <td><div id="TBody">Software Requirements Data</div></td> 
+    <td><div id="TBody">At the end of each scrum, the implemented derived user stories will generate the high level requirements section in the DD.</div></td>
   </tr>  
 
   <tr>
-	<td><div id="TBody">3</div></td>
+    <td><div id="TBody">3</div></td>
     <td><div id="TBody">Software architecture is developed</div></td> 
-	<td><div id="TBody">Design description</div></td>	
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Design description</div></td>    
+    <td><div id="TBody">At the beginning of each scrum, the software architecture is reviewed, at the end of each scrum the software architecture document (DD) is updated.</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">4</div></td>
+    <td><div id="TBody">4</div></td>
     <td><div id="TBody">Low level requirements are developed</div></td> 
-	<td><div id="TBody">Design description</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Design description</div></td>
+    <td><div id="TBody">At the end of each scrum, the implemented unit tests marked as low level requirements will generate the low level requirements section in the DD.</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">5</div></td>
-    <td><div id="TBody">Derived low-level requirements are defined</div></td> 
-	<td><div id="TBody">Design description</div></td>
-	<td><div id="TChange">doc</div></td>
+    <td><div id="TBody">5</div></td>
+    <td><div id="TBody">Derived low-level requirements are defined and provided to the system processes, including the system safety assessment process.</div></td> 
+    <td><div id="TBody">Design description</div></td>
+    <td><div id="TBody">At the end of each scrum, the implemented unit tests marked as low level requirements will generate the low level requirements section in the DD.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">6</div></td>
+    <td><div id="TBody">6</div></td>
     <td><div id="TBody">Source code is developed</div></td> 
-	<td><div id="TBody">Source code</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Source code</div></td>
+    <td><div id="TBody">No difference.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">7</div></td>
-    <td><div id="TBody">Executable Object Code is produced and integrated into the target computer</div></td> 
-	<td><div id="TBody">Executable object code</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">7</div></td>
+    <td><div id="TBody">Executable Object Code and Parameter Data Item Files, if any, are produced and loaded in the target computer.</div></td> 
+    <td><div id="TBody">Executable object code</div></td>
+    <td><div id="TBody">No difference.</div></td>
   </tr>
 </table>
 <p><br /></p>
@@ -329,59 +338,59 @@ height:100%
 
 <table border="1" style="height:100px; width: 100%;">
   <tr>
-	<td><div id="Heading"></div></td>
+    <td><div id="Heading"></div></td>
     <td><div id="Heading">Objective</div></td>
     <td><div id="Heading">Output</div></td>
-	<td><div id="Heading">Agile strategy</div></td>
+    <td><div id="Heading">Agile strategy</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">1</div></td>
-    <td><div id="TBody">Software high-level requirements comply with system requirements</div></td>
+    <td><div id="TBody">1</div></td>
+    <td><div id="TBody">High-level requirements comply with system requirements.</div></td>
     <td><div id="TBody">Software Verification Results</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">At the beginning of each scrum, the suitability of the user stories to be implemented will be evaluated against the system requirements.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">2</div></td>
+    <td><div id="TBody">2</div></td>
     <td><div id="TBody">High level requirements are accurate and consistent</div></td>
-	<td><div id="TBody">Software Verification Results</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td> 
+    <td><div id="TBody">User stories to be accurate and consistent.</div></td>
   </tr>  
 
   <tr>
-	<td><div id="TBody">3</div></td>
+    <td><div id="TBody">3</div></td>
     <td><div id="TBody">High level requirements are compatible with target computer</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>	
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>    
+    <td><div id="TBody">User stories verified with continuous deployment and functional tests.</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">4</div></td>
+    <td><div id="TBody">4</div></td>
     <td><div id="TBody">High level requirements are verifiable</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">User stories verified with continuous deployment and functional tests.</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">5</div></td>
+    <td><div id="TBody">5</div></td>
     <td><div id="TBody">High level requirements conform to standards</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TChange">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">User stories to conform to standards.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">6</div></td>
+    <td><div id="TBody">6</div></td>
     <td><div id="TBody">High level requirements are traceable to system requirements</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">No difference.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">7</div></td>
+    <td><div id="TBody">7</div></td>
     <td><div id="TBody">Algorithms are accurate</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Accuracy can be verified with functional tests.</div></td>
   </tr>
 </table>
 <p><br /></p>
@@ -390,101 +399,101 @@ height:100%
 
 <table border="1" style="height:100px; width: 100%;">
   <tr>
-	<td><div id="Heading"></div></td>
+    <td><div id="Heading"></div></td>
     <td><div id="Heading">Objective</div></td>
     <td><div id="Heading">Output</div></td>
-	<td><div id="Heading">Agile strategy</div></td>
+    <td><div id="Heading">Agile strategy</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">1</div></td>
+    <td><div id="TBody">1</div></td>
     <td><div id="TBody">Low level requirements comply with high level requirements</div></td>
     <td><div id="TBody">Software Verification Results</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Newly written unit tests marked as low level requirements will be annotated as to which high level requirement it is traced to and reviewed at every sprint.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">2</div></td>
+    <td><div id="TBody">2</div></td>
     <td><div id="TBody">Low level requirements are accurate and consistent</div></td>
-	<td><div id="TBody">Software Verification Results</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td> 
+    <td><div id="TBody">Unit tests to be accurate and consistent.</div></td>
   </tr>  
 
   <tr>
-	<td><div id="TBody">3</div></td>
+    <td><div id="TBody">3</div></td>
     <td><div id="TBody">Low level requirements are compatible with target computer</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>	
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>    
+    <td><div id="TBody">Unit tests verified with continuous integration.</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">4</div></td>
+    <td><div id="TBody">4</div></td>
     <td><div id="TBody">Low level requirements are verifiable</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Unit tests verified with continuous integration.</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">5</div></td>
+    <td><div id="TBody">5</div></td>
     <td><div id="TBody">Low level requirements conform to standards</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TChange">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Unit tests to conform to standards.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">6</div></td>
+    <td><div id="TBody">6</div></td>
     <td><div id="TBody">Low level requirements are traceable to High level requirements</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Unit tests marked as low level requirements will be annotated as to which high level requirement it is traced to.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">7</div></td>
+    <td><div id="TBody">7</div></td>
     <td><div id="TBody">Algorithms are accurate</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Accuracy can be verified with unit tests.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">8</div></td>
+    <td><div id="TBody">8</div></td>
     <td><div id="TBody">Software architecture is compatible with high level requirements</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Software architecture to be reviewed and updated with every sprint.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">9</div></td>
+    <td><div id="TBody">9</div></td>
     <td><div id="TBody">Software architecture is consistent</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Software architecture to be reviewed and updated with every sprint.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">10</div></td>
+    <td><div id="TBody">10</div></td>
     <td><div id="TBody">Software architecture is compatible with target computer</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Software architecture verified with continuous deployment and functional tests.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">11</div></td>
+    <td><div id="TBody">11</div></td>
     <td><div id="TBody">Software architecture is verifiable</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Software architecture verified with continuous deployment and functional tests.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">12</div></td>
+    <td><div id="TBody">12</div></td>
     <td><div id="TBody">Software architecture conforms to standards</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Software architecture to be reviewed and updated with every sprint.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">13</div></td>
+    <td><div id="TBody">13</div></td>
     <td><div id="TBody">Software partitioning integrity is confirmed</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Software partitioning integrity verified with continuous deployment and functional tests.</div></td>
   </tr>
 </table>
 <p><br /></p>
@@ -493,59 +502,74 @@ height:100%
 
 <table border="1" style="height:100px; width: 100%;">
   <tr>
-	<td><div id="Heading"></div></td>
+    <td><div id="Heading"></div></td>
     <td><div id="Heading">Objective</div></td>
     <td><div id="Heading">Output</div></td>
-	<td><div id="Heading">Agile strategy</div></td>
+    <td><div id="Heading">Agile strategy</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">1</div></td>
+    <td><div id="TBody">1</div></td>
     <td><div id="TBody">Source code complies with low level requirements</div></td>
     <td><div id="TBody">Software Verification Results</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Verified with unit tests.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">2</div></td>
+    <td><div id="TBody">2</div></td>
     <td><div id="TBody">Source code complies with software architecture</div></td>
-	<td><div id="TBody">Software Verification Results</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td> 
+    <td><div id="TBody">Verified with unit tests and functional tests.</div></td>
   </tr>  
 
   <tr>
-	<td><div id="TBody">3</div></td>
+    <td><div id="TBody">3</div></td>
     <td><div id="TBody">Source code is verifiable</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>	
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>    
+    <td><div id="TBody">Verified with unit tests and functional tests.</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">4</div></td>
-    <td><div id="TBody">Source code confirms to standards</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">4</div></td>
+    <td><div id="TBody">Source code conforms to standards</div></td> 
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Can be confirmed with sprint code reviews or peer programming</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">5</div></td>
+    <td><div id="TBody">5</div></td>
     <td><div id="TBody">Source code is traceable to low level requirements</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TChange">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Verified with continuous integration and unit tests.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">6</div></td>
+    <td><div id="TBody">6</div></td>
     <td><div id="TBody">Source code is accurate and consistent</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Can be confirmed with sprint code reviews or peer programming</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">7</div></td>
+    <td><div id="TBody">7</div></td>
     <td><div id="TBody">Output of software integration process is complete and correct</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Software integration process verified with continuous deployment and functional tests.</div></td>
+  </tr>
+
+  <tr>
+    <td><div id="TBody">8</div></td>
+    <td><div id="TBody">Parameter Data Item File is correct and complete</div></td> 
+    <td><div id="TBody">Software Verification Cases and Procedures<br /><br />
+                        Software Verification Result<br /></div></td>
+    <td><div id="TBody">Parameter Data Item File verified with continuous deployment and functional tests.</div></td>
+  </tr>
+
+  <tr>
+    <td><div id="TBody">9</div></td>
+    <td><div id="TBody">Verification of Parameter Data Item File is achieved.</div></td> 
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Parameter Data Item File verified with continuous deployment and functional tests.</div></td>
   </tr>
 </table>
 <p><br /></p>
@@ -554,50 +578,50 @@ height:100%
 
 <table border="1" style="height:100px; width: 100%;">
   <tr>
-	<td><div id="Heading"></div></td>
+    <td><div id="Heading"></div></td>
     <td><div id="Heading">Objective</div></td>
     <td><div id="Heading">Output</div></td>
-	<td><div id="Heading">Agile strategy</div></td>
+    <td><div id="Heading">Agile strategy</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">1</div></td>
+    <td><div id="TBody">1</div></td>
     <td><div id="TBody">Executable object code complies with high level requirements</div></td>
     <td><div id="TBody">Software Verification Cases and Procedures<br /><br />
-						Software Verification Results</div></td> 
-	<td><div id="TBody">doc</div></td>
+                        Software Verification Results</div></td> 
+    <td><div id="TBody">User stories verified with continuous deployment and functional tests.</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">2</div></td>
+    <td><div id="TBody">2</div></td>
     <td><div id="TBody">Executable object code is robust with high level requirements</div></td>
-	<td><div id="TBody">Software Verification Cases and Procedures<br /><br />
-						Software Verification Results</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Cases and Procedures<br /><br />
+                        Software Verification Results</div></td> 
+    <td><div id="TBody">User stories verified with continuous deployment and functional tests.</div></td>
   </tr>  
 
   <tr>
-	<td><div id="TBody">3</div></td>
+    <td><div id="TBody">3</div></td>
     <td><div id="TBody">Executable object code complies with low level requirements</div></td> 
-	<td><div id="TBody">Software Verification Cases and Procedures<br /><br />
-						Software Verification Results</div></td>	
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Cases and Procedures<br /><br />
+                        Software Verification Results</div></td>    
+    <td><div id="TBody">Verified with continuous integration and unit tests.</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">4</div></td>
+    <td><div id="TBody">4</div></td>
     <td><div id="TBody">Executable object code is robust with low level requirements</div></td> 
-	<td><div id="TBody">Software Verification Cases and Procedures<br /><br />
-						Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Cases and Procedures<br /><br />
+                        Software Verification Results</div></td>
+    <td><div id="TBody">Verified with continuous integration and unit tests.</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">5</div></td>
+    <td><div id="TBody">5</div></td>
     <td><div id="TBody">Executable object code is compatible with target computer</div></td> 
-	<td><div id="TBody">Software Verification Cases and Procedures<br /><br />
-						Software Verification Results</div></td>
-	<td><div id="TChange">doc</div></td>
+    <td><div id="TBody">Software Verification Cases and Procedures<br /><br />
+                        Software Verification Results</div></td>
+    <td><div id="TBody">User stories verified with continuous deployment and functional tests.</div></td>
   </tr>
 </table>
 <p><br /></p>
@@ -606,66 +630,73 @@ height:100%
 
 <table border="1" style="height:100px; width: 100%;">
   <tr>
-	<td><div id="Heading"></div></td>
+    <td><div id="Heading"></div></td>
     <td><div id="Heading">Objective</div></td>
     <td><div id="Heading">Output</div></td>
-	<td><div id="Heading">Agile strategy</div></td>
+    <td><div id="Heading">Agile strategy</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">1</div></td>
+    <td><div id="TBody">1</div></td>
     <td><div id="TBody">Test procedures are correct</div></td>
     <td><div id="TBody">Software Verification Cases and Procedures</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Sprint review of unit tests and functional tests</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">2</div></td>
-    <td><div id="TBody">Test results are correct and disrepancies explained </div></td>
-	<td><div id="TBody">Software Verification Results</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">2</div></td>
+    <td><div id="TBody">Test results are correct and discrepancies explained </div></td>
+    <td><div id="TBody">Software Verification Results</div></td> 
+    <td><div id="TBody">Sprint review of unit tests and functional tests</div></td>
   </tr>  
 
   <tr>
-	<td><div id="TBody">3</div></td>
+    <td><div id="TBody">3</div></td>
     <td><div id="TBody">Test coverage of high level requirements is achieved</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>	
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>    
+    <td><div id="TBody">Sprint review of unit tests and functional tests</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">4</div></td>
+    <td><div id="TBody">4</div></td>
     <td><div id="TBody">Test coverage of low level requirements is achieved</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">Sprint review of unit tests and functional tests</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">5</div></td>
-    <td><div id="TBody">Test coverage of software structure (modified condition / decision) is achieved</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TChange">doc</div></td>
+    <td><div id="TBody">5</div></td>
+    <td><div id="TBody">Test coverage of software structure (modified condition / decision coverage) is achieved</div></td> 
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">No difference</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">6</div></td>
+    <td><div id="TBody">6</div></td>
     <td><div id="TBody">Test coverage of software structure (decision coverage) is achieved</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">No difference</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">7</div></td>
+    <td><div id="TBody">7</div></td>
     <td><div id="TBody">Test coverage of software structure (statement coverage) is achieved</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">No difference</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">8</div></td>
+    <td><div id="TBody">8</div></td>
     <td><div id="TBody">Test coverage of software structure (data coupling and control coupling) is achieved</div></td> 
-	<td><div id="TBody">Software Verification Results</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">No difference</div></td>
+  </tr>
+
+  <tr>
+    <td><div id="TBody">9</div></td>
+    <td><div id="TBody">Verification of additional code, that cannot be traced to Source Code, is achieved.</div></td> 
+    <td><div id="TBody">Software Verification Results</div></td>
+    <td><div id="TBody">No difference</div></td>
   </tr>
 </table>
 <p><br /></p>
@@ -674,55 +705,55 @@ height:100%
 
 <table border="1" style="height:100px; width: 100%;">
   <tr>
-	<td><div id="Heading"></div></td>
+    <td><div id="Heading"></div></td>
     <td><div id="Heading">Objective</div></td>
     <td><div id="Heading">Output</div></td>
-	<td><div id="Heading">Agile strategy</div></td>
+    <td><div id="Heading">Agile strategy</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">1</div></td>
+    <td><div id="TBody">1</div></td>
     <td><div id="TBody">Configuration items are identified</div></td>
     <td><div id="TBody">SCM Records</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">No difference</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">2</div></td>
+    <td><div id="TBody">2</div></td>
     <td><div id="TBody">Baselines and traceability are established</div></td>
-	<td><div id="TBody">Software Configuration index <br /><br />
-						SCM Records</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Configuration index <br /><br />
+                        SCM Records</div></td> 
+    <td><div id="TBody">Baseline generated by cloning the CI / CD, traceability checked not as normal with documented traceability matrixes, but by verifying traceability between annotated unit tests, functional tests and user stories.</div></td>
   </tr>  
 
   <tr>
-	<td><div id="TBody">3</div></td>
+    <td><div id="TBody">3</div></td>
     <td><div id="TBody">Problem reporting, change control, change review, and configuration status accounting are established</div></td> 
-	<td><div id="TBody">Problem reports<br /><br />
-						SCM Records</div></td>	
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Problem reports<br /><br />
+                        SCM Records</div></td>    
+    <td><div id="TBody">No difference</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">4</div></td>
+    <td><div id="TBody">4</div></td>
     <td><div id="TBody">Archive, retrieval, and release are established</div></td> 
-	<td><div id="TBody">SCM Records</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">SCM Records</div></td>
+    <td><div id="TBody">No difference</div></td>
   </tr> 
 
   <tr>
-	<td><div id="TBody">5</div></td>
+    <td><div id="TBody">5</div></td>
     <td><div id="TBody">Software load control is established</div></td> 
-	<td><div id="TBody">SCM Records</div></td>
-	<td><div id="TChange">doc</div></td>
+    <td><div id="TBody">SCM Records</div></td>
+    <td><div id="TBody">No difference</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">6</div></td>
+    <td><div id="TBody">6</div></td>
     <td><div id="TBody">Software life cycle environment control is established</div></td> 
-	<td><div id="TBody">Software Life Cycle Environment Configuration Index<br /><br />
-						SCM Records</div></td>
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Life Cycle Environment Configuration Index<br /><br />
+                        SCM Records</div></td>
+    <td><div id="TBody">No difference</div></td>
   </tr>
 </table>
 <p><br /></p>
@@ -731,31 +762,45 @@ height:100%
 
 <table border="1" style="height:100px; width: 100%;">
   <tr>
-	<td><div id="Heading"></div></td>
+    <td><div id="Heading"></div></td>
     <td><div id="Heading">Objective</div></td>
     <td><div id="Heading">Output</div></td>
-	<td><div id="Heading">Agile strategy</div></td>
+    <td><div id="Heading">Agile strategy</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">1</div></td>
-    <td><div id="TBody">Assurance is obtained that software development and integral processes comply with approved software plans and standards</div></td>
+    <td><div id="TBody">1</div></td>
+    <td><div id="TBody">Assurance is obtained that software plans and standards are developed and reviewed for compliance with this document and for consistency.</div></td>
     <td><div id="TBody">Software Quality Assurance Records</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">No difference</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">2</div></td>
-    <td><div id="TBody">Assurance is obtained that transition criteria for the software life cycle processes are satisfied</div></td>
-	<td><div id="TBody">Software Quality Assurance Records</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">2</div></td>
+    <td><div id="TBody">Assurance is obtained that software life cycle processes comply with approved software plans.</div></td>
+    <td><div id="TBody">Software Quality Assurance Records</div></td> 
+    <td><div id="TBody">No difference</div></td>
   </tr>  
 
   <tr>
-	<td><div id="TBody">3</div></td>
-    <td><div id="TBody">Software conformity review is conducted</div></td> 
-	<td><div id="TBody">Software Quality Assurance Records</div></td>	
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">3</div></td>
+    <td><div id="TBody">Assurance is obtained that software life cycle processes comply with approved software standards.</div></td> 
+    <td><div id="TBody">Software Quality Assurance Records</div></td>    
+    <td><div id="TBody">No difference</div></td>
+  </tr> 
+
+  <tr>
+    <td><div id="TBody">4</div></td>
+    <td><div id="TBody">Assurance is obtained that transition criteria for the software life cycle processes are satisfied.</div></td> 
+    <td><div id="TBody">Software Quality Assurance Records</div></td>    
+    <td><div id="TBody">No difference</div></td>
+  </tr> 
+ 
+  <tr>
+    <td><div id="TBody">5</div></td>
+    <td><div id="TBody">Assurance is obtained that software conformity review is conducted.</div></td> 
+    <td><div id="TBody">Software Quality Assurance Records</div></td>    
+    <td><div id="TBody">No difference</div></td>
   </tr> 
 </table>
 <p><br /></p>
@@ -764,37 +809,41 @@ height:100%
 
 <table border="1" style="height:100px; width: 100%;">
   <tr>
-	<td><div id="Heading"></div></td>
+    <td><div id="Heading"></div></td>
     <td><div id="Heading">Objective</div></td>
     <td><div id="Heading">Output</div></td>
-	<td><div id="Heading">Agile strategy</div></td>
+    <td><div id="Heading">Agile strategy</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">1</div></td>
+    <td><div id="TBody">1</div></td>
     <td><div id="TBody">Communication and understanding between the applicant and the certification authority is established</div></td>
     <td><div id="TBody">Plan for software aspects of certification</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">No difference</div></td>
   </tr>
 
   <tr>
-	<td><div id="TBody">2</div></td>
-    <td><div id="TBody">The means of compliance is proposed and agreement with the plan Plan for Software Aspects of Certification is obtained</div></td>
-	<td><div id="TBody">Plan for software aspects of certification</div></td> 
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">2</div></td>
+    <td><div id="TBody">The means of compliance is proposed and agreement with the Plan for Software Aspects of Certification is obtained</div></td>
+    <td><div id="TBody">Plan for software aspects of certification</div></td> 
+    <td><div id="TBody">No difference</div></td>
   </tr>  
 
   <tr>
-	<td><div id="TBody">3</div></td>
+    <td><div id="TBody">3</div></td>
     <td><div id="TBody">Compliance substantiation is provided</div></td> 
-	<td><div id="TBody">Software Accomplishment Summary<br /><br />
-						Software Configuration Index</div></td>	
-	<td><div id="TBody">doc</div></td>
+    <td><div id="TBody">Software Accomplishment Summary<br /><br />
+                        Software Configuration Index</div></td>    
+    <td><div id="TBody">No difference</div></td>
   </tr> 
 </table>
 <p><br /></p>
 
-<p>So there you have it, a proposal on what a more agile DO-178 development process might look like. The question now is, will this pass certification, and can this agile process deliver software of at least the same robustness / quality as a waterfall process delivers. For this question, I will be guiding two three-man student groups to complete the same software project, one group following the waterfall model and another group following the agile model. More on that in the next post.</p>
+<p>So there you have it, a proposal on what a more agile DO-178 development process might look like. I want to make it clear, none of this was developed in a vacuum or my own work, but cherry picked from various sources, which I’ll attribute to as part of the literature study of my thesis. </p>
+
+<p>The question now is, will this pass certification, and can this agile process deliver software of at least the same robustness / quality as a waterfall process delivers. For this question, I will be guiding two three-man student groups to complete the same software project, one group following the waterfall model and another group following the agile model. More on that in the next post.</p>
+
+<p>A lot of this post has been quite abstract, not mentioning any specific software solutions to be used during development. The next post will detail the exact solutions the students will use in the form of the PSAC and SDP documents, giving more clarity of an agile DO-178 development process. </p>
 
 <p>If I have missed anything or you would like to make a suggestion, kindly do so at the discussion on <a href="https://news.ycombinator.com/item?id=8937549">HN</a> and <a href="http://www.reddit.com/r/programming/comments/2tg71e/do178b_crash_course/">reddit</a>. Comments and suggestions are very welcome.</p>
 
