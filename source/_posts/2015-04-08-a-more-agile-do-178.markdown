@@ -766,6 +766,6 @@ The question now is, will this pass certification, and can this agile process de
 
 A lot of this post has been quite abstract, not mentioning any specific software solutions to be used during development. The next post will detail the exact solutions the students will use in the form of PSAC and SDP documents, giving more clarity of an agile DO-178 development process. 
 
-If I have missed anything or you would like to make a suggestion, kindly do so at the discussion on [HN](https://news.ycombinator.com/item?id=8937549) and [reddit](http://www.reddit.com/r/programming/comments/2tg71e/do178b_crash_course/). Comments and suggestions are very welcome.
+If I have missed anything or you would like to make a suggestion, kindly do so at the discussion on [HN](https://news.ycombinator.com/item?id=9344018) and [reddit](http://www.reddit.com/r/programming/comments/31x4yj/a_more_agile_do178/). Comments and suggestions are very welcome.
 
 If you are currently; or in the past have worked on DO-178 projects, it would be appreciated if you would be so kind as to [take part in a quick survey](https://www.surveymonkey.com/s/SV9KX7M) about the state of DO-178 development. I will release the results of this survey shortly. Thank you for everyone who has completed the survey already.
