@@ -86,7 +86,7 @@ def xkcd_line(x, y, xlim=None, ylim=None,
     dist = np.sqrt(dx * dx + dy * dy)
 
     # create a filtered perturbation
-    coeffs = mag * np.random.normal(0, 0.02, len(x_int) - 2)
+    coeffs = mag * np.random.normal(0, 0.04, len(x_int) - 2)
     b = signal.firwin(f1, f2 * dist_tot, window=('kaiser', f3))
     response = signal.lfilter(b, 1, coeffs)
 

@@ -23,9 +23,244 @@ def main():
     #agileWaterfallSpectrum()
     #agileSetup()
     #testPyramid()
-    #agileWaterfallTeamActivities()
+    agileWaterfallTeamActivities()
     #alternativeEskom()
+    #redGuardNetwork()
+    #redGuard()
+    #processesWall()
     pass
+
+def processesWall():
+    np.random.seed(0)
+    ax = pl.axes()
+    ax.set_autoscale_on(False)
+    ax.plot((-0.1, 6.3), (7.6, 7.6), color = 'grey', lw=1)
+    ax.plot((-0.1, 6.3), (2.7, 2.7), color = 'grey', lw=1)
+    ax.plot((-0.1, -0.1), (2.7, 7.6), color = 'grey', lw=1)
+    ax.plot((6.3, 6.3), (2.7, 7.6), color = 'grey', lw=1)
+    pl.text(2, 8, 'Processes list',
+            horizontalalignment='center', verticalalignment='center')
+    pl.text(0, 7, 'Web browser',
+            horizontalalignment='left', verticalalignment='center')
+    pl.text(0.5, 6.5, '- www.slashdot.org',
+        horizontalalignment='left', verticalalignment='center')
+    ax.arrow(6.4, 6.5, 4.1, 0, head_width=0.1, head_length=0.1)
+    pl.text(0.5, 6, '- www.news.ycombinator.net',
+        horizontalalignment='left', verticalalignment='center')
+    ax.arrow(6.4, 6, 4.1, 0, head_width=0.1, head_length=0.1)
+    pl.text(0.5, 5.5, '- www.russian-brides.ru',
+        horizontalalignment='left', verticalalignment='center')
+    ax.arrow(6.4, 5.5, 0.8, 0, head_width=0.1, head_length=0.1)
+    ax.arrow(10.5, 5.5, -0.8, 0, head_width=0.1, head_length=0.1)
+    pl.text(0.5, 5, '- www.pawned_botnet.ru',
+        horizontalalignment='left', verticalalignment='center')
+    ax.arrow(6.4, 5, 0.8, 0, head_width=0.1, head_length=0.1)
+    ax.arrow(10.5, 5, -0.8, 0, head_width=0.1, head_length=0.1)
+    pl.text(0, 4.5, 'IR-Virus',
+        horizontalalignment='left', verticalalignment='center')
+    ax.arrow(6.4, 4.5, 0.8, 0, head_width=0.1, head_length=0.1)
+    ax.arrow(10.5, 4.5, -0.8, 0, head_width=0.1, head_length=0.1)
+    pl.text(0, 4, 'Keylogger',
+        horizontalalignment='left', verticalalignment='center')
+    ax.arrow(6.4, 4, 0.8, 0, head_width=0.1, head_length=0.1)
+    ax.arrow(10.5, 4, -0.8, 0, head_width=0.1, head_length=0.1)
+    pl.text(0, 3.5, 'Click4win',
+        horizontalalignment='left', verticalalignment='center')
+    ax.arrow(6.4, 3.5, 0.8, 0, head_width=0.1, head_length=0.1)
+    ax.arrow(10.5, 3.5, -0.8, 0, head_width=0.1, head_length=0.1)
+    pl.text(0, 3, 'Nigeria-419',
+        horizontalalignment='left', verticalalignment='center')
+    ax.arrow(6.4, 3, 0.8, 0, head_width=0.1, head_length=0.1)
+    ax.arrow(10.5, 3, -0.8, 0, head_width=0.1, head_length=0.1)
+    pl.text(10.7, 6.5, 'World wide web',
+        horizontalalignment='left', verticalalignment='center')
+    drawWorld(ax, 12.5, 5, 2, 'grey')
+    pl.text(7.5, 2.3, 'RedGuard',
+        horizontalalignment='left', verticalalignment='center')
+    #Draw wall
+    ax.plot((7.5, 7.5), (2.7, 5.7), color = 'black', lw=2)
+    ax.plot((9.5, 9.5), (2.7, 5.7), color = 'black', lw=2)
+    ax.plot((7.5, 9.5), (2.7, 2.7), color = 'black', lw=2)
+    ax.plot((7.5, 9.5), (5.7, 5.7), color = 'black', lw=2)
+
+    ax.plot((7.5, 9.5), (3, 3), color = 'black', lw=2)
+    ax.plot((7.5, 9.5), (3.3, 3.3), color = 'black', lw=2)
+    ax.plot((7.5, 9.5), (3.6, 3.6), color = 'black', lw=2)
+    ax.plot((7.5, 9.5), (3.9, 3.9), color = 'black', lw=2)
+    ax.plot((7.5, 9.5), (4.2, 4.2), color = 'black', lw=2)
+    ax.plot((7.5, 9.5), (4.5, 4.5), color = 'black', lw=2)
+    ax.plot((7.5, 9.5), (4.8, 4.8), color = 'black', lw=2)
+    ax.plot((7.5, 9.5), (5.1, 5.1), color = 'black', lw=2)
+    ax.plot((7.5, 9.5), (5.4, 5.4), color = 'black', lw=2)
+
+    ax.plot((8.0, 8.0), (2.7, 3), color = 'black', lw=2)
+    ax.plot((8.5, 8.5), (2.7, 3), color = 'black', lw=2)
+    ax.plot((9.0, 9.0), (2.7, 3), color = 'black', lw=2)
+    ax.plot((7.75, 7.75), (3, 3.3), color = 'black', lw=2)
+    ax.plot((8.25, 8.25), (3, 3.3), color = 'black', lw=2)
+    ax.plot((8.75, 8.75), (3, 3.3), color = 'black', lw=2)
+    ax.plot((9.25, 9.25), (3, 3.3), color = 'black', lw=2)
+
+    ax.plot((8.0, 8.0), (3.3, 3.6), color = 'black', lw=2)
+    ax.plot((8.5, 8.5), (3.3, 3.6), color = 'black', lw=2)
+    ax.plot((9.0, 9.0), (3.3, 3.6), color = 'black', lw=2)
+    ax.plot((7.75, 7.75), (3.6, 3.9), color = 'black', lw=2)
+    ax.plot((8.25, 8.25), (3.6, 3.9), color = 'black', lw=2)
+    ax.plot((8.75, 8.75), (3.6, 3.9), color = 'black', lw=2)
+    ax.plot((9.25, 9.25), (3.6, 3.9), color = 'black', lw=2)
+
+    ax.plot((8.0, 8.0), (3.9, 4.2), color = 'black', lw=2)
+    ax.plot((8.5, 8.5), (3.9, 4.2), color = 'black', lw=2)
+    ax.plot((9.0, 9.0), (3.9, 4.2), color = 'black', lw=2)
+    ax.plot((7.75, 7.75), (4.2, 4.5), color = 'black', lw=2)
+    ax.plot((8.25, 8.25), (4.2, 4.5), color = 'black', lw=2)
+    ax.plot((8.75, 8.75), (4.2, 4.5), color = 'black', lw=2)
+    ax.plot((9.25, 9.25), (4.2, 4.5), color = 'black', lw=2)
+
+    ax.plot((8.0, 8.0), (4.5, 4.8), color = 'black', lw=2)
+    ax.plot((8.5, 8.5), (4.5, 4.8), color = 'black', lw=2)
+    ax.plot((9.0, 9.0), (4.5, 4.8), color = 'black', lw=2)
+    ax.plot((7.75, 7.75), (4.8, 5.1), color = 'black', lw=2)
+    ax.plot((8.25, 8.25), (4.8, 5.1), color = 'black', lw=2)
+    ax.plot((8.75, 8.75), (4.8, 5.1), color = 'black', lw=2)
+    ax.plot((9.25, 9.25), (4.8, 5.1), color = 'black', lw=2)
+
+    ax.plot((8.0, 8.0), (5.1, 5.4), color = 'black', lw=2)
+    ax.plot((8.5, 8.5), (5.1, 5.4), color = 'black', lw=2)
+    ax.plot((9.0, 9.0), (5.1, 5.4), color = 'black', lw=2)
+    ax.plot((7.75, 7.75), (5.4, 5.7), color = 'black', lw=2)
+    ax.plot((8.25, 8.25), (5.4, 5.7), color = 'black', lw=2)
+    ax.plot((8.75, 8.75), (5.4, 5.7), color = 'black', lw=2)
+    ax.plot((9.25, 9.25), (5.4, 5.7), color = 'black', lw=2)
+
+
+    XKCDify(ax, xaxis_loc=-1, yaxis_loc=-1,
+        xaxis_arrow='', yaxis_arrow='',
+        expand_axes=True)
+    pl.ylim([-0.2,10])
+    pl.xlim([-0.2,14])
+    pl.show()
+
+
+def redGuard():
+    np.random.seed(0)
+    ax = pl.axes()
+    ax.set_autoscale_on(False)
+    drawRedGuard(ax, 1, 1, 1)
+    XKCDify(ax, xaxis_loc=-1, yaxis_loc=-1,
+        xaxis_arrow='', yaxis_arrow='',
+        expand_axes=True)
+    pl.ylim([-0.2,10])
+    pl.xlim([-0.2,10])
+    pl.show()
+
+
+def redGuardNetwork():
+    np.random.seed(0)
+    ax = pl.axes()
+    ax.set_autoscale_on(False)
+    drawLaptop(ax, 0, 1.5, 2., 'black', True)
+    drawWorld(ax, 7.85, 8, 2)
+    drawRedGuard(ax, 7, 1.5, 1)
+    ax.plot((2.8, 6.9), (2.05, 2.05), color = 'grey', lw=2)
+    ax.plot((7.85, 7.85), (2.65, 6.95), color = 'grey', lw=2)
+    ax.plot((7.15, 7.15), (2.65, 3), color = 'grey', lw=2)
+    ax.plot((3.5, 7.15), (3, 3), color = 'grey', lw=2)
+    ax.arrow(7.5, 3.5, -0.25, -0.8, head_width=0.1, head_length=0.1, fc='k', ec='k')
+    ax.arrow(7.5, 3.5, 0.25, -0.8, head_width=0.1, head_length=0.1, fc='k', ec='k')
+    pl.text(6.5, 3.7, 'Ethernet ports',
+            horizontalalignment='center', verticalalignment='center')
+    pl.text(7.8, 9.5, 'World wide web',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(6, 1.8, 0.85, 0.15, head_width=0.1, head_length=0.1, fc='k', ec='k')
+    pl.text(5, 1.5, 'USB port (alternative)',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(7, 1.1, 0.1, 0.35, head_width=0.1, head_length=0.1, fc='k', ec='k')
+    pl.text(7, 0.8, 'Screen',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(8, 0.6, -0.4, 1.05, head_width=0.1, head_length=0.1, fc='k', ec='k')
+    pl.text(8.5, 0.3, 'Authorisation code',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(3, 6.2, -0.1, -1.8, head_width=0.1, head_length=0.1, fc='k', ec='k')
+    pl.text(3, 6.5, 'Browser URL bar',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(4.5, 4.5, -1.2, -0.8, head_width=0.1, head_length=0.1, fc='k', ec='k')
+    pl.text(6, 5, 'Browser plugin\n'
+                    'pops up with\n'
+                    'authentication code',
+            horizontalalignment='center', verticalalignment='center')
+
+    ax.arrow(8.6, 2.7, -0.4, -0.25, head_width=0.1, head_length=0.1, fc='k', ec='k')
+    pl.text(9, 3, 'Allow\n'
+                  'button',
+                  horizontalalignment='center', verticalalignment='center')
+    ax.arrow(8.6, 1.35, -0.4, 0.25, head_width=0.1, head_length=0.1, fc='k', ec='k')
+    pl.text(9, 1, 'Block\n'
+                  'button',
+                  horizontalalignment='center', verticalalignment='center')
+    XKCDify(ax, xaxis_loc=-1, yaxis_loc=-1,
+        xaxis_arrow='', yaxis_arrow='',
+        expand_axes=True)
+    pl.ylim([-0.2,10])
+    pl.xlim([-0.2,10])
+    pl.show()
+
+def drawRedGuard(ax, x, y, sz):
+    #Outline
+    ax.plot((x, x+12*sz/10.), (y, y), color = 'black')
+    ax.plot((x, x+12*sz/10.), (y+sz, y+sz), color = 'black')
+    ax.plot((x, x), (y, y+sz), color = 'black')
+    ax.plot((x+12*sz/10., x+12*sz/10.), (y, y+sz), color = 'black')
+    #Screen
+    ax.plot((x+1*sz/10., x+9*sz/10.), (y+9*sz/10., y+9*sz/10.), color = 'black')
+    ax.plot((x+1*sz/10., x+9*sz/10.), (y+1*sz/10., y+1*sz/10.), color = 'black')
+    ax.plot((x+1*sz/10., x+1*sz/10.), (y+1*sz/10., y+9*sz/10.), color = 'black')
+    ax.plot((x+9*sz/10., x+9*sz/10.), (y+1*sz/10., y+9*sz/10.), color = 'black')
+    #Ports
+    ax.plot((x+1*sz/10., x+2*sz/10.), (y+11*sz/10., y+11*sz/10.), color = 'black')
+    ax.plot((x+1*sz/10., x+1*sz/10.), (y+10*sz/10., y+11*sz/10.), color = 'black')
+    ax.plot((x+2*sz/10., x+2*sz/10.), (y+10*sz/10., y+11*sz/10.), color = 'black')
+    ax.plot((x+8*sz/10., x+9*sz/10.), (y+11*sz/10., y+11*sz/10.), color = 'black')
+    ax.plot((x+8*sz/10., x+8*sz/10.), (y+10*sz/10., y+11*sz/10.), color = 'black')
+    ax.plot((x+9*sz/10., x+9*sz/10.), (y+10*sz/10., y+11*sz/10.), color = 'black')
+    ax.plot((x-0.5*sz/10., x+0*sz/10.), (y+6*sz/10., y+6*sz/10.), color = 'black')
+    ax.plot((x+0*sz/10., x+0*sz/10.), (y+5*sz/10., y+6*sz/10.), color = 'black')
+    ax.plot((x-0.5*sz/10., x-0.5*sz/10.), (y+5*sz/10., y+6*sz/10.), color = 'black')
+    ax.plot((x-0.5*sz/10., x+0*sz/10.), (y+5*sz/10., y+5*sz/10.), color = 'black')
+    #Buttons
+    ax.plot((x+10*sz/10., x+11*sz/10.), (y+2*sz/10., y+2*sz/10.), color = 'red')
+    ax.plot((x+10*sz/10., x+11*sz/10.), (y+1*sz/10., y+1*sz/10.), color = 'red')
+    ax.plot((x+10*sz/10., x+10*sz/10.), (y+1*sz/10., y+2*sz/10.), color = 'red')
+    ax.plot((x+11*sz/10., x+11*sz/10.), (y+1*sz/10., y+2*sz/10.), color = 'red')
+    ax.plot((x+10*sz/10., x+11*sz/10.), (y+9*sz/10., y+9*sz/10.), color = 'green')
+    ax.plot((x+10*sz/10., x+11*sz/10.), (y+8*sz/10., y+8*sz/10.), color = 'green')
+    ax.plot((x+10*sz/10., x+10*sz/10.), (y+8*sz/10., y+9*sz/10.), color = 'green')
+    ax.plot((x+11*sz/10., x+11*sz/10.), (y+8*sz/10., y+9*sz/10.), color = 'green')
+
+    pl.text(x+2*sz/4., y+11*sz/16., 'D34D',
+            horizontalalignment='center', verticalalignment='center')
+    pl.text(x+2*sz/4., y+5*sz/16., 'B33F',
+            horizontalalignment='center', verticalalignment='center')
+
+def drawWorld(ax, x, y, sz, c = 'grey'):
+    el = Arc(xy=(x, y), width=sz, height=sz, angle=0, fc='None', lw=2, theta1 = 0, theta2 = 360, color=c)
+    ax.add_patch(el)
+    el = Arc(xy=(x, y), width=sz - sz/5., height=sz, angle=0, fc='None', lw=2, theta1 = 0, theta2 = 360, color=c)
+    ax.add_patch(el)
+    el = Arc(xy=(x, y), width=sz - 2*sz/5., height=sz, angle=0, fc='None', lw=2, theta1 = 0, theta2 = 360, color=c)
+    ax.add_patch(el)
+    el = Arc(xy=(x, y), width=sz - 3*sz/5., height=sz, angle=0, fc='None', lw=2, theta1 = 0, theta2 = 360, color=c)
+    ax.add_patch(el)
+    el = Arc(xy=(x, y), width=sz - 4*sz/5., height=sz, angle=0, fc='None', lw=2, theta1 = 0, theta2 = 360, color=c)
+    ax.add_patch(el)
+    el = Arc(xy=(x, y), width=0, height=sz, angle=0, fc='None', lw=2, theta1 = 0, theta2 = 360, color=c)
+    ax.add_patch(el)
+    el = Arc(xy=(x, y), width=sz, height=0, angle=0, fc='None', lw=2, theta1 = 0, theta2 = 360, color=c)
+    ax.add_patch(el)
+    el = Arc(xy=(x, y + 3*sz/4.), width=sz, height=sz, angle=0, fc='None', lw=2, theta1 = 230, theta2 = 310, color=c)
+    ax.add_patch(el)
+    el = Arc(xy=(x, y - 3*sz/4.), width=sz, height=sz, angle=0, fc='None', lw=2, theta1 = 50, theta2 = 130, color=c)
+    ax.add_patch(el)
 
 
 def alternativeEskom():
@@ -213,7 +448,7 @@ def agileWaterfallTeamActivities():
     ax.plot((4.1, 4.2), (1.8, 1.8), color = 'black')
     ax.plot((4.1, 4.1), (2.4, 1.8), color = 'black')
 
-    pl.text(4.3, 1.5, 'Retrospective',
+    pl.text(4.3, 1.5, 'Sprint review*',
             horizontalalignment='left', verticalalignment='center')
     pl.text(4.3, 1.3, 'Update SVCP',
             horizontalalignment='left', verticalalignment='center')
@@ -336,10 +571,8 @@ def agileSetup():
     pl.text(9, 6.9, 'Tests\npass?',
             horizontalalignment='center', verticalalignment='center')
     pl.text(10.3, 3, 'Auto generate:\n'
-                    '- Source code\n'
-                    '- Object code\n'
-                    '- SCMR\n'
-                    '- SVP\n'
+                    '- SECI\n'
+                    '- SCI\n'
                     '- SVR',
             horizontalalignment='left', verticalalignment='center')
     XKCDify(ax, xaxis_loc=-5, yaxis_loc=-5,
@@ -445,28 +678,51 @@ def drawDatabase(ax, x, y, sz):
     ax.add_patch(el)
 
 
-def drawLaptop(ax, x, y, sz):
+def drawLaptop(ax, x, y, sz, clr = 'gray', drawBrowser=False):
     rng = np.linspace(0, sz, 100)
     fixed = np.zeros(100)
     #screen
-    ax.plot(rng+x+sz, fixed + 1.5*sz + y, c='gray')
-    ax.plot(rng+x+sz*2/3, fixed + sz/2 + y, c='gray')
-    ax.plot(rng+x, fixed + y, c='gray')
-    ax.plot(rng+x + sz*1.3/6, fixed + y + sz*1/6, c='gray')
-    ax.plot(rng+x + sz*2.6/6, fixed + y + sz*2/6, c='gray')
+    ax.plot(rng+x+sz, fixed + 1.5*sz + y, c=clr)
+    ax.plot(rng+x+sz*2/3, fixed + sz/2 + y, c=clr)
+    ax.plot(rng+x, fixed + y, c=clr)
+    ax.plot(rng+x + sz*1.3/6, fixed + y + sz*1/6, c=clr)
+    ax.plot(rng+x + sz*2.6/6, fixed + y + sz*2/6, c=clr)
     xl = np.linspace(0, sz/3, 100)
     yl = rng
-    ax.plot(xl + x + sz*2/3, yl + y + sz/2, c='gray')
-    ax.plot(xl + x + 1.66*sz, yl + y + sz/2, c='gray')
+    ax.plot(xl + x + sz*2/3, yl + y + sz/2, c=clr)
+    ax.plot(xl + x + 1.66*sz, yl + y + sz/2, c=clr)
     xl = np.linspace(0, sz/1.5, 100)
     yl = rng/2
-    ax.plot(xl + x, yl + y, c='gray')
-    ax.plot(xl + x + sz, yl + y, c='gray')
-    ax.plot(xl + x + sz*1/6, yl + y, c='gray')
-    ax.plot(xl + x + sz*2/6, yl + y, c='gray')
-    ax.plot(xl + x + sz*3/6, yl + y, c='gray')
-    ax.plot(xl + x + sz*4/6, yl + y, c='gray')
-    ax.plot(xl + x + sz*5/6, yl + y, c='gray')
+    ax.plot(xl + x, yl + y, c=clr)
+    ax.plot(xl + x + sz, yl + y, c=clr)
+    ax.plot(xl + x + sz*1/6, yl + y, c=clr)
+    ax.plot(xl + x + sz*2/6, yl + y, c=clr)
+    ax.plot(xl + x + sz*3/6, yl + y, c=clr)
+    ax.plot(xl + x + sz*4/6, yl + y, c=clr)
+    ax.plot(xl + x + sz*5/6, yl + y, c=clr)
+    if drawBrowser:
+        ax.plot((x+sz, x+sz*10.3/10), (y+sz*13/10., y+sz*14/10.), color = clr)
+        ax.plot((x+sz*18.5/10., x+sz*18.8/10.), (y+sz*13/10., y+sz*14/10.), color = clr)
+        ax.plot((x+sz*10.0/10., x+sz*18.5/10.), (y+sz*13/10., y+sz*13/10.), color = clr)
+        ax.plot((x+sz*10.3/10., x+sz*18.8/10.), (y+sz*14/10., y+sz*14/10.), color = clr)
+        ax.plot((x+sz*18.5/10., x+sz*18.8/10.), (y+sz*13/10., y+sz*14/10.), color = clr)
+        drawScribble(ax, x+sz*11/10., y+sz*13.3/10., 0.1, 0.05)
+        drawScribble(ax, x+sz*12/10., y+sz*13.3/10., 0.6, 0.05)
+        drawScribble(ax, x+sz*15.5/10., y+sz*13.3/10., 0.1, 0.05)
+        ax.plot((x+sz*10.5/10., x+sz*11.8/10), (y+sz*8/10., y+sz*12/10.), color = clr)
+        ax.plot((x+sz*15/10., x+sz*16.3/10.), (y+sz*8/10., y+sz*12/10.), color = clr)
+        ax.plot((x+sz*10.5/10., x+sz*15/10.), (y+sz*8/10., y+sz*8/10.), color = clr)
+        ax.plot((x+sz*11.8/10., x+sz*16/10.), (y+sz*12/10., y+sz*12/10.), color = clr)
+
+        ax.plot((x+sz*15.3/10., x+sz*15.8/10), (y+sz*11/10., y+sz*11/10.), color = clr)
+        ax.plot((x+sz*15.3/10., x+sz*15.6/10.), (y+sz*11/10., y+sz*12/10.), color = clr)
+        ax.plot((x+sz*15.3/10., x+sz*16.3/10), (y+sz*11/10., y+sz*12/10.), color = clr)
+        ax.plot((x+sz*15.6/10., x+sz*15.9/10.), (y+sz*12/10., y+sz*11/10.), color = clr)
+
+        pl.text(x+sz*13.5/10, y+sz*11/10., 'D34D',
+            horizontalalignment='center', verticalalignment='center')
+        pl.text(x+sz*13/10, y+sz*9/10., 'B33F',
+            horizontalalignment='center', verticalalignment='center')
 
 def drawPC(ax, x, y, sz):
     rng = np.linspace(0, sz, 100)
