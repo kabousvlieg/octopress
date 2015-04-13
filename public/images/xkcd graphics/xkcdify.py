@@ -25,7 +25,8 @@ if not os.path.exists('Humor-Sans.ttf'):
 
 
 def xkcd_line(x, y, xlim=None, ylim=None,
-              mag=1.0, f1=30, f2=0.05, f3=15):
+              mag=1.0, f1=30, f2=0.05, f3=15,
+              rndm = 0.02):
     """
     Mimic a hand-drawn line from (x, y) data
 
@@ -86,7 +87,7 @@ def xkcd_line(x, y, xlim=None, ylim=None,
     dist = np.sqrt(dx * dx + dy * dy)
 
     # create a filtered perturbation
-    coeffs = mag * np.random.normal(0, 0.04, len(x_int) - 2)
+    coeffs = mag * np.random.normal(0, rndm, len(x_int) - 2)
     b = signal.firwin(f1, f2 * dist_tot, window=('kaiser', f3))
     response = signal.lfilter(b, 1, coeffs)
 

@@ -23,12 +23,95 @@ def main():
     #agileWaterfallSpectrum()
     #agileSetup()
     #testPyramid()
-    agileWaterfallTeamActivities()
+    #agileWaterfallTeamActivities()
     #alternativeEskom()
     #redGuardNetwork()
     #redGuard()
     #processesWall()
+    redGuardSalesForecast()
     pass
+
+
+def redGuardSalesForecast():
+    np.random.seed(0)
+    ax = pl.axes()
+    ax.set_autoscale_on(False)
+    #ax.plot((0.1, 6.3), (7.6, 7.6), color = 'grey', lw=1)
+    # pl.text(2, 8, 'Processes list',
+    #         horizontalalignment='center', verticalalignment='center')
+    ax.set_xlabel('months')
+    ax.set_ylabel('units')
+    pl.text(-0.05, 0.1, '20',
+            horizontalalignment='center', verticalalignment='center')
+    pl.text(-0.05, 0.3, '100',
+            horizontalalignment='center', verticalalignment='center')
+    pl.text(-0.05, 0.7, '1000',
+            horizontalalignment='center', verticalalignment='center')
+
+    pl.text(0.2, -0.05, '6',
+            horizontalalignment='center', verticalalignment='center')
+    pl.text(0.4, -0.05, '12',
+            horizontalalignment='center', verticalalignment='center')
+    pl.text(0.6, -0.05, '18',
+            horizontalalignment='center', verticalalignment='center')
+    pl.text(0.8, -0.05, '24',
+            horizontalalignment='center', verticalalignment='center')
+
+    pl.text(0.1, 1.15, 'Security product',
+            horizontalalignment='left', verticalalignment='center', color = 'red')
+    pl.text(0.1, 1.1, 'Enterprise product',
+            horizontalalignment='left', verticalalignment='center', color = 'blue')
+
+    ax.plot((0.0, 0.4), (0.02, 0.02), color = 'red', lw=1) #Development
+    ax.plot((0.4, 0.45), (0.02, 0.1), color = 'red', lw=1) #Pilot
+    ax.plot((0.45, 0.5), (0.1, 0.1), color = 'red', lw=1)  #Pilot stabilise
+    ax.plot((0.5, 0.6), (0.1, 0.3), color = 'red', lw=1)   #First sale
+    ax.plot((0.6, 0.7), (0.3, 0.3), color = 'red', lw=1)   #Second revision
+    ax.plot((0.7, 0.8), (0.3, 0.7), color = 'red', lw=1)   #International market
+    ax.plot((0.8, 1.1), (0.7, 0.7), color = 'red', lw=1)  #International market
+
+    ax.plot((0.0, 0.6), (0.01, 0.01), color = 'blue', lw=1)#Development
+    ax.plot((0.6, 0.75), (0.01, 0.3), color = 'blue', lw=1)#Pilot
+    ax.plot((0.75, 0.85), (0.3, 0.3), color = 'blue', lw=1)#Pilot stabilise
+    ax.plot((0.85, 0.95), (0.3, 0.7), color = 'blue', lw=1)#First sale
+    ax.plot((0.95, 1.0), (0.7, 0.7), color = 'blue', lw=1)#Second revision
+    ax.plot((1.0, 1.1), (0.7, 1.0), color = 'blue', lw=1)#International market
+
+    ax.arrow(0.9, 0.95, 0.12, -0.12, head_width=0.01, head_length=0.01)
+    pl.text(0.85, 1., 'Not sure what\n'
+                        'we do here...',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(0.2, 0.1, 0.06, -0.06, head_width=0.01, head_length=0.01)
+    pl.text(0.2, 0.15, 'MVP',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(0.4, 0.2, 0.04, -0.06, head_width=0.01, head_length=0.01)
+    pl.text(0.4, 0.25, 'Pilot',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(0.5, 0.42, 0.1, -0.1, head_width=0.01, head_length=0.01)
+    pl.text(0.5, 0.5, 'First sales\n'
+                       'local companies',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(0.68, 0.82, 0.1, -0.1, head_width=0.01, head_length=0.01)
+    pl.text(0.6, 0.85, 'International sales',
+            horizontalalignment='center', verticalalignment='center')
+
+    ax.arrow(0.58, 0.095, -0.06, -0.06, head_width=0.01, head_length=0.01)
+    pl.text(0.6, 0.15, 'MVP',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(0.85, 0.2, -0.08, 0.07, head_width=0.01, head_length=0.01)
+    pl.text(0.9, 0.15, 'Pilot',
+            horizontalalignment='center', verticalalignment='center')
+    ax.arrow(1.05, 0.6, -0.08, 0.07, head_width=0.01, head_length=0.01)
+    pl.text(1.1, 0.55, 'First\n'
+                       'sales',
+            horizontalalignment='center', verticalalignment='center')
+
+    XKCDify(ax, xaxis_loc=-0, yaxis_loc=-0,
+            xaxis_arrow='+', yaxis_arrow='+',
+            expand_axes=True)
+    pl.ylim([-0.2,1.2])
+    pl.xlim([-0.2,1.2])
+    pl.show()
 
 def processesWall():
     np.random.seed(0)
