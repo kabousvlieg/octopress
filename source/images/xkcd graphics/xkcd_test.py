@@ -28,8 +28,152 @@ def main():
     #redGuardNetwork()
     #redGuard()
     #processesWall()
-    redGuardSalesForecast()
+    #redGuardSalesForecast()
+    nanoteqProductSynergy()
+    #nanoteqDepartments()
     pass
+
+def nanoteqDepartments():
+    np.random.seed(0)
+    ax = pl.axes()
+    ax.set_autoscale_on(False)
+
+    pl.text(0.5, 0.8, 'Nanoteq',
+            horizontalalignment='center', verticalalignment='center')
+
+    el = Arc(xy=(0.5, 0.8), width=0.3, height=0.3, angle=0, edgecolor='black', fc='None', lw=2, theta1 = 0, theta2 = 360)
+    ax.add_patch(el)
+
+    ax.plot((0.07, 0.391), (0.37, 0.691), color = 'lightgrey', lw=1)
+    pl.text(0.0, 0.45, 'Qnect',
+            horizontalalignment='center', verticalalignment='center', color='red')
+    el = Arc(xy=(0.0, 0.3), width=0.2, height=0.2, angle=0, edgecolor='black', fc='None', lw=2, theta1 = 0, theta2 = 360)
+    ax.add_patch(el)
+    pl.text(0.0, 0.3, 'Qnect 100',
+            horizontalalignment='center', verticalalignment='center')
+
+    ax.plot((0.2, 0.42), (0.3, 0.675), color = 'lightgrey', lw=1)
+    pl.text(0.2, 0.35, 'IPGranite',
+            horizontalalignment='center', verticalalignment='center', color='red')
+    el = Arc(xy=(0.2, 0.2), width=0.2, height=0.2, angle=0, edgecolor='black', fc='None', lw=2, theta1 = 0, theta2 = 360)
+    ax.add_patch(el)
+    pl.text(0.2, 0.2, 'Center\nEdge\nBuddy',
+            horizontalalignment='center', verticalalignment='center')
+
+    ax.plot((0.41, 0.47), (0.40, 0.65), color = 'lightgrey', lw=1)
+    pl.text(0.4, 0.45, 'Military',
+            horizontalalignment='center', verticalalignment='center', color='red')
+    el = Arc(xy=(0.4, 0.3), width=0.2, height=0.2, angle=0, edgecolor='black', fc='None', lw=2, theta1 = 0, theta2 = 360)
+    ax.add_patch(el)
+    pl.text(0.4, 0.3, 'RQ7\nTRCM',
+            horizontalalignment='center', verticalalignment='center')
+
+    ax.plot((0.6, 0.53), (0.3, 0.65), color = 'lightgrey', lw=1)
+    pl.text(0.6, 0.35, 'QCM',
+            horizontalalignment='center', verticalalignment='center', color='red')
+    el = Arc(xy=(0.6, 0.2), width=0.2, height=0.2, angle=0, edgecolor='black', fc='None', lw=2, theta1 = 0, theta2 = 360)
+    ax.add_patch(el)
+    pl.text(0.6, 0.2, 'QCM-M\nQCM-L\nQCM-MS\nQCM-DS',
+            horizontalalignment='center', verticalalignment='center')
+
+    ax.plot((0.75, 0.58), (0.39, 0.67), color = 'lightgrey', lw=1)
+    pl.text(0.8, 0.45, 'Qmunicate',
+            horizontalalignment='center', verticalalignment='center', color='red')
+    el = Arc(xy=(0.8, 0.3), width=0.2, height=0.2, angle=0, edgecolor='black', fc='None', lw=2, theta1 = 0, theta2 = 360)
+    ax.add_patch(el)
+    pl.text(0.8, 0.3, 'Center\nH100\nD100\nH10',
+            horizontalalignment='center', verticalalignment='center')
+
+    ax.plot((1.0, 0.61), (0.3, 0.70), color = 'lightgrey', lw=1)
+    pl.text(1.02, 0.35, 'Intrusion\nprevention',
+            horizontalalignment='center', verticalalignment='center', color='red')
+    el = Arc(xy=(1.0, 0.2), width=0.2, height=0.2, angle=0, edgecolor='lightgrey', fc='None', lw=2, theta1 = 0, theta2 = 360)
+    ax.add_patch(el)
+    pl.text(1.0, 0.2, 'RedGuard',
+            horizontalalignment='center', verticalalignment='center')
+
+    XKCDify(ax, xaxis_loc=-1, yaxis_loc=-1,
+            xaxis_arrow='+', yaxis_arrow='+',
+            expand_axes=True)
+    pl.ylim([-0.2,1.2])
+    pl.xlim([-0.2,1.2])
+    pl.show()
+
+def nanoteqProductSynergy():
+    np.random.seed(0)
+    ax = pl.axes()
+    ax.set_autoscale_on(False)
+    #ax.plot((0.1, 6.3), (7.6, 7.6), color = 'grey', lw=1)
+    # pl.text(2, 8, 'Processes list',
+    #         horizontalalignment='center', verticalalignment='center')
+
+    pl.text(0.5, 1.15, 'Nanoteq product portfolio',
+            horizontalalignment='center', verticalalignment='center', color='black')
+
+    pl.text(0.5, 0.7, 'Connect secure networks',
+            horizontalalignment='center', verticalalignment='center', color='black')
+
+    pl.text(0.1, 1.0, 'Secure network',
+            horizontalalignment='center', verticalalignment='center', color='gray')
+    el = Arc(xy=(0.1, 0.8), width=0.3, height=0.3, angle=0, edgecolor='gray', fc='None', lw=2, theta1 = 0, theta2 = 360)
+    ax.add_patch(el)
+    #drawLaptop(ax, 0, 0.85, 0.03)
+    drawPC(ax, 0, 0.85, 0.05)
+    drawPC(ax, 0.07, 0.85, 0.05)
+    drawPC(ax, 0.14, 0.85, 0.05)
+    drawPC(ax, 0, 0.74, 0.05)
+    drawPC(ax, 0.07, 0.74, 0.05)
+    drawPC(ax, 0.14, 0.74, 0.05)
+
+    pl.text(0.9, 0.87, 'Secure\nstorage',
+            horizontalalignment='center', verticalalignment='center', color='red')
+    pl.text(0.9, 0.72, 'Data at\nrest',
+            horizontalalignment='center', verticalalignment='center', color='black')
+
+    pl.text(0.5, 0.85, 'Qnect',
+            horizontalalignment='center', verticalalignment='center', color='red')
+    ax.arrow(0.3, 0.8, 0.4, 0, head_width=0.01, head_length=0.01)
+    ax.arrow(0.7, 0.8, -0.4, 0, head_width=0.01, head_length=0.01)
+    pl.text(0.5, 0.75, 'IPGranite',
+            horizontalalignment='center', verticalalignment='center', color='red')
+
+    pl.text(0.9, 1.0, 'Secure network',
+            horizontalalignment='center', verticalalignment='center', color='gray')
+    el = Arc(xy=(0.9, 0.8), width=0.3, height=0.3, angle=0, edgecolor='gray', fc='None', lw=2, theta1 = 0, theta2 = 360)
+    ax.add_patch(el)
+
+    pl.text(-0.02, 0.4, 'Qmunicate',
+            horizontalalignment='center', verticalalignment='center', color='red')
+    pl.text(-0.02, 0.3, 'Voice\nand fax',
+            horizontalalignment='center', verticalalignment='center', color='black')
+    ax.arrow(0.1, 0.15, 0.0, 0.4, head_width=0.01, head_length=0.01)
+    ax.arrow(0.1, 0.55, 0.0, -0.4, head_width=0.01, head_length=0.01)
+    pl.text(0.25, 0.4, 'Buddy',
+            horizontalalignment='center', verticalalignment='center', color='red')
+    pl.text(0.25, 0.3, 'Connect into\na secure\nnetwork',
+            horizontalalignment='center', verticalalignment='center', color='black')
+
+
+    pl.text(0.73, 0.3, 'But how\ndo we\nretrieve data\nfrom the\ninternet???',
+            horizontalalignment='center', verticalalignment='center', color='black')
+    ax.arrow(0.9, 0.15, 0.0, 0.4, head_width=0.01, head_length=0.01)
+    ax.arrow(0.9, 0.55, 0.0, -0.4, head_width=0.01, head_length=0.01)
+
+    pl.text(0.1, -0.15, 'Mobile devices',
+            horizontalalignment='center', verticalalignment='center', color='gray')
+    el = Arc(xy=(0.1, 0.8), width=0.3, height=0.3, angle=0, edgecolor='gray', fc='None', lw=2, theta1 = 0, theta2 = 360)
+    drawLaptop(ax, 0, -0.1, 0.1)
+
+    pl.text(0.9, -0.15, 'World wide web',
+            horizontalalignment='center', verticalalignment='center', color='gray')
+    drawWorld(ax, 0.9, 0.0, 0.2)
+
+    XKCDify(ax, xaxis_loc=-1, yaxis_loc=-1,
+            xaxis_arrow='+', yaxis_arrow='+',
+            expand_axes=True)
+    pl.ylim([-0.2,1.2])
+    pl.xlim([-0.2,1.2])
+    pl.show()
 
 
 def redGuardSalesForecast():
@@ -653,10 +797,8 @@ def agileSetup():
             horizontalalignment='center', verticalalignment='center')
     pl.text(9, 6.9, 'Tests\npass?',
             horizontalalignment='center', verticalalignment='center')
-    pl.text(10.3, 3, 'Auto generate:\n'
-                    '- SECI\n'
-                    '- SCI\n'
-                    '- SVR',
+    pl.text(10.3, 3, 'Auto generate a\n'
+                    'nightly release\n',
             horizontalalignment='left', verticalalignment='center')
     XKCDify(ax, xaxis_loc=-5, yaxis_loc=-5,
         xaxis_arrow='', yaxis_arrow='',
@@ -816,12 +958,12 @@ def drawPC(ax, x, y, sz):
     ax.plot(fixed + x, rng + y, c='gray')
     ax.plot(fixed + x + sz, rng + y, c='gray')
 
-    rng = np.linspace(0, sz - 0.2, 100)
-    fixed = np.zeros(100)
-    ax.plot(rng + x + 0.1, fixed + y + 0.1, c='gray')
-    ax.plot(rng + x + 0.1, fixed + sz + y - 0.1, c='gray')
-    ax.plot(fixed + x + 0.1, rng + y + 0.1, c='gray')
-    ax.plot(fixed + x + sz - 0.1, rng + y + 0.1, c='gray')
+    # rng = np.linspace(0, sz - 0.2, 100)
+    # fixed = np.zeros(100)
+    # ax.plot(rng + x + 0.1, fixed + y + 0.1, c='gray')
+    # ax.plot(rng + x + 0.1, fixed + sz + y - 0.1, c='gray')
+    # ax.plot(fixed + x + 0.1, rng + y + 0.1, c='gray')
+    # ax.plot(fixed + x + sz - 0.1, rng + y + 0.1, c='gray')
 
     #keyboard
     rng = np.linspace(0, sz, 100)
