@@ -15,7 +15,7 @@ This blog will also serve as a sounding board for my thesis titled "Applying agi
 
 Why did I title this blog "Embedded fool"? Partly because I will be fooling around with various ideas and concepts on this blog, and partly to remind myself that many times I am wrong and foolish, and should not hold on to the stated opinions on this blog too tightly.
 
-You can contact me at kobusengineer at google dot com if you have any questions.
+You can contact me at kobus at embeddedfool dot net if you have any questions.
 
 
 
