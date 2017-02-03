@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: South | Kobus' musings]]></title>
+  <link href="http://embeddedfool.net/blog/categories/south/atom.xml" rel="self"/>
+  <link href="http://embeddedfool.net/"/>
+  <updated>2017-02-03T09:00:46+02:00</updated>
+  <id>http://embeddedfool.net/</id>
+  <author>
+    <name><![CDATA[Kobus Coetzee]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Entelect Challenge 2016]]></title>
+    <link href="http://embeddedfool.net/blog/2016/09/27/entelect-challenge-2016-my-bot/"/>
+    <updated>2016-09-27T21:34:35+02:00</updated>
+    <id>http://embeddedfool.net/blog/2016/09/27/entelect-challenge-2016-my-bot</id>
+    <content type="html"><![CDATA[<p>This year I participated in the <a href="todo link">Entelect AI challenge</a>, a yearly South African programming competition that has been running for five years now where programmers can match their skills in writing an autonomous agent competing in a classic computer game. This year was bomberman, but previous years competitions were based on tron light cycles, tanks, space invaders etc.</p>
+
+<p>My bot unfortunately did not reach the final, but I am nevertheless not too disappointed in my bots performance, and in this post I will give a quick run down on the approach I took with developing my entry.</p>
+
+<h2>The game</h2>
+
+<p>The full list of rules can be found <a href="todo link">here</a>, but what follows is a short description:
+The game is turn based and loosely based on bomberman, where between two to four contestants control an avatar. <img class="center" src="/images/avatars.png"></p>
+
+<p>Each avatar can navigate a 21x21 map containing destructible <img class="center" src="/images/wall.png">
+and indestructible walls <img class="center" src="/images/iwall.png">
+by moving up, down, left and right. Each avatar can also plant a bomb <img class="center" src="/images/bomb.png">
+, thereby either attempting to blow up his opponent, or a destructible wall possibly uncovering a powerup (granting the avatar more bombs or longer fuses on his  bombs). <img class="center" src="/images/powerups.png">
+An avatar can also choose to detonate his bomb with the shortest fuse.</p>
+
+<p>The complete map might look something like this: <img class="center" src="/images/Sample_map.png" width="600"></p>
+
+<p>Points are scored for blowing your opponent up, blowing up destructible walls and exploring the map.</p>
+
+<p>The competition also had a GUI component, and the images you see here is from the winner of the GUI competition (Ruan Moolman) and reproduced with his kind permission. </p>
+
+<h2>My approach</h2>
+
+<h4>Markov decision process</h4>
+<p>For a great introduction to Markov decision processes (MDP), you are free to have a look at <a href="https://www.udacity.com/course/intro-to-artificial-intelligence--cs271">Introduction to Artificial Intelligence</a> presented by Peter Norvig and Sebastian Thrun. </p>
+
+<p>MDP’s as a concept is quite simple. You assign a desireable objective, like say a powerup a value. Then each square next to this powerup gets a value equal to the value you assigned to the powerup minus a penalty value. Two squares away from the powerup gets assigned a value minus two times the penalty and so forth.</p>
+
+<p><img class="center" src="/images/mdp_concept.png"></p>
+
+<p>You have to run the algorithm a couple of times over your map until the values settle, because with multiple powerups you want to give each square it’s highest possible value (i.e. the value it derives from the closest powerup to it). Then not only powerups can have assigned values, but any other objective (like destructible walls) as well, and you can assign the objectives different weights based on their perceived importance (and given I have done very little rigorous analysis about what weight each objective should have or what the penalty should be, the final weighting was admit-ably a bit of a thumb suck.   </p>
+
+<p>What you end up with is a map that looks as follows (based on the game map above):</p>
+
+<p><img class="center" src="/images/mdp_map.png"> </p>
+
+<p>This is basically a map with hills and valleys, with the hills being desirable locations, and the valleys less desirable. All that is left for the AI to do is then move in the direction of the steepest ascend to reach the closest most desirable location. This is great as a relatively simple and robust mechanism to decide what my bot’s next action should be. As a side bonus, it is independent of my bot’s location, so it could also be used to guess what my opponents next move might be as well…</p>
+
+<h4>Decision tree overlay</h4>
+<p>On top of the Markov decision tree, I implemented a basic <a href="https://en.wikipedia.org/wiki/Expert_system">expert system</a> (if this then do that). I had basically only 5 general rules:</p>
+
+<pre><code>Should we blow a bomb
+
+Can we steal a wall
+
+Can we blow up an enemy player
+
+Should we plant a bomb
+ 
+Dont walk into explosions
+</code></pre>
+
+<p>The problem with this kind of ruleset, is it becomes very complex very quickly, and cannot accommodate all the edge cases you might face. A rule that works in one situation might be less than ideal in another. For instance, to determine if my bot should plant a bomb, I first only checked if the square is in range of a destructible wall. But what if one square on you can blow two (or more) wall simultaneously, or if there is a power up, should the bot pick up the power up first, or if there is another player close by, and on and on. Hence the success of neural nets for these kinds of problems. Because having a human write a ruleset for something like this is a never ending job. Nevertheless my basic rule set had to suffice for the competition.   </p>
+
+<h4>Multiround look ahead</h4>
+<p>Lastly my bot could predict up to nine rounds forward from the current game state. The competition rules stated that each bot had up to two seconds each round to determine its next move. Remember a bot had the choice to either move up, down, left, right, do nothing, plant or blow a bomb, thus seven actions; and there were up to four bots in each game; and bombs had a maximum timer of 9 rounds. Thus if you wanted to brute force your solution by working out the best possible move out of all the possible moves (min maxing), you had to compute (7 x 4e9) = 2e37 positions every two seconds. Now modern computers are fast, but not that fast. </p>
+
+<p>Modern computer clockcycles are about 1 Ghz, and lets say you have an octacore processor, and you are uber programmer (so you can compute a position every clock cycle and can code perfect multithreaded code with no overhead), that still only gives you about 2e31 clock cycles every two seconds to work with.</p>
+
+<p>So clearly brute forcing every possible game state wasn’t going to cut it. So I had to reduce the search space, by not computing the impossible moves (bots can’t walk through walls), and only guessing my opponent bots most probable move, and only calculating three possible moves for my own bot, and then deciding which of those three was my best next move.</p>
+
+<p>That cuts the worst case problem space to about 6e9 = 2e23 game states I had to calculate. Not quite doable for the worst case, but for most cases I could reduce the search space by not calculating future states where I had already died. From the 51 test cases I wrote for my bot, most ran under 200 ms, some to 700ms and one or two over two seconds, where I had code detecting it took to long and just went with the best result I had at that stage.        </p>
+
+<h2>Results</h2>
+
+<p>Like I said, I didn’t get very far in the competion. (Be sure to view these videos using the desktop client, the mobile client is disabled for some reason)
+My bot competed in four rounds, top two goes through. Rounds 1 and 2 it dit quite well:</p>
+
+<p><a href="https://youtu.be/9TiEMZNVI24?t=2h21m38s">Round 1</a></p>
+
+<p><a href="https://youtu.be/9TiEMZNVI24?t=2h41m38s">Round 2</a></p>
+
+<p>Rounds 3 and 4 did not go so well, though as a consolation my bot was leading in points just before the end.</p>
+
+<p><a href="https://youtu.be/9TiEMZNVI24?t=3h31m50s">Round 3</a></p>
+
+<p><a href="https://youtu.be/9TiEMZNVI24?t=3h50m07s">Round 4</a></p>
+
+<h2>Limitations of my approach</h2>
+
+<ul>
+  <li>Writing rule sets like I have done is error prone and cannot catch all edge cases even in a relatively simple game environment such as this one.</li>
+  <li>Even though brute forcing every game state is not possible, my approach of aggressively cutting the solution space does come with its own set of problems. You want to be able to look 9 moves ahead in order not to get trapped in a corridor by your own bomb. But you also want to calculate each possible move your opponent might make not to be caught by surprise. Thus a better approach would have been more brute force calculation for one or two rounds ahead, and then minimal calculation for longer horizon predictions. (If that makes sense)</li>
+  <li>Calculating the best possible move (brute force min maxing) seems to still be a better solution than using Markov decision process to calculate a bots next move. MDP’s is simple and provides a general good solution, but in a competitive space it does not necessarily provide the best move which is what you want to win. </li>
+</ul>
+
+<h2>Lessons learned in general</h2>
+
+<ul>
+  <li>Use unit tests to test your game logic. Not fine grained unit testing, basic functional testing, it will speed up your ability to test multiple strategies for your bot knowing the basic soundness of your solution is still intact.</li>
+  <li>In addition to writing the bot, I had to write a game viewer, unit tests, get the game harnass working, update periodically to the latest game engine, test multiple strategies, fix bugs, play test (a lot). The point being that it will take more time than you think to provide a competitive solution.</li>
+  <li>Compete against other competitors as early as you can before the actual competition, even if your bot is not quite ready yet. The lessons you will learn are invaluable and the earlier you can learn them the better.  </li>
+  <li>Do not rest on your laurels, if your bot performs well early before the competition, keep working.</li>
+  <li>Plan to have your bot done a week before the competition closes. There are always issues uploading your bot at the very end, and you make mistakes if you still try to implement major functionality right before the end.</li>
+</ul>
+
+<h2>Why not a neural network</h2>
+
+<p>Neural networks, especially deep neural nets are actually a very good solution for a competition such as this one. Unfortunately in 2016, by the time I learned of <a href="https://openai.com/blog/">OpenAI</a>, <a href="https://www.tensorflow.org/">Tensorflow</a> and the <a href="https://www.wired.com/2016/03/googles-ai-wins-fifth-final-game-go-genius-lee-sedol/">Sedel Go competition</a>, I was already quite a far with my bot not wanting to trash it all and start again.</p>
+
+<p>I think if I have time to enter such a competition again, I would like to see if I can train a neural net and see how competitive it could be. It is without a doubt nearly all entries of these competitions is already mostly deep neural nets, with the only reason this competition didn’t have much neural net entries (to my knowledge) yet is because South Africa is a small market with a fairly small developer community lacking the necessary skill set / experience (please correct me if I am wrong).      </p>
+
+<p>Code is available on <a href="https://github.com/kabousvlieg/2016-Bomberman">Github</a></p>
+]]></content>
+  </entry>
+  
+</feed>
